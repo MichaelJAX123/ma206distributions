@@ -1,9 +1,9 @@
 
 See also:
 
--   more learning materials:
+  - more learning materials:
     <https://github.com/EvaMaeRey/ay_2023_2_advanced_individual_study>
--   sibling project: <https://github.com/EvaMaeRey/ma206equations>
+  - sibling project: <https://github.com/EvaMaeRey/ma206equations>
 
 ## Title
 
@@ -32,10 +32,12 @@ course guide.
     from curriculum (probability problems in text book).  
 2.  Provide *stamp* functions for binomial and geometric distributions
     (normal and t exist in ggxmean); also think about rewrite for
-    stamp_normal (i.e. what should height distribution look like?)
+    stamp\_normal (i.e. what should height distribution look like?)
 3.  Let’s try: shiny app which 1) demonstrates distribution
     characteristics 2) showcases new functions quoting back ggplot code
 4.  stretch? sampling from distributions function or guidance..
+
+<!-- end list -->
 
 ``` r
 library(tidyverse)
@@ -50,7 +52,7 @@ ggxmean:::stamp_space() +
 # Project timeline
 
 | Timing      | Activity and Deliverable                                                                             | Hours |
-|-------------|------------------------------------------------------------------------------------------------------|-------|
+| ----------- | ---------------------------------------------------------------------------------------------------- | ----- |
 | 0-3 weeks   | Background on writing functions in R and package architecture                                        | 15    |
 | 3-6 weeks   | ggplot2 programming basics                                                                           | 15    |
 | 6-10 weeks  | Building functionality easily visualizing probability distributions (normal, t, binomial, geometric) | 15    |
@@ -169,7 +171,7 @@ discrete_random
 
     ## Warning in is.na(x): is.na() applied to non-(list or vector) of type
     ## 'expression'
-
+    
     ## Warning in is.na(x): is.na() applied to non-(list or vector) of type
     ## 'expression'
 
@@ -177,8 +179,8 @@ discrete_random
 
 See also:
 
--   <https://evamaerey.github.io/mytidytuesday/2022-08-01-dbinom-dgeom/dbinom_dgeom.html>
--   <https://evamaerey.github.io/mytidytuesday/2022-08-01-dbinom-dgeom/dbinom_dgeom_flipbook.html>
+  - <https://evamaerey.github.io/mytidytuesday/2022-08-01-dbinom-dgeom/dbinom_dgeom.html>
+  - <https://evamaerey.github.io/mytidytuesday/2022-08-01-dbinom-dgeom/dbinom_dgeom_flipbook.html>
 
 # Tools
 
@@ -186,12 +188,12 @@ See also:
 
 ### How do we bundle up related functions? Packages.
 
--   We will still follow the steps outlined in this data package readme:
+  - We will still follow the steps outlined in this data package readme:
     <https://github.com/EvaMaeRey/tidytitanic>
--   As well as consult the package building guide:
+  - As well as consult the package building guide:
     <https://evamaerey.github.io/package_in_20_minutes/package_in_20_minutes>
 
 ### How do we collaborate and share the package? Version Control.
 
--   create a github account for collaboration <https://github.com/>
--   we’ll make the repository available in this account
+  - create a github account for collaboration <https://github.com/>
+  - we’ll make the repository available in this account
