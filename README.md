@@ -98,7 +98,10 @@ prize_wheel %>%
   ggplot() + 
   aes(x = payout) + 
   aes(y = frequency) +
-  geom_lollipop()
+  geom_lollipop() + 
+  aes(weight = frequency) +
+  geom_fulcrum(color = "red", 
+               shape = 2, size = 5)
 ```
 
 ![](README_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
