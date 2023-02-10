@@ -29,16 +29,52 @@ A good start for looking at the core of distributions in the ma206 course guide.
 
 
 
-## Tidydata
+## Tidying data from discrete random variable problems
 
-Tidying up data is important so that when the data is inputted into R or any coding language it is easier to interpret what the data specifies. The textbook examples were changed into tidy data notation. First, we made the variables the columns. For example, in the spinning of the prize wheel, sector_type, frequency, and payout are the column headers for each variable column. Then each row forms an observation. For example, in the spinning of the prize wheel, we had no prize, win $1, and win $3. From there the observational units either quantitative or qualitative makes up the meat of the table. See Table 1 for a good example of tidy data. This process of “tidying” data creates a well-organized and structured format that is easier for data analysis and visualization.  
+Tidying up data is important so that when the data is inputted into R or any coding language it is easier to interpret what the data specifies. 
+
+The textbook examples were changed into tidy data notation. First, we made the variables the columns. 
+
+For example, in the spinning of the prize wheel with sectors of various prize award amounts, sector_type, frequency, and payout are the column headers for each variable column. Then each row forms an observation. For example, in the spinning of the prize wheel, we had no prize, win $1, and win $3. From there the observational units either quantitative or qualitative makes up the meat of the table. See Table 1 for a good example of tidy data. This process of “tidying” data creates a well-organized and structured format that is easier for data analysis and visualization.  
 
 
-sector_type |  frequency | payout |
------|----|----|
-No Prize   | 2 | 0 |
-Win $1 | 1 | 1 |
-Win $3 | 9 |  3 |
+
+```{r, echo = F}
+knitr::kable(ma206distributions::prize_wheel)
+```
+
+In the text book as with many resources, the original layout of the table not a 'tidy' dataframe, but is transposed, wide table 
+
+```{r, echo = F}
+knitr::kable(t(ma206distributions::prize_wheel))
+```
+
+http://www.stat.yale.edu/Courses/1997-98/101/ranvar.htm#:~:text=A%20discrete%20random%20variable%20is,then%20it%20must%20be%20discrete.
+
+```{r, warning=F, message=F}
+library(tidyverse)
+library(ma206distributions)
+```
+
+
+In our package we include the data structured in this way, and call the object `prize_wheel`
+
+```{r}
+print(prize_wheel)
+```
+
+We see that we can easily visualize the joint distribution of payout and frequency using the ggplot2 tool that is used in the statistics part of the class.
+
+```{r}
+
+prize_wheel %>% 
+  ggplot() + 
+  aes(x = payout) + 
+  aes(y = frequency) + 
+  geom_point() + 
+  geom_segment(aes(xend = payout, yend = 0))
+
+```
 
 
 

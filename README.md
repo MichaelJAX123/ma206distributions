@@ -37,7 +37,72 @@ course guide.
     characteristics 2) showcases new functions quoting back ggplot code
 4.  stretch? sampling from distributions function or guidance..
 
-<!-- end list -->
+## Tidying data from discrete random variable problems
+
+Tidying up data is important so that when the data is inputted into R or
+any coding language it is easier to interpret what the data specifies.
+
+The textbook examples were changed into tidy data notation. First, we
+made the variables the columns.
+
+For example, in the spinning of the prize wheel with sectors of various
+prize award amounts, sector\_type, frequency, and payout are the column
+headers for each variable column. Then each row forms an observation.
+For example, in the spinning of the prize wheel, we had no prize, win
+$1, and win $3. From there the observational units either quantitative
+or qualitative makes up the meat of the table. See Table 1 for a good
+example of tidy data. This process of “tidying” data creates a
+well-organized and structured format that is easier for data analysis
+and visualization.
+
+| sector\_type | frequency | payout |
+| :----------- | --------: | -----: |
+| No Prize     |         2 |      0 |
+| Win $1       |         1 |      1 |
+| Win $3       |         9 |      3 |
+
+In the text book as with many resources, the original layout of the
+table not a ‘tidy’ dataframe, but is transposed, wide table
+
+|              |          |        |        |
+| :----------- | :------- | :----- | :----- |
+| sector\_type | No Prize | Win $1 | Win $3 |
+| frequency    | 2        | 1      | 9      |
+| payout       | 0        | 1      | 3      |
+
+<http://www.stat.yale.edu/Courses/1997-98/101/ranvar.htm#>:\~:text=A%20discrete%20random%20variable%20is,then%20it%20must%20be%20discrete.
+
+``` r
+library(tidyverse)
+library(ma206distributions)
+```
+
+In our package we include the data structured in this way, and call the
+object `prize_wheel`
+
+``` r
+print(prize_wheel)
+```
+
+    ##   sector_type frequency payout
+    ## 1    No Prize         2      0
+    ## 2      Win $1         1      1
+    ## 3      Win $3         9      3
+
+We see that we can easily visualize the joint distribution of payout and
+frequency using the ggplot2 tool that is used in the statistics part of
+the class.
+
+``` r
+prize_wheel %>% 
+  ggplot() + 
+  aes(x = payout) + 
+  aes(y = frequency) + 
+  geom_point() + 
+  geom_segment(aes(xend = payout, yend = 0))
+```
+
+![](README_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
 
 ``` r
 library(tidyverse)
@@ -47,7 +112,7 @@ ggxmean:::stamp_space() +
   stamp_normal_dist()
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-1-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
 
 # Project timeline
 
@@ -116,7 +181,7 @@ tibble(possible_outcomes, probs) %>%
 binomial_distribution
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
 
 ## Visualizing a Discrete Random Variable without {ma206distributions} functions
 
@@ -175,7 +240,7 @@ discrete_random
     ## Warning in is.na(x): is.na() applied to non-(list or vector) of type
     ## 'expression'
 
-![](README_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
 
 See also:
 
