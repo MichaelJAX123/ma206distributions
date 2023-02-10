@@ -97,9 +97,8 @@ the class.
 prize_wheel %>% 
   ggplot() + 
   aes(x = payout) + 
-  aes(y = frequency) + 
-  geom_point() + 
-  geom_segment(aes(xend = payout, yend = 0))
+  aes(y = frequency) +
+  geom_lollipop()
 ```
 
 ![](README_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->

@@ -66,14 +66,14 @@ print(prize_wheel)
 We see that we can easily visualize the joint distribution of payout and frequency using the ggplot2 tool that is used in the statistics part of the class.
 
 ```{r}
-
 prize_wheel %>% 
   ggplot() + 
   aes(x = payout) + 
-  aes(y = frequency) + 
-  geom_point() + 
-  geom_segment(aes(xend = payout, yend = 0))
-
+  aes(y = frequency) +
+  geom_lollipop() + 
+  aes(weight = frequency) +
+  geom_fulcrum(color = "red", 
+               shape = 2, size = 5)
 ```
 
 
