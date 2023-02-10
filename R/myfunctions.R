@@ -1,4 +1,8 @@
 
+# the binomial distribution tells us the probability of
+# seeing a certain number of successes given the probability of success
+# for a single trial and the number of trials.
+
 library(tidyverse)
 
 
