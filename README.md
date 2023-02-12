@@ -62,25 +62,6 @@ spinning wheel with pie sectors with various prize award amounts:
 
 The table summarized the situation:
 
-``` r
-set.seed(1243323)
-ma206distributions::prize_wheel %>% 
-  uncount(frequency) %>% 
-  slice_sample(n = 12) %>% 
-  mutate(position = row_number()) %>% 
-  ggplot() + 
-  aes(x = position, y = .5, fill = payout) + 
-  geom_tile(alpha = .85, color = "white") + 
-  geom_text(aes(label = payout %>% paste0("$", .)), 
-            color = "white", 
-            y = .85,
-            size = 6) + 
-  coord_polar() +
-  scale_fill_viridis_c(end = .8) +
-  theme_void() + 
-  theme(legend.position = "none") 
-```
-
 ![](README_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
 
 To get the data into a tidy, ready-to-use form, we transposed the table

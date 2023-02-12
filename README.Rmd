@@ -47,7 +47,7 @@ knitr::kable(t(ma206distributions::prize_wheel %>% select(-3)))
 
 The table summarized the situation:
 
-```{r, warning= F, message=F}
+```{r, warning= F, message=F, echo = F}
 set.seed(1243323)
 ma206distributions::prize_wheel %>% 
   uncount(frequency) %>% 
