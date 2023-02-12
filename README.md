@@ -15,16 +15,21 @@ analytics in ggplot2
 Mathematical fluency involves frequent use of probability distributions.
 However, visualizing these distributions can be tedious. In a classroom
 setting with a given curriculum, the set of distributions to be mastered
-is well defined. Having shortcuts to produce these distributions in
-prose or plots could be beneficial for students and instructors alike.
-The goal of this independent study is to create functions that will
-quickly deliver beautiful visual representations of probability
-distributions. We will make these functions available in an R package.
+is well defined. Having shortcuts to produce or ingest these
+distributions in analytic software for display and analysis could be
+beneficial for students and instructors alike. The goal of this project
+is to provide ready-to-use dataframes and functions producing relevant
+dataframes. We make these functions available in the R package
+`ma206distributions`.
 
 ## Which distributions are relevant for the statistics and probability course?
 
 A good start for looking at the core of distributions in the ma206
-course guide.
+course guide:
+
+  - binomial
+  - geometric
+  - random
 
 ## Objectives
 
@@ -37,63 +42,81 @@ course guide.
     characteristics 2) showcases new functions quoting back ggplot code
 4.  stretch? sampling from distributions function or guidance..
 
-## Tidying data from discrete random variable problems
+## Tidying data from discrete random variable probability problems
 
 Tidying up data is important so that when the data is inputted into R or
-any coding language it is easier to interpret what the data specifies.
-
-The textbook examples were changed into tidy data notation. First, we
-made the variables the columns.
-
-For example, in the spinning of the prize wheel with sectors of various
-prize award amounts, sector\_type, frequency, and payout are the column
-headers for each variable column. Then each row forms an observation.
-For example, in the spinning of the prize wheel, we had no prize, win
-$1, and win $3. From there the observational units either quantitative
-or qualitative makes up the meat of the table. See Table 1 for a good
-example of tidy data. This process of “tidying” data creates a
+any coding language. This process of ‘tidying’ data creates a
 well-organized and structured format that is easier for data analysis
 and visualization.
 
-| sector\_type | frequency | payout |
-| :----------- | --------: | -----: |
-| No Prize     |         2 |      0 |
-| Win $1       |         1 |      1 |
-| Win $3       |         9 |      3 |
-
-In the text book as with many resources, the original layout of the
-table not a ‘tidy’ dataframe, but is transposed, wide table
+Probability tables are often communicated in untidy, wide forms not
+easily ingested by statistical software. (another example:
+<http://www.stat.yale.edu/Courses/1997-98/101/ranvar.htm#>:\~:text=A%20discrete%20random%20variable%20is,then%20it%20must%20be%20discrete)
+For example, the table was provided for a probability problem about a
+spinning wheel with pie sectors with various prize award amounts:
 
 |              |          |        |        |
 | :----------- | :------- | :----- | :----- |
 | sector\_type | No Prize | Win $1 | Win $3 |
-| frequency    | 2        | 1      | 9      |
-| payout       | 0        | 1      | 3      |
+| frequency    | 9        | 1      | 2      |
 
-<http://www.stat.yale.edu/Courses/1997-98/101/ranvar.htm#>:\~:text=A%20discrete%20random%20variable%20is,then%20it%20must%20be%20discrete.
+The table summarized the situation:
 
 ``` r
-library(tidyverse)
-library(ma206distributions)
+set.seed(1243323)
+ma206distributions::prize_wheel %>% 
+  uncount(frequency) %>% 
+  slice_sample(n = 12) %>% 
+  mutate(position = row_number()) %>% 
+  ggplot() + 
+  aes(x = position, y = .5, fill = payout) + 
+  geom_tile(alpha = .85, color = "white") + 
+  geom_text(aes(label = payout %>% paste0("$", .)), 
+            color = "white", 
+            y = .85,
+            size = 6) + 
+  coord_polar() +
+  scale_fill_viridis_c(end = .8) +
+  theme_void() + 
+  theme(legend.position = "none") 
 ```
 
+![](README_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
+
+To get the data into a tidy, ready-to-use form, we transposed the table
+from wide to long so that a variable is a columns and the column headers
+inform us about the content. This way, each row forms an observation, in
+this case an event type. The spinning of the prize wheel has three
+outcomes based on which sector type the wheel landed on: no prize, win
+$1, and win $3. We added a numeric column ‘payout’ too which we makes
+the data easier to use from a mathematical standpoint. Below is our
+tidied data.
+
+| sector\_type | frequency | payout |
+| :----------- | --------: | -----: |
+| No Prize     |         9 |      0 |
+| Win $1       |         1 |      1 |
+| Win $3       |         2 |      3 |
+
 In our package we include the data structured in this way, and call the
-object `prize_wheel`
+object `prize_wheel`:
 
 ``` r
+library(ma206distributions)
 print(prize_wheel)
 ```
 
     ##   sector_type frequency payout
-    ## 1    No Prize         2      0
+    ## 1    No Prize         9      0
     ## 2      Win $1         1      1
-    ## 3      Win $3         9      3
+    ## 3      Win $3         2      3
 
 We see that we can easily visualize the joint distribution of payout and
-frequency using the ggplot2 tool that is used in the statistics part of
-the class.
+frequency using the ggplot2 tool that is used heavily in the statistics
+part of the class.
 
 ``` r
+library(tidyverse)
 prize_wheel %>% 
   ggplot() + 
   aes(x = payout) + 
@@ -106,6 +129,16 @@ prize_wheel %>%
 
 ![](README_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
 
+# The tabular data can also be used to walk through computations, like finding the expected value of the prize wheel spin.
+
+``` r
+sum(prize_wheel$payout *
+  prize_wheel$frequency) /
+  sum(prize_wheel$frequency)
+```
+
+    ## [1] 0.5833333
+
 ``` r
 library(tidyverse)
 library(ggxmean)
@@ -114,7 +147,7 @@ ggxmean:::stamp_space() +
   stamp_normal_dist()
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
 
 # Project timeline
 
@@ -183,7 +216,7 @@ tibble(possible_outcomes, probs) %>%
 binomial_distribution
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
 
 ## Visualizing a Discrete Random Variable without {ma206distributions} functions
 
@@ -242,14 +275,14 @@ discrete_random
     ## Warning in is.na(x): is.na() applied to non-(list or vector) of type
     ## 'expression'
 
-![](README_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
 
 See also:
 
   - <https://evamaerey.github.io/mytidytuesday/2022-08-01-dbinom-dgeom/dbinom_dgeom.html>
   - <https://evamaerey.github.io/mytidytuesday/2022-08-01-dbinom-dgeom/dbinom_dgeom_flipbook.html>
 
-# Tools
+# Architechture we will use
 
 ### How do we bundle up our work into concept-sized usable bits? Functions.
 

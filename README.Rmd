@@ -13,12 +13,17 @@ Easily visualize common distributions for statistical and probabilistic analytic
 
 ## Abstract 
 
-Mathematical fluency involves frequent use of probability distributions. However, visualizing these distributions can be tedious.   In a classroom setting with a given curriculum, the set of distributions to be mastered is well defined.  Having shortcuts to produce these distributions in prose or plots could be beneficial for students and instructors alike.  The goal of this independent study is to create functions that will quickly deliver beautiful visual representations of probability distributions.  We will make these functions available in an R package.
+Mathematical fluency involves frequent use of probability distributions. However, visualizing these distributions can be tedious.   In a classroom setting with a given curriculum, the set of distributions to be mastered is well defined.  Having shortcuts to produce or ingest these distributions in analytic software for display and analysis could be beneficial for students and instructors alike.  The goal of this project is to provide ready-to-use dataframes and functions producing relevant dataframes.  We make these functions available in the R package `ma206distributions`.
 
 
 ## Which distributions are relevant for the statistics and probability course?
 
-A good start for looking at the core of distributions in the ma206 course guide.
+A good start for looking at the core of distributions in the ma206 course guide:
+
+
+- binomial
+- geometric
+- random 
 
 ## Objectives
 
@@ -29,43 +34,60 @@ A good start for looking at the core of distributions in the ma206 course guide.
 
 
 
-## Tidying data from discrete random variable problems
+## Tidying data from discrete random variable probability problems
 
-Tidying up data is important so that when the data is inputted into R or any coding language it is easier to interpret what the data specifies. 
+Tidying up data is important so that when the data is inputted into R or any coding language. This process of 'tidying' data creates a well-organized and structured format that is easier for data analysis and visualization.  
 
-The textbook examples were changed into tidy data notation. First, we made the variables the columns. 
+Probability tables are often communicated in untidy, wide forms not easily ingested by statistical software. (another example: http://www.stat.yale.edu/Courses/1997-98/101/ranvar.htm#:~:text=A%20discrete%20random%20variable%20is,then%20it%20must%20be%20discrete) For example, the table was provided for a probability problem about a spinning wheel with pie sectors with various prize award amounts: 
 
-For example, in the spinning of the prize wheel with sectors of various prize award amounts, sector_type, frequency, and payout are the column headers for each variable column. Then each row forms an observation. For example, in the spinning of the prize wheel, we had no prize, win $1, and win $3. From there the observational units either quantitative or qualitative makes up the meat of the table. See Table 1 for a good example of tidy data. This process of “tidying” data creates a well-organized and structured format that is easier for data analysis and visualization.  
+```{r, echo = F, warning=F, message=F}
+library(tidyverse)
+knitr::kable(t(ma206distributions::prize_wheel %>% select(-3)))
+```
 
+The table summarized the situation:
 
+```{r, warning= F, message=F}
+set.seed(1243323)
+ma206distributions::prize_wheel %>% 
+  uncount(frequency) %>% 
+  slice_sample(n = 12) %>% 
+  mutate(position = row_number()) %>% 
+  ggplot() + 
+  aes(x = position, y = .5, fill = payout) + 
+  geom_tile(alpha = .85, color = "white") + 
+  geom_text(aes(label = payout %>% paste0("$", .)), 
+            color = "white", 
+            y = .85,
+            size = 6) + 
+  coord_polar() +
+  scale_fill_viridis_c(end = .8) +
+  theme_void() + 
+  theme(legend.position = "none") 
+
+```
+
+To get the data into a tidy, ready-to-use form, we transposed the table from wide to long so that a variable is a columns and the column headers inform us about the content. This way, each row forms an observation, in this case an event type. The spinning of the prize wheel has three outcomes based on which sector type the wheel landed on:  no prize, win $1, and win $3. We added a numeric column 'payout' too which we makes the data easier to use from a mathematical standpoint.  Below is our tidied data. 
 
 ```{r, echo = F}
 knitr::kable(ma206distributions::prize_wheel)
-```
 
-In the text book as with many resources, the original layout of the table not a 'tidy' dataframe, but is transposed, wide table 
-
-```{r, echo = F}
-knitr::kable(t(ma206distributions::prize_wheel))
-```
-
-http://www.stat.yale.edu/Courses/1997-98/101/ranvar.htm#:~:text=A%20discrete%20random%20variable%20is,then%20it%20must%20be%20discrete.
-
-```{r, warning=F, message=F}
-library(tidyverse)
-library(ma206distributions)
 ```
 
 
-In our package we include the data structured in this way, and call the object `prize_wheel`
+
+
+In our package we include the data structured in this way, and call the object `prize_wheel`:
 
 ```{r}
+library(ma206distributions)
 print(prize_wheel)
 ```
 
-We see that we can easily visualize the joint distribution of payout and frequency using the ggplot2 tool that is used in the statistics part of the class.
+We see that we can easily visualize the joint distribution of payout and frequency using the ggplot2 tool that is used heavily in the statistics part of the class.
 
-```{r}
+```{r, warning=F, message=F}
+library(tidyverse)
 prize_wheel %>% 
   ggplot() + 
   aes(x = payout) + 
@@ -74,8 +96,16 @@ prize_wheel %>%
   aes(weight = frequency) +
   geom_fulcrum(color = "red", 
                shape = 2, size = 5)
+
 ```
 
+# The tabular data can also be used to walk through computations, like finding the expected value of the prize wheel spin.
+
+```{r}
+sum(prize_wheel$payout *
+  prize_wheel$frequency) /
+  sum(prize_wheel$frequency)
+```
 
 
 ```{r, warning=F, message=F}
@@ -204,7 +234,7 @@ See also:
 - https://evamaerey.github.io/mytidytuesday/2022-08-01-dbinom-dgeom/dbinom_dgeom_flipbook.html
 
 
-# Tools
+# Architechture we will use
 
 ### How do we bundle up our work into concept-sized usable bits? Functions.
 
