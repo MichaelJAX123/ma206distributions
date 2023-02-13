@@ -47,7 +47,7 @@ knitr::kable(t(ma206distributions::prize_wheel %>% select(-3)))
 
 The table summarized the situation:
 
-```{r, warning= F, message=F, echo = F}
+```{r, warning = F, message=F, echo = F}
 set.seed(1243323)
 ma206distributions::prize_wheel %>% 
   uncount(frequency) %>% 
@@ -141,11 +141,13 @@ Below, we do some of the visualization with base R and base ggplot2.  The aim is
 
 The equations in the plot were produce in the following fashion (no functions or package pre-built): 
 
+${{_N}C{_k}} * p^kq^{N-k}$
+
 ```{r, eval = T, warning=F, message=F}
 library(tidyverse)
 
 
-latex2exp::TeX("${{N}\\choose{k}} \\cdot p^kq^{N-k}$")
+latex2exp::TeX("${{_N}C{_k}} \\cdot p^kq^{N-k}$")
 
 single_trial_prob <- .5
 num_trials <- 10
@@ -173,7 +175,7 @@ tibble(possible_outcomes, probs) %>%
     annotate(geom = "text",
     x = 1.5,
     y = .2,
-    label = "{{N}*choose * {k}} %.% p^{k}*q^{N - k} ",
+    label = "{{{}[N]}*C * {{}[k]}} %.% p^{k}*q^{N - k}",
     parse = TRUE,
     size = 5) ->
     binomial_distribution

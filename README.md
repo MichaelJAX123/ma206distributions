@@ -152,15 +152,17 @@ visualize distributions.
 The equations in the plot were produce in the following fashion (no
 functions or package pre-built):
 
+\({{_N}C{_k}} * p^kq^{N-k}\)
+
 ``` r
 library(tidyverse)
 
 
-latex2exp::TeX("${{N}\\choose{k}} \\cdot p^kq^{N-k}$")
+latex2exp::TeX("${{_N}C{_k}} \\cdot p^kq^{N-k}$")
 ```
 
-    ##    LaTeX: ${{N}\choose{k}} \cdot p^kq^{N-k}$ 
-    ## plotmath: {{N}*choose * {k}} %.% p^{k}*q^{N - k}
+    ##    LaTeX: ${{_N}C{_k}} \cdot p^kq^{N-k}$ 
+    ## plotmath: {{{}[N]}*C * {{}[k]}} %.% p^{k}*q^{N - k}
 
 ``` r
 single_trial_prob <- .5
@@ -189,7 +191,7 @@ tibble(possible_outcomes, probs) %>%
     annotate(geom = "text",
     x = 1.5,
     y = .2,
-    label = "{{N}*choose * {k}} %.% p^{k}*q^{N - k} ",
+    label = "{{{}[N]}*C * {{}[k]}} %.% p^{k}*q^{N - k}",
     parse = TRUE,
     size = 5) ->
     binomial_distribution
