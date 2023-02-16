@@ -14,13 +14,13 @@ stamp_one_plus_one <- function(x = 0, y = 0, ...){
 
 }
 
-
-ggplot() +
+library(tidyverse)
+ggplot2::ggplot() +
   stamp_one_plus_one() +
   stamp_one_plus_one(size = 12, y = 2)
 
 
-tibble(event = c("totaled", "fender bender", "accident free"),
+tibble::tibble(event = c("totaled", "fender bender", "accident free"),
        probability = c(.01, .09, .9),
        payout = c(20000, 5000, 0)) ->
   expected

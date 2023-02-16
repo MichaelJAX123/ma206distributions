@@ -34,3 +34,10 @@ tidy_dbinom(.2, 10)
 tidy_dbinom(.8, 10)
 tidy_dbinom(.5, 6)
 
+
+install.packages("likelihoodExplore")
+library(likelihoodExplore)
+
+
+
+

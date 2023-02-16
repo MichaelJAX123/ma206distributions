@@ -3,3 +3,4 @@
 export(geom_fulcrum)
 export(geom_lollipop)
 export(geom_post)
+export(geom_segment_sd)
