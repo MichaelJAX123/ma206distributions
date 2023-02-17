@@ -201,6 +201,34 @@ binomial_distribution
 
 ![](README_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
 
+Another possibility is using the `stat_function()` function in ggplot2
+to produce visualizations of a binomial distribution. Below, we show how
+you can visualize the binomial distribution for 20 trials and .2 is the
+probability of success for each trial. Using the `stat_function()`
+carefully, you can get a similar outcome. However, there is a lot of
+coordination that’s required: `20` shows up about three times in the
+construction for example in xlim(); in `n = 21` (20 + 1 possible
+outcomes); and finally in the `args` list. Producing this plot requires
+a lot of foreknowledge. With our alternative strategies, (delivering
+data frames and stamps), we hope to give students something they can
+produce easily, and *then* have a conversation about why the
+distribution has the form it does.
+
+``` r
+library(ggplot2)
+ggplot() + 
+  xlim(0, 20) +
+  stat_function(fun = dbinom,
+                geom = "point", 
+                n = 21,
+                args = list(size = 20, prob = .2)) + 
+  labs(y = "Probability") + 
+  labs(x = "Number of successes in 20 trials") + 
+  labs(title = "Given 20 trials where the probability for success in a single\n trial is .2, what are the probabilities for each possible\nnumber of observed successes ")
+```
+
+![](README_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
+
 ## Visualizing a Discrete Random Variable without {ma206distributions} functions
 
 Probability problems could be structured as data frames visualized with
@@ -258,7 +286,7 @@ discrete_random
     ## Warning in is.na(x): is.na() applied to non-(list or vector) of type
     ## 'expression'
 
-![](README_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
 
 See also:
 
