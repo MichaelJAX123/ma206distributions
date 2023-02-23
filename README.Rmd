@@ -23,18 +23,74 @@ A good start for looking at the core of distributions in the ma206 course guide:
 
 - binomial
 - geometric
-- random 
+- random
 
 ## Objectives
 
-1. Provide additional **dataframes** for ma206 that are probabilities from curriculum (probability problems in text book).  
-2. Provide *stamp* functions for binomial and geometric distributions (normal and t exist in ggxmean); also think about rewrite for stamp_normal (i.e. what should height distribution look like?)
+1. Provide functions that return dataframes relating outcomes and probabilities for binomial and geometric distributions
+2. Providing quick-viz *stamp* functions for binomial and geometric distributions (normal and t exist in ggxmean); also think about rewrite for stamp_normal (i.e. what should height distribution look like?)
+3. Provide additional **dataframes** for ma206 that are probabilities from curriculum (probability problems in text book).  
 4. Let's try:  shiny app which 1) demonstrates distribution characteristics 2) showcases new functions quoting back ggplot code
-2. stretch? sampling from distributions function or guidance..
+
+### 1. provide data frames that relate outcomes and probabilities
+
+We can look at vectors of outcomes, and then use dbinom to get back a vector of probabilities.
+
+```{r}
+num_successes <- 0:10; num_successes
+
+dbinom(num_successes, prob = .5, size = 10)
+
+```
+
+
+```{r}
+library(ma206distributions)
+# probability of number of heads in 10 coin flips
+tidy_dbinom(single_trial_prob = .5, 10)
+
+# probabilities of rolling 0, 1, 2, 3 or 4 sixes in 4 die roles
+tidy_dbinom(single_trial_prob = 1/6, 4)
+
+# probability of 0, 1, 2 or 3 wins in 3 spins of a prize wheel  
+# 12 pie slices, one with big payout
+tidy_dbinom(1/12, 3)
+```
+
+
+### 2. Stamp visualizations
+
+```{r}
+library(ggplot2)
+ggplot() + 
+  geom_lollipop(data = tidy_dbinom(single_trial_prob = .5, 10),
+                aes(x = num_successes, y = probability))
+```
 
 
 
-## Tidying data from discrete random variable probability problems
+```{r}
+stamp_dbinom <- function(single_trial_prob = .5, num_trials = 10){
+  
+  geom_lollipop(data = tidy_dbinom(single_trial_prob = single_trial_prob, 
+                                   num_trials = num_trials),
+                aes(x = num_successes, y = probability))
+  
+}
+
+
+ggplot() + 
+  stamp_dbinom()
+
+ggplot() + 
+  stamp_dbinom(1/6, num_trials = 4)
+
+
+ggplot() + 
+  stamp_dbinom(1/12, num_trials = 3)
+```
+
+## 3. Tidying data from discrete random variable probability problems
 
 Tidying up data is important so that when the data is inputted into R or any coding language. This process of 'tidying' data creates a well-organized and structured format that is easier for data analysis and visualization.  
 

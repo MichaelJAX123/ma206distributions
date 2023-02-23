@@ -33,16 +33,127 @@ course guide:
 
 ## Objectives
 
-1.  Provide additional **dataframes** for ma206 that are probabilities
+1.  Provide functions that return dataframes relating outcomes and
+    probabilities for binomial and geometric distributions
+2.  Providing quick-viz *stamp* functions for binomial and geometric
+    distributions (normal and t exist in ggxmean); also think about
+    rewrite for stamp\_normal (i.e. what should height distribution look
+    like?)
+3.  Provide additional **dataframes** for ma206 that are probabilities
     from curriculum (probability problems in text book).  
-2.  Provide *stamp* functions for binomial and geometric distributions
-    (normal and t exist in ggxmean); also think about rewrite for
-    stamp\_normal (i.e. what should height distribution look like?)
-3.  Let’s try: shiny app which 1) demonstrates distribution
+4.  Let’s try: shiny app which 1) demonstrates distribution
     characteristics 2) showcases new functions quoting back ggplot code
-4.  stretch? sampling from distributions function or guidance..
 
-## Tidying data from discrete random variable probability problems
+### 1\. provide data frames that relate outcomes and probabilities
+
+We can look at vectors of outcomes, and then use dbinom to get back a
+vector of probabilities.
+
+``` r
+num_successes <- 0:10; num_successes
+```
+
+    ##  [1]  0  1  2  3  4  5  6  7  8  9 10
+
+``` r
+dbinom(num_successes, prob = .5, size = 10)
+```
+
+    ##  [1] 0.0009765625 0.0097656250 0.0439453125 0.1171875000 0.2050781250
+    ##  [6] 0.2460937500 0.2050781250 0.1171875000 0.0439453125 0.0097656250
+    ## [11] 0.0009765625
+
+``` r
+library(ma206distributions)
+# probability of number of heads in 10 coin flips
+tidy_dbinom(single_trial_prob = .5, 10)
+```
+
+    ## # A tibble: 11 × 4
+    ##    num_successes probability single_trial_prob num_trials
+    ##            <int>       <dbl>             <dbl>      <dbl>
+    ##  1             0    0.000977               0.5         10
+    ##  2             1    0.00977                0.5         10
+    ##  3             2    0.0439                 0.5         10
+    ##  4             3    0.117                  0.5         10
+    ##  5             4    0.205                  0.5         10
+    ##  6             5    0.246                  0.5         10
+    ##  7             6    0.205                  0.5         10
+    ##  8             7    0.117                  0.5         10
+    ##  9             8    0.0439                 0.5         10
+    ## 10             9    0.00977                0.5         10
+    ## 11            10    0.000977               0.5         10
+
+``` r
+# probabilities of rolling 0, 1, 2, 3 or 4 sixes in 4 die roles
+tidy_dbinom(single_trial_prob = 1/6, 4)
+```
+
+    ## # A tibble: 5 × 4
+    ##   num_successes probability single_trial_prob num_trials
+    ##           <int>       <dbl>             <dbl>      <dbl>
+    ## 1             0    0.482                0.167          4
+    ## 2             1    0.386                0.167          4
+    ## 3             2    0.116                0.167          4
+    ## 4             3    0.0154               0.167          4
+    ## 5             4    0.000772             0.167          4
+
+``` r
+# probability of 0, 1, 2 or 3 wins in 3 spins of a prize wheel  
+# 12 pie slices, one with big payout
+tidy_dbinom(1/12, 3)
+```
+
+    ## # A tibble: 4 × 4
+    ##   num_successes probability single_trial_prob num_trials
+    ##           <int>       <dbl>             <dbl>      <dbl>
+    ## 1             0    0.770               0.0833          3
+    ## 2             1    0.210               0.0833          3
+    ## 3             2    0.0191              0.0833          3
+    ## 4             3    0.000579            0.0833          3
+
+### 2\. Stamp visualizations
+
+``` r
+library(ggplot2)
+ggplot() + 
+  geom_lollipop(data = tidy_dbinom(single_trial_prob = .5, 10),
+                aes(x = num_successes, y = probability))
+```
+
+![](README_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
+
+``` r
+stamp_dbinom <- function(single_trial_prob = .5, num_trials = 10){
+  
+  geom_lollipop(data = tidy_dbinom(single_trial_prob = single_trial_prob, 
+                                   num_trials = num_trials),
+                aes(x = num_successes, y = probability))
+  
+}
+
+
+ggplot() + 
+  stamp_dbinom()
+```
+
+![](README_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
+
+``` r
+ggplot() + 
+  stamp_dbinom(1/6, num_trials = 4)
+```
+
+![](README_files/figure-gfm/unnamed-chunk-4-2.png)<!-- -->
+
+``` r
+ggplot() + 
+  stamp_dbinom(1/12, num_trials = 3)
+```
+
+![](README_files/figure-gfm/unnamed-chunk-4-3.png)<!-- -->
+
+## 3\. Tidying data from discrete random variable probability problems
 
 Tidying up data is important so that when the data is inputted into R or
 any coding language. This process of ‘tidying’ data creates a
@@ -62,7 +173,7 @@ spinning wheel with pie sectors with various prize award amounts:
 
 The table summarized the situation:
 
-![](README_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
 
 To get the data into a tidy, ready-to-use form, we transposed the table
 from wide to long so that a variable is a columns and the column headers
@@ -108,7 +219,7 @@ prize_wheel %>%
                shape = 2, size = 5)
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
 
 # The tabular data can also be used to walk through computations, like finding the expected value of the prize wheel spin.
 
@@ -128,7 +239,7 @@ ggxmean:::stamp_space() +
   stamp_normal_dist()
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
 
 # Project timeline
 
@@ -201,7 +312,7 @@ tibble(possible_outcomes, probs) %>%
 binomial_distribution
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
 
 Another possibility is using the `stat_function()` function in ggplot2
 to produce visualizations of a binomial distribution. Below, we show how
@@ -229,7 +340,7 @@ ggplot() +
   labs(title = "Given 20 trials where the probability for success in a single\n trial is .2, what are the probabilities for each possible\nnumber of observed successes ")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->
 
 ## Visualizing a Discrete Random Variable without {ma206distributions} functions
 
@@ -295,7 +406,7 @@ discrete_random
     ## Warning in is.na(x): is.na() applied to non-(list or vector) of type
     ## 'expression'
 
-![](README_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->
 
 See also:
 

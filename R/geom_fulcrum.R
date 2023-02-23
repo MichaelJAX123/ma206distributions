@@ -26,7 +26,7 @@ statFulcrum <- ggplot2::ggproto(`_class` = "statFulcrum",
 #'
 #' @description geom_fulcrum() sits on the x axis at the balancing point of the data.
 #'
-#' @return a geom layer
+#' @return a geom layer that sits at the balancing point of the data based on x and optionally a weight
 #' @export
 #'
 #' @examples
