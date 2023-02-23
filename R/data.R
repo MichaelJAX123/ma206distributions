@@ -1,6 +1,13 @@
 #' Example problem data
 #'
 #' Data from chapter 11 of MA206's text book
+#' @examples
+#' library(ggplot2)
+#' ggplot(prize_wheel) +
+#'     aes(x = payout, y = frequency) +
+#'     geom_lollipop()
+#'
+#' prize_wheel
 #'
 #' @format ## `prize_wheel`
 #' A data frame with 3 rows and 3 columns:
