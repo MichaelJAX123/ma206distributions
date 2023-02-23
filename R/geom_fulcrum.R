@@ -22,15 +22,17 @@ statFulcrum <- ggplot2::ggproto(`_class` = "statFulcrum",
                     compute_group = compute_group_fulcrum)
 
 
-#' Title
+#' Fulcrum geom
 #'
-#' @return
+#' @description geom_fulcrum() sits on the x axis at the balancing point of the data.
+#'
+#' @return a geom layer
 #' @export
 #'
 #' @examples
 #' library(ggplot2)
-#' ggplot(cars) +
-#' aes(x = speed, y = dist) +
+#' ggplot(data = prize_wheel) +
+#' aes(x = payout, y = frequency, weight = frequency) +
 #' geom_point() +
 #' geom_fulcrum(color = "red", shape = 2, size = 5)
 geom_fulcrum <- function(

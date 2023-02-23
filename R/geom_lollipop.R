@@ -1,12 +1,14 @@
-#' Title
+#' Lollipop geom
 #'
-#' @return
+#' @description The lollipop is often used to attractively communicate about discrete quantitative distributions.
+#'
+#' @return a ggplot geom layer
 #' @export
 #'
 #' @examples
 #' library(ggplot2)
-#' ggplot(cars) +
-#' aes(x = speed, y = dist) +
+#' ggplot(data = prize_wheel %>% tibble()) +
+#' aes(x = payout, y = frequency) +
 #' geom_lollipop()
 geom_lollipop <- function(...){
 

@@ -13,15 +13,17 @@ statPost <- ggplot2::ggproto(`_class` = "statPost",
                     compute_group = compute_group_post)
 
 
-#' Title
+#' Post geom
 #'
-#' @return
+#' @description geom_post() may be used to visualize discrete quantitative distributions
+#'
+#' @return a ggplot2 geom layer
 #' @export
 #'
 #' @examples
 #' library(ggplot2)
-#' ggplot(cars) +
-#' aes(x = speed, y = dist) +
+#' ggplot(data = prize_wheel) +
+#' aes(x = payout, y = frequency) +
 #' geom_post()
 geom_post <- function(
   mapping = NULL,

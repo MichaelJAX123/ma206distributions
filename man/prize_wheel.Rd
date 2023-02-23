@@ -27,4 +27,13 @@ prize_wheel
 \description{
 Data from chapter 11 of MA206's text book
 }
+\examples{
+library(ggplot2)
+ggplot(prize_wheel) +
+    aes(x = payout, y = frequency) +
+    geom_lollipop()
+
+prize_wheel
+
+}
 \keyword{datasets}
