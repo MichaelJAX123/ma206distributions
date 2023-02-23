@@ -14,13 +14,11 @@ geom_fulcrum(
   ...
 )
 }
-\value{
-
-}
 \description{
 Title
 }
 \examples{
+library(ggplot2)
 ggplot(cars) +
 aes(x = speed, y = dist) +
 geom_point() +

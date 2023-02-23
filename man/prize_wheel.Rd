@@ -17,7 +17,9 @@ A data frame with 3 rows and 3 columns:
 }
 }
 \source{
+\if{html}{\out{
 <ISI chapter II>
+}}
 }
 \usage{
 prize_wheel

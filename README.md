@@ -152,7 +152,9 @@ visualize distributions.
 The equations in the plot were produce in the following fashion (no
 functions or package pre-built):
 
-\({{_N}C{_k}} * p^kq^{N-k}\)
+![{{\_N}C{\_k}} \*
+p^kq^{N-k}](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%7B%7B_N%7DC%7B_k%7D%7D%20%2A%20p%5Ekq%5E%7BN-k%7D
+"{{_N}C{_k}} * p^kq^{N-k}")
 
 ``` r
 library(tidyverse)
@@ -256,7 +258,7 @@ expected %>%
   geom_segment(aes(xend = payout, yend = 0)) + 
   geom_text(aes(label = probability), size = 5, 
             vjust = -.5, color = "black") + 
-  ggxmean::geom_x_mean(aes(weight = probability)) + 
+  geom_fulcrum(aes(weight = probability)) + 
   geom_vline(xintercept = sum(c(.01*20000, .09*5000)),
              linetype = "dashed", color = "black") + 
   labs(subtitle = "Course idea 8:  The expected value E.V. is the 'balancing point' of a Random variable, X.  It is the weighted average of values, (weighting values by their probabilities). In large samples from the X, the average will be close to the E.V.;" %>% str_wrap(60)) + 
@@ -271,15 +273,22 @@ expected %>%
 discrete_random
 ```
 
-    ## Warning: Ignoring unknown aesthetics: weight
+    ## Warning in geom_fulcrum(aes(weight = probability)): Ignoring unknown
+    ## aesthetics: weight
 
 ``` r
 discrete_random
 ```
 
+    ## Warning: The following aesthetics were dropped during statistical transformation: weight
+    ## ℹ This can happen when ggplot fails to infer the correct grouping structure in
+    ##   the data.
+    ## ℹ Did you forget to specify a `group` aesthetic or to convert a numerical
+    ##   variable into a factor?
+
     ## Warning in is.na(x): is.na() applied to non-(list or vector) of type
     ## 'expression'
-
+    
     ## Warning in is.na(x): is.na() applied to non-(list or vector) of type
     ## 'expression'
     

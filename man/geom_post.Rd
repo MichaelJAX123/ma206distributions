@@ -14,13 +14,11 @@ geom_post(
   ...
 )
 }
-\value{
-
-}
 \description{
 Title
 }
 \examples{
+library(ggplot2)
 ggplot(cars) +
 aes(x = speed, y = dist) +
 geom_post()

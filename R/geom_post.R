@@ -19,6 +19,7 @@ statPost <- ggplot2::ggproto(`_class` = "statPost",
 #' @export
 #'
 #' @examples
+#' library(ggplot2)
 #' ggplot(cars) +
 #' aes(x = speed, y = dist) +
 #' geom_post()
@@ -45,20 +46,3 @@ geom_post <- function(
 
 
 
-#' Title
-#'
-#' @return
-#' @export
-#'
-#' @examples
-#' ggplot(cars) +
-#' aes(x = speed, y = dist) +
-#' geom_lollipop()
-geom_lollipop <- function(){
-
-  list(
-  geom_post(),
-  geom_point()
-  )
-
-}

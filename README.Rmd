@@ -226,7 +226,7 @@ expected %>%
   geom_segment(aes(xend = payout, yend = 0)) + 
   geom_text(aes(label = probability), size = 5, 
             vjust = -.5, color = "black") + 
-  ggxmean::geom_x_mean(aes(weight = probability)) + 
+  geom_fulcrum(aes(weight = probability)) + 
   geom_vline(xintercept = sum(c(.01*20000, .09*5000)),
              linetype = "dashed", color = "black") + 
   labs(subtitle = "Course idea 8:  The expected value E.V. is the 'balancing point' of a Random variable, X.  It is the weighted average of values, (weighting values by their probabilities). In large samples from the X, the average will be close to the E.V.;" %>% str_wrap(60)) + 

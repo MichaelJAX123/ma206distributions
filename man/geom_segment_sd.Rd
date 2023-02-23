@@ -14,9 +14,6 @@ geom_segment_sd(
   ...
 )
 }
-\value{
-
-}
 \description{
 Title
 }
