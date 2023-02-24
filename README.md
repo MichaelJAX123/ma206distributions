@@ -13,14 +13,15 @@ analytics in ggplot2
 ## Abstract
 
 Mathematical fluency involves frequent use of probability distributions.
-However, visualizing these distributions can be tedious. In a classroom
-setting with a given curriculum, the set of distributions to be mastered
-is well defined. Having shortcuts to produce or ingest these
-distributions in analytic software for display and analysis could be
-beneficial for students and instructors alike. The goal of this project
-is to provide ready-to-use dataframes and functions producing relevant
-dataframes. We make these functions available in the R package
-`ma206distributions`.
+However, visualizing these distributions can be tedious. In a fixed
+statistics and probability curriculum, the set of distributions to be
+mastered is well defined. In such settings having shortcuts to produce
+or ingest these distributions in analytic software for display and
+analysis could be beneficial for students and instructors alike. The
+goal of this project is to provide ready-to-use objects (dataframes) and
+functions that will meet students will make it easier to engage
+computationally and with these distributions. We make these objects and
+functions available in the R package `ma206distributions`.
 
 ## Which distributions are relevant for the statistics and probability course?
 
@@ -29,6 +30,7 @@ course guide:
 
   - binomial
   - geometric
+  - normal distribution
   - random
 
 ## Objectives
@@ -41,8 +43,9 @@ course guide:
     like?)
 3.  Provide additional **dataframes** for ma206 that are probabilities
     from curriculum (probability problems in text book).  
-4.  Let’s try: shiny app which 1) demonstrates distribution
-    characteristics 2) showcases new functions quoting back ggplot code
+4.  Interactive app which 1) demonstrates distribution characteristics,
+    allowing easy manipulation of parameters 2) connects to new package
+    functionality by quoting back code underlying the app.
 
 ### 1\. provide data frames that relate outcomes and probabilities
 
@@ -141,7 +144,7 @@ ggplot() +
 
 ``` r
 ggplot() + 
-  stamp_dbinom(1/6, num_trials = 4)
+  stamp_dbinom(1/6, num_trials = 6)
 ```
 
 ![](README_files/figure-gfm/unnamed-chunk-4-2.png)<!-- -->

@@ -2,16 +2,19 @@
 % Please edit documentation in R/geom_lollipop.R
 \name{geom_lollipop}
 \alias{geom_lollipop}
-\title{Title}
+\title{Lollipop geom}
 \usage{
 geom_lollipop(...)
 }
+\value{
+a ggplot geom layer
+}
 \description{
-Title
+The lollipop is often used to attractively communicate about discrete quantitative distributions.
 }
 \examples{
 library(ggplot2)
-ggplot(cars) +
-aes(x = speed, y = dist) +
+ggplot(data = prize_wheel) +
+aes(x = payout, y = frequency) +
 geom_lollipop()
 }

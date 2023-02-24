@@ -15,13 +15,14 @@
 #' library(ggplot2)
 #' ggplot(tidy_dbinom(1/6, num_trials = 8)) +
 #'   aes(x = num_successes) +
+#'   scale_x_counting() +
 #'   aes(y = probability) +
 #'   geom_lollipop()
 #'
 tidy_dbinom <- function(single_trial_prob = .5, num_trials = 10){
 
   num_successes <- 0:num_trials
-  probability <- dbinom(x = num_successes, size = num_trials, prob = single_trial_prob)
+  probability <- stats::dbinom(x = num_successes, size = num_trials, prob = single_trial_prob)
 
   tibble::tibble(num_successes,probability, single_trial_prob, num_trials)
 

@@ -7,7 +7,7 @@
 #'
 #' @examples
 #' library(ggplot2)
-#' ggplot(data = prize_wheel %>% tibble()) +
+#' ggplot(data = prize_wheel) +
 #' aes(x = payout, y = frequency) +
 #' geom_lollipop()
 geom_lollipop <- function(...){

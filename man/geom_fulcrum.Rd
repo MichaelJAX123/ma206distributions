@@ -2,7 +2,7 @@
 % Please edit documentation in R/geom_fulcrum.R
 \name{geom_fulcrum}
 \alias{geom_fulcrum}
-\title{Title}
+\title{Fulcrum geom}
 \usage{
 geom_fulcrum(
   mapping = NULL,
@@ -14,13 +14,16 @@ geom_fulcrum(
   ...
 )
 }
+\value{
+a geom layer that sits at the balancing point of the data based on x and optionally a weight
+}
 \description{
-Title
+geom_fulcrum() sits on the x axis at the balancing point of the data.
 }
 \examples{
 library(ggplot2)
-ggplot(cars) +
-aes(x = speed, y = dist) +
+ggplot(data = prize_wheel) +
+aes(x = payout, y = frequency, weight = frequency) +
 geom_point() +
 geom_fulcrum(color = "red", shape = 2, size = 5)
 }

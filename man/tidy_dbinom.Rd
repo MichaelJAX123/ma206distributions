@@ -26,6 +26,7 @@ tidy_dbinom(.5, 20)
 library(ggplot2)
 ggplot(tidy_dbinom(1/6, num_trials = 8)) +
   aes(x = num_successes) +
+  scale_x_counting() +
   aes(y = probability) +
   geom_lollipop()
 

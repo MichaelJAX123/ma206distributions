@@ -2,7 +2,7 @@
 % Please edit documentation in R/geom_post.R
 \name{geom_post}
 \alias{geom_post}
-\title{Title}
+\title{Post geom}
 \usage{
 geom_post(
   mapping = NULL,
@@ -14,12 +14,15 @@ geom_post(
   ...
 )
 }
+\value{
+a ggplot2 geom layer
+}
 \description{
-Title
+geom_post() may be used to visualize discrete quantitative distributions
 }
 \examples{
 library(ggplot2)
-ggplot(cars) +
-aes(x = speed, y = dist) +
+ggplot(data = prize_wheel) +
+aes(x = payout, y = frequency) +
 geom_post()
 }

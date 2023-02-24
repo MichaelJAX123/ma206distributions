@@ -23,5 +23,5 @@ ggplot(cars) +
 aes(x = speed, y = dist) +
 geom_point() +
 geom_fulcrum(color = "red", shape = 2, size = 5) +
-geom_segment_sd(color = "red", size = 3)
+geom_segment_sd(color = "red", linewidth = 3)
 }

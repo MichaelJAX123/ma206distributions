@@ -65,7 +65,7 @@
 <div class="section level2">
 <h2 id="abstract">Abstract<a class="anchor" aria-label="anchor" href="#abstract"></a>
 </h2>
-<p>Mathematical fluency involves frequent use of probability distributions. However, visualizing these distributions can be tedious. In a classroom setting with a given curriculum, the set of distributions to be mastered is well defined. Having shortcuts to produce or ingest these distributions in analytic software for display and analysis could be beneficial for students and instructors alike. The goal of this project is to provide ready-to-use dataframes and functions producing relevant dataframes. We make these functions available in the R package <code>ma206distributions</code>.</p>
+<p>Mathematical fluency involves frequent use of probability distributions. However, visualizing these distributions can be tedious. In a fixed statistics and probability curriculum, the set of distributions to be mastered is well defined. In such settings having shortcuts to produce or ingest these distributions in analytic software for display and analysis could be beneficial for students and instructors alike. The goal of this project is to provide ready-to-use objects (dataframes) and functions that will meet students will make it easier to engage computationally and with these distributions. We make these objects and functions available in the R package <code>ma206distributions</code>.</p>
 </div>
 <div class="section level2">
 <h2 id="which-distributions-are-relevant-for-the-statistics-and-probability-course">Which distributions are relevant for the statistics and probability course?<a class="anchor" aria-label="anchor" href="#which-distributions-are-relevant-for-the-statistics-and-probability-course"></a>
@@ -74,6 +74,7 @@
 <ul>
 <li>binomial</li>
 <li>geometric</li>
+<li>normal distribution</li>
 <li>random</li>
 </ul>
 </div>
@@ -81,15 +82,99 @@
 <h2 id="objectives">Objectives<a class="anchor" aria-label="anchor" href="#objectives"></a>
 </h2>
 <ol style="list-style-type: decimal">
+<li>Provide functions that return dataframes relating outcomes and probabilities for binomial and geometric distributions</li>
+<li>Providing quick-viz <em>stamp</em> functions for binomial and geometric distributions (normal and t exist in ggxmean); also think about rewrite for stamp_normal (i.e. what should height distribution look like?)</li>
 <li>Provide additional <strong>dataframes</strong> for ma206 that are probabilities from curriculum (probability problems in text book).<br>
 </li>
-<li>Provide <em>stamp</em> functions for binomial and geometric distributions (normal and t exist in ggxmean); also think about rewrite for stamp_normal (i.e. what should height distribution look like?)</li>
-<li>Let’s try: shiny app which 1) demonstrates distribution characteristics 2) showcases new functions quoting back ggplot code</li>
-<li>stretch? sampling from distributions function or guidance..</li>
+<li>Interactive app which 1) demonstrates distribution characteristics, allowing easy manipulation of parameters 2) connects to new package functionality by quoting back code underlying the app.</li>
 </ol>
+<div class="section level3">
+<h3 id="1-provide-data-frames-that-relate-outcomes-and-probabilities">1. provide data frames that relate outcomes and probabilities<a class="anchor" aria-label="anchor" href="#1-provide-data-frames-that-relate-outcomes-and-probabilities"></a>
+</h3>
+<p>We can look at vectors of outcomes, and then use dbinom to get back a vector of probabilities.</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">num_successes</span> <span class="op">&lt;-</span> <span class="fl">0</span><span class="op">:</span><span class="fl">10</span>; <span class="va">num_successes</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co">##  [1]  0  1  2  3  4  5  6  7  8  9 10</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/Binomial.html" class="external-link">dbinom</a></span><span class="op">(</span><span class="va">num_successes</span>, prob <span class="op">=</span> <span class="fl">.5</span>, size <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co">##  [1] 0.0009765625 0.0097656250 0.0439453125 0.1171875000 0.2050781250</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="co">##  [6] 0.2460937500 0.2050781250 0.1171875000 0.0439453125 0.0097656250</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="co">## [11] 0.0009765625</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">ma206distributions</span><span class="op">)</span></span>
+<span><span class="co"># probability of number of heads in 10 coin flips</span></span>
+<span><span class="fu"><a href="reference/tidy_dbinom.html">tidy_dbinom</a></span><span class="op">(</span>single_trial_prob <span class="op">=</span> <span class="fl">.5</span>, <span class="fl">10</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co">## # A tibble: 11 × 4</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="co">##    num_successes probability single_trial_prob num_trials</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a><span class="co">##            &lt;int&gt;       &lt;dbl&gt;             &lt;dbl&gt;      &lt;dbl&gt;</span></span>
+<span id="cb6-4"><a href="#cb6-4"></a><span class="co">##  1             0    0.000977               0.5         10</span></span>
+<span id="cb6-5"><a href="#cb6-5"></a><span class="co">##  2             1    0.00977                0.5         10</span></span>
+<span id="cb6-6"><a href="#cb6-6"></a><span class="co">##  3             2    0.0439                 0.5         10</span></span>
+<span id="cb6-7"><a href="#cb6-7"></a><span class="co">##  4             3    0.117                  0.5         10</span></span>
+<span id="cb6-8"><a href="#cb6-8"></a><span class="co">##  5             4    0.205                  0.5         10</span></span>
+<span id="cb6-9"><a href="#cb6-9"></a><span class="co">##  6             5    0.246                  0.5         10</span></span>
+<span id="cb6-10"><a href="#cb6-10"></a><span class="co">##  7             6    0.205                  0.5         10</span></span>
+<span id="cb6-11"><a href="#cb6-11"></a><span class="co">##  8             7    0.117                  0.5         10</span></span>
+<span id="cb6-12"><a href="#cb6-12"></a><span class="co">##  9             8    0.0439                 0.5         10</span></span>
+<span id="cb6-13"><a href="#cb6-13"></a><span class="co">## 10             9    0.00977                0.5         10</span></span>
+<span id="cb6-14"><a href="#cb6-14"></a><span class="co">## 11            10    0.000977               0.5         10</span></span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># probabilities of rolling 0, 1, 2, 3 or 4 sixes in 4 die roles</span></span>
+<span><span class="fu"><a href="reference/tidy_dbinom.html">tidy_dbinom</a></span><span class="op">(</span>single_trial_prob <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="fl">6</span>, <span class="fl">4</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co">## # A tibble: 5 × 4</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="co">##   num_successes probability single_trial_prob num_trials</span></span>
+<span id="cb8-3"><a href="#cb8-3"></a><span class="co">##           &lt;int&gt;       &lt;dbl&gt;             &lt;dbl&gt;      &lt;dbl&gt;</span></span>
+<span id="cb8-4"><a href="#cb8-4"></a><span class="co">## 1             0    0.482                0.167          4</span></span>
+<span id="cb8-5"><a href="#cb8-5"></a><span class="co">## 2             1    0.386                0.167          4</span></span>
+<span id="cb8-6"><a href="#cb8-6"></a><span class="co">## 3             2    0.116                0.167          4</span></span>
+<span id="cb8-7"><a href="#cb8-7"></a><span class="co">## 4             3    0.0154               0.167          4</span></span>
+<span id="cb8-8"><a href="#cb8-8"></a><span class="co">## 5             4    0.000772             0.167          4</span></span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># probability of 0, 1, 2 or 3 wins in 3 spins of a prize wheel  </span></span>
+<span><span class="co"># 12 pie slices, one with big payout</span></span>
+<span><span class="fu"><a href="reference/tidy_dbinom.html">tidy_dbinom</a></span><span class="op">(</span><span class="fl">1</span><span class="op">/</span><span class="fl">12</span>, <span class="fl">3</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="co">## # A tibble: 4 × 4</span></span>
+<span id="cb10-2"><a href="#cb10-2"></a><span class="co">##   num_successes probability single_trial_prob num_trials</span></span>
+<span id="cb10-3"><a href="#cb10-3"></a><span class="co">##           &lt;int&gt;       &lt;dbl&gt;             &lt;dbl&gt;      &lt;dbl&gt;</span></span>
+<span id="cb10-4"><a href="#cb10-4"></a><span class="co">## 1             0    0.770               0.0833          3</span></span>
+<span id="cb10-5"><a href="#cb10-5"></a><span class="co">## 2             1    0.210               0.0833          3</span></span>
+<span id="cb10-6"><a href="#cb10-6"></a><span class="co">## 3             2    0.0191              0.0833          3</span></span>
+<span id="cb10-7"><a href="#cb10-7"></a><span class="co">## 4             3    0.000579            0.0833          3</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="2-stamp-visualizations">2. Stamp visualizations<a class="anchor" aria-label="anchor" href="#2-stamp-visualizations"></a>
+</h3>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="reference/geom_lollipop.html">geom_lollipop</a></span><span class="op">(</span>data <span class="op">=</span> <span class="fu"><a href="reference/tidy_dbinom.html">tidy_dbinom</a></span><span class="op">(</span>single_trial_prob <span class="op">=</span> <span class="fl">.5</span>, <span class="fl">10</span><span class="op">)</span>,</span>
+<span>                <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">num_successes</span>, y <span class="op">=</span> <span class="va">probability</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p><img src="README_files/figure-gfm/unnamed-chunk-3-1.png"><!-- --></p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">stamp_dbinom</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">single_trial_prob</span> <span class="op">=</span> <span class="fl">.5</span>, <span class="va">num_trials</span> <span class="op">=</span> <span class="fl">10</span><span class="op">)</span><span class="op">{</span></span>
+<span>  </span>
+<span>  <span class="fu"><a href="reference/geom_lollipop.html">geom_lollipop</a></span><span class="op">(</span>data <span class="op">=</span> <span class="fu"><a href="reference/tidy_dbinom.html">tidy_dbinom</a></span><span class="op">(</span>single_trial_prob <span class="op">=</span> <span class="va">single_trial_prob</span>, </span>
+<span>                                   num_trials <span class="op">=</span> <span class="va">num_trials</span><span class="op">)</span>,</span>
+<span>                <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">num_successes</span>, y <span class="op">=</span> <span class="va">probability</span><span class="op">)</span><span class="op">)</span></span>
+<span>  </span>
+<span><span class="op">}</span></span>
+<span></span>
+<span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu">stamp_dbinom</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<p><img src="README_files/figure-gfm/unnamed-chunk-4-1.png"><!-- --></p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu">stamp_dbinom</span><span class="op">(</span><span class="fl">1</span><span class="op">/</span><span class="fl">6</span>, num_trials <span class="op">=</span> <span class="fl">6</span><span class="op">)</span></span></code></pre></div>
+<p><img src="README_files/figure-gfm/unnamed-chunk-4-2.png"><!-- --></p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu">stamp_dbinom</span><span class="op">(</span><span class="fl">1</span><span class="op">/</span><span class="fl">12</span>, num_trials <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></code></pre></div>
+<p><img src="README_files/figure-gfm/unnamed-chunk-4-3.png"><!-- --></p>
+</div>
 </div>
 <div class="section level2">
-<h2 id="tidying-data-from-discrete-random-variable-probability-problems">Tidying data from discrete random variable probability problems<a class="anchor" aria-label="anchor" href="#tidying-data-from-discrete-random-variable-probability-problems"></a>
+<h2 id="3-tidying-data-from-discrete-random-variable-probability-problems">3. Tidying data from discrete random variable probability problems<a class="anchor" aria-label="anchor" href="#3-tidying-data-from-discrete-random-variable-probability-problems"></a>
 </h2>
 <p>Tidying up data is important so that when the data is inputted into R or any coding language. This process of ‘tidying’ data creates a well-organized and structured format that is easier for data analysis and visualization.</p>
 <p>Probability tables are often communicated in untidy, wide forms not easily ingested by statistical software. (another example: <a href="http://www.stat.yale.edu/Courses/1997-98/101/ranvar.htm#" class="external-link uri">http://www.stat.yale.edu/Courses/1997-98/101/ranvar.htm#</a>:~:text=A%20discrete%20random%20variable%20is,then%20it%20must%20be%20discrete) For example, the table was provided for a probability problem about a spinning wheel with pie sectors with various prize award amounts:</p>
@@ -108,7 +193,7 @@
 </tr>
 </tbody></table>
 <p>The table summarized the situation:</p>
-<p><img src="README_files/figure-gfm/unnamed-chunk-2-1.png"><!-- --></p>
+<p><img src="README_files/figure-gfm/unnamed-chunk-6-1.png"><!-- --></p>
 <p>To get the data into a tidy, ready-to-use form, we transposed the table from wide to long so that a variable is a columns and the column headers inform us about the content. This way, each row forms an observation, in this case an event type. The spinning of the prize wheel has three outcomes based on which sector type the wheel landed on: no prize, win $1, and win $3. We added a numeric column ‘payout’ too which we makes the data easier to use from a mathematical standpoint. Below is our tidied data.</p>
 <table class="table">
 <thead><tr class="header">
@@ -135,15 +220,15 @@
 </tbody>
 </table>
 <p>In our package we include the data structured in this way, and call the object <code>prize_wheel</code>:</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">ma206distributions</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">prize_wheel</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb2"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co">##   sector_type frequency payout</span></span>
-<span id="cb2-2"><a href="#cb2-2"></a><span class="co">## 1    No Prize         9      0</span></span>
-<span id="cb2-3"><a href="#cb2-3"></a><span class="co">## 2      Win $1         1      1</span></span>
-<span id="cb2-4"><a href="#cb2-4"></a><span class="co">## 3      Win $3         2      3</span></span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="co">##   sector_type frequency payout</span></span>
+<span id="cb16-2"><a href="#cb16-2"></a><span class="co">## 1    No Prize         9      0</span></span>
+<span id="cb16-3"><a href="#cb16-3"></a><span class="co">## 2      Win $1         1      1</span></span>
+<span id="cb16-4"><a href="#cb16-4"></a><span class="co">## 3      Win $3         2      3</span></span></code></pre></div>
 <p>We see that we can easily visualize the joint distribution of payout and frequency using the ggplot2 tool that is used heavily in the statistics part of the class.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span></span>
 <span><span class="va">prize_wheel</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
@@ -153,23 +238,23 @@
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>weight <span class="op">=</span> <span class="va">frequency</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="reference/geom_fulcrum.html">geom_fulcrum</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"red"</span>, </span>
 <span>               shape <span class="op">=</span> <span class="fl">2</span>, size <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></code></pre></div>
-<p><img src="README_files/figure-gfm/unnamed-chunk-5-1.png"><!-- --></p>
+<p><img src="README_files/figure-gfm/unnamed-chunk-9-1.png"><!-- --></p>
 </div>
 <div class="section level1">
 <div class="page-header"><h1 id="the-tabular-data-can-also-be-used-to-walk-through-computations-like-finding-the-expected-value-of-the-prize-wheel-spin">The tabular data can also be used to walk through computations, like finding the expected value of the prize wheel spin.<a class="anchor" aria-label="anchor" href="#the-tabular-data-can-also-be-used-to-walk-through-computations-like-finding-the-expected-value-of-the-prize-wheel-spin"></a>
 </h1></div>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">prize_wheel</span><span class="op">$</span><span class="va">payout</span> <span class="op">*</span></span>
 <span>  <span class="va">prize_wheel</span><span class="op">$</span><span class="va">frequency</span><span class="op">)</span> <span class="op">/</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">prize_wheel</span><span class="op">$</span><span class="va">frequency</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb5"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co">## [1] 0.5833333</span></span></code></pre></div>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="co">## [1] 0.5833333</span></span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">ggxmean</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">ggxmean</span><span class="fu">:::</span><span class="fu"><a href="https://rdrr.io/pkg/ggxmean/man/stamp_space.html" class="external-link">stamp_space</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/ggxmean/man/stamp_normal_dist.html" class="external-link">stamp_normal_dist</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="README_files/figure-gfm/unnamed-chunk-7-1.png"><!-- --></p>
+<p><img src="README_files/figure-gfm/unnamed-chunk-11-1.png"><!-- --></p>
 </div>
 <div class="section level1">
 <h1 id="project-timeline">Project timeline<a class="anchor" aria-label="anchor" href="#project-timeline"></a>
@@ -230,14 +315,14 @@
 <div class="figure">
 <img src="https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&amp;space;%5Cbg_white&amp;space;%7B%7B_N%7DC%7B_k%7D%7D%20%2A%20p%5Ekq%5E%7BN-k%7D%20%22%7B%7B_N%7DC%7B_k%7D%7D%20*%20p%5Ekq%5E%7BN-k%7D%22" alt=""><p class="caption">{{_N}C{_k}} * p<sup>kq</sup>{N-k}</p>
 </div>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span></span>
 <span></span>
 <span></span>
 <span><span class="fu">latex2exp</span><span class="fu">::</span><span class="fu"><a href="https://www.stefanom.io/latex2exp/reference/TeX.html" class="external-link">TeX</a></span><span class="op">(</span><span class="st">"${{_N}C{_k}} \\cdot p^kq^{N-k}$"</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb8"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co">##    LaTeX: ${{_N}C{_k}} \cdot p^kq^{N-k}$ </span></span>
-<span id="cb8-2"><a href="#cb8-2"></a><span class="co">## plotmath: </span><span class="re">{{{</span><span class="co">}[N]}*C * {{}[k]}} %.% p^{k}*q^{N - k}</span></span></code></pre></div>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="co">##    LaTeX: ${{_N}C{_k}} \cdot p^kq^{N-k}$ </span></span>
+<span id="cb22-2"><a href="#cb22-2"></a><span class="co">## plotmath: </span><span class="re">{{{</span><span class="co">}[N]}*C * {{}[k]}} %.% p^{k}*q^{N - k}</span></span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">single_trial_prob</span> <span class="op">&lt;-</span> <span class="fl">.5</span></span>
 <span><span class="va">num_trials</span> <span class="op">&lt;-</span> <span class="fl">10</span></span>
 <span><span class="fl">0</span><span class="op">:</span><span class="va">num_trials</span> <span class="op">-&gt;</span></span>
@@ -270,9 +355,9 @@
 <span>    <span class="va">binomial_distribution</span></span>
 <span></span>
 <span><span class="va">binomial_distribution</span></span></code></pre></div>
-<p><img src="README_files/figure-gfm/unnamed-chunk-8-1.png"><!-- --></p>
+<p><img src="README_files/figure-gfm/unnamed-chunk-12-1.png"><!-- --></p>
 <p>Another possibility is using the <code><a href="https://ggplot2.tidyverse.org/reference/geom_function.html" class="external-link">stat_function()</a></code> function in ggplot2 to produce visualizations of a binomial distribution. Below, we show how you can visualize the binomial distribution for 20 trials and .2 is the probability of success for each trial. Using the <code><a href="https://ggplot2.tidyverse.org/reference/geom_function.html" class="external-link">stat_function()</a></code> carefully, you can get a similar outcome. However, there is a lot of coordination that’s required: <code>20</code> shows up about three times in the construction for example in xlim(); in <code>n = 21</code> (20 + 1 possible outcomes); and finally in the <code>args</code> list. Producing this plot requires a lot of foreknowledge. With our alternative strategies, (delivering data frames and stamps), we hope to give students something they can produce easily, and <em>then</em> have a conversation about why the distribution has the form it does.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/lims.html" class="external-link">xlim</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">20</span><span class="op">)</span> <span class="op">+</span></span>
@@ -283,13 +368,13 @@
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>y <span class="op">=</span> <span class="st">"Probability"</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Number of successes in 20 trials"</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Given 20 trials where the probability for success in a single\n trial is .2, what are the probabilities for each possible\nnumber of observed successes "</span><span class="op">)</span></span></code></pre></div>
-<p><img src="README_files/figure-gfm/unnamed-chunk-9-1.png"><!-- --></p>
+<p><img src="README_files/figure-gfm/unnamed-chunk-13-1.png"><!-- --></p>
 </div>
 <div class="section level2">
 <h2 id="visualizing-a-discrete-random-variable-without-ma206distributions-functions">Visualizing a Discrete Random Variable without {ma206distributions} functions<a class="anchor" aria-label="anchor" href="#visualizing-a-discrete-random-variable-without-ma206distributions-functions"></a>
 </h2>
 <p>Probability problems could be structured as data frames visualized with the same tools used in the stats part of the class.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span>event <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"totaled"</span>, <span class="st">"fender bender"</span>, <span class="st">"accident free"</span><span class="op">)</span>,</span>
 <span>       probability <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.01</span>, <span class="fl">.09</span>, <span class="fl">.9</span><span class="op">)</span>,</span>
 <span>       payout <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">20000</span>, <span class="fl">5000</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span> <span class="op">-&gt;</span></span>
@@ -324,25 +409,25 @@
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotate.html" class="external-link">annotate</a></span><span class="op">(</span>geom <span class="op">=</span> <span class="st">"text"</span>, label <span class="op">=</span> <span class="va">plotmath_sd</span>, parse <span class="op">=</span> <span class="cn">T</span>,</span>
 <span>           x <span class="op">=</span> <span class="fl">12000</span>, y <span class="op">=</span> <span class="fl">.65</span><span class="op">)</span> <span class="op">-&gt;</span></span>
 <span><span class="va">discrete_random</span></span></code></pre></div>
-<div class="sourceCode" id="cb12"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="co">## Warning in geom_fulcrum(aes(weight = probability)): Ignoring unknown</span></span>
-<span id="cb12-2"><a href="#cb12-2"></a><span class="co">## aesthetics: weight</span></span></code></pre></div>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb26"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="co">## Warning in geom_fulcrum(aes(weight = probability)): Ignoring unknown</span></span>
+<span id="cb26-2"><a href="#cb26-2"></a><span class="co">## aesthetics: weight</span></span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">discrete_random</span></span></code></pre></div>
-<div class="sourceCode" id="cb14"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="co">## Warning: The following aesthetics were dropped during statistical transformation: weight</span></span>
-<span id="cb14-2"><a href="#cb14-2"></a><span class="co">## ℹ This can happen when ggplot fails to infer the correct grouping structure in</span></span>
-<span id="cb14-3"><a href="#cb14-3"></a><span class="co">##   the data.</span></span>
-<span id="cb14-4"><a href="#cb14-4"></a><span class="co">## ℹ Did you forget to specify a `group` aesthetic or to convert a numerical</span></span>
-<span id="cb14-5"><a href="#cb14-5"></a><span class="co">##   variable into a factor?</span></span>
-<span id="cb14-6"><a href="#cb14-6"></a></span>
-<span id="cb14-7"><a href="#cb14-7"></a><span class="co">## Warning in is.na(x): is.na() applied to non-(list or vector) of type</span></span>
-<span id="cb14-8"><a href="#cb14-8"></a><span class="co">## 'expression'</span></span>
-<span id="cb14-9"><a href="#cb14-9"></a></span>
-<span id="cb14-10"><a href="#cb14-10"></a><span class="co">## Warning in is.na(x): is.na() applied to non-(list or vector) of type</span></span>
-<span id="cb14-11"><a href="#cb14-11"></a><span class="co">## 'expression'</span></span>
-<span id="cb14-12"><a href="#cb14-12"></a></span>
-<span id="cb14-13"><a href="#cb14-13"></a><span class="co">## Warning in is.na(x): is.na() applied to non-(list or vector) of type</span></span>
-<span id="cb14-14"><a href="#cb14-14"></a><span class="co">## 'expression'</span></span></code></pre></div>
-<p><img src="README_files/figure-gfm/unnamed-chunk-10-1.png"><!-- --></p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a><span class="co">## Warning: The following aesthetics were dropped during statistical transformation: weight</span></span>
+<span id="cb28-2"><a href="#cb28-2"></a><span class="co">## ℹ This can happen when ggplot fails to infer the correct grouping structure in</span></span>
+<span id="cb28-3"><a href="#cb28-3"></a><span class="co">##   the data.</span></span>
+<span id="cb28-4"><a href="#cb28-4"></a><span class="co">## ℹ Did you forget to specify a `group` aesthetic or to convert a numerical</span></span>
+<span id="cb28-5"><a href="#cb28-5"></a><span class="co">##   variable into a factor?</span></span>
+<span id="cb28-6"><a href="#cb28-6"></a></span>
+<span id="cb28-7"><a href="#cb28-7"></a><span class="co">## Warning in is.na(x): is.na() applied to non-(list or vector) of type</span></span>
+<span id="cb28-8"><a href="#cb28-8"></a><span class="co">## 'expression'</span></span>
+<span id="cb28-9"><a href="#cb28-9"></a></span>
+<span id="cb28-10"><a href="#cb28-10"></a><span class="co">## Warning in is.na(x): is.na() applied to non-(list or vector) of type</span></span>
+<span id="cb28-11"><a href="#cb28-11"></a><span class="co">## 'expression'</span></span>
+<span id="cb28-12"><a href="#cb28-12"></a></span>
+<span id="cb28-13"><a href="#cb28-13"></a><span class="co">## Warning in is.na(x): is.na() applied to non-(list or vector) of type</span></span>
+<span id="cb28-14"><a href="#cb28-14"></a><span class="co">## 'expression'</span></span></code></pre></div>
+<p><img src="README_files/figure-gfm/unnamed-chunk-14-1.png"><!-- --></p>
 <p>See also:</p>
 <ul>
 <li><a href="https://evamaerey.github.io/mytidytuesday/2022-08-01-dbinom-dgeom/dbinom_dgeom.html" class="external-link uri">https://evamaerey.github.io/mytidytuesday/2022-08-01-dbinom-dgeom/dbinom_dgeom.html</a></li>
