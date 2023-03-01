@@ -7,7 +7,9 @@ compute_group_fulcrum <- function(data, scales){
     out$x <- sum(data$x*data$weight)/sum(data$weight)
 
   }else{
+
   out$x <- mean(data$x)
+
   }
 
   out
@@ -18,7 +20,8 @@ compute_group_fulcrum <- function(data, scales){
 
 statFulcrum <- ggplot2::ggproto(`_class` = "statFulcrum",
                     `_inherit` = ggplot2::Stat,
-                    required_aes = c("x", "y"),
+                    required_aes = c("x"),
+                    dropped_aes = c("weight"),
                     compute_group = compute_group_fulcrum)
 
 
@@ -35,6 +38,14 @@ statFulcrum <- ggplot2::ggproto(`_class` = "statFulcrum",
 #' aes(x = payout, y = frequency, weight = frequency) +
 #' geom_lollipop() +
 #' geom_fulcrum(color = "red", shape = 2, size = 5)
+#'
+#' library(ggplot2)
+#' ggplot(data = cars) +
+#' aes(x = speed, y = dist) +
+#' geom_point() +
+#' geom_rug() +
+#' geom_fulcrum(color = "red", shape = 2, size = 5)
+#'
 geom_fulcrum <- function(
   mapping = NULL,
   data = NULL,

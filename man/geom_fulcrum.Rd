@@ -26,4 +26,12 @@ ggplot(data = prize_wheel) +
 aes(x = payout, y = frequency, weight = frequency) +
 geom_lollipop() +
 geom_fulcrum(color = "red", shape = 2, size = 5)
+
+library(ggplot2)
+ggplot(data = cars) +
+aes(x = speed, y = dist) +
+geom_point() +
+geom_rug() +
+geom_fulcrum(color = "red", shape = 2, size = 5)
+
 }

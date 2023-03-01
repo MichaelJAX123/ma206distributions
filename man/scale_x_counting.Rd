@@ -7,7 +7,12 @@
 scale_x_counting(breaks = 0:10000, ...)
 }
 \arguments{
+\item{breaks}{numeric vector where breaks should be placed}
+
 \item{...}{}
+}
+\value{
+ggplot2 scale function
 }
 \description{
 Show x axis guides with ticks at integers
