@@ -12,3 +12,12 @@ scale_x_counting(breaks = 0:10000, ...)
 \description{
 Title
 }
+\examples{
+library(ggplot2)
+ggplot(tidy_dbinom(1/6, num_trials = 8)) +
+  aes(x = num_successes) +
+  scale_x_counting() +
+  aes(y = probability) +
+  geom_lollipop()
+
+}
