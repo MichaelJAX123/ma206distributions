@@ -33,7 +33,7 @@ statFulcrum <- ggplot2::ggproto(`_class` = "statFulcrum",
 #' library(ggplot2)
 #' ggplot(data = prize_wheel) +
 #' aes(x = payout, y = frequency, weight = frequency) +
-#' geom_point() +
+#' geom_lollipop() +
 #' geom_fulcrum(color = "red", shape = 2, size = 5)
 geom_fulcrum <- function(
   mapping = NULL,

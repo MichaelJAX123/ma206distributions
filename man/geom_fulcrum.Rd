@@ -24,6 +24,6 @@ geom_fulcrum() sits on the x axis at the balancing point of the data.
 library(ggplot2)
 ggplot(data = prize_wheel) +
 aes(x = payout, y = frequency, weight = frequency) +
-geom_point() +
+geom_lollipop() +
 geom_fulcrum(color = "red", shape = 2, size = 5)
 }

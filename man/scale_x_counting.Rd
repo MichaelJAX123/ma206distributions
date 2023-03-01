@@ -2,7 +2,7 @@
 % Please edit documentation in R/scale_x_counting.R
 \name{scale_x_counting}
 \alias{scale_x_counting}
-\title{Title}
+\title{scale_x_counting}
 \usage{
 scale_x_counting(breaks = 0:10000, ...)
 }
@@ -10,7 +10,7 @@ scale_x_counting(breaks = 0:10000, ...)
 \item{...}{}
 }
 \description{
-Title
+Show x axis guides with ticks at integers
 }
 \examples{
 library(ggplot2)

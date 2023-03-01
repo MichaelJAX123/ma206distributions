@@ -1,4 +1,6 @@
-#' Title
+#' scale_x_counting
+#'
+#' @description Show x axis guides with ticks at integers
 #'
 #' @param breaks
 #' @param ...
