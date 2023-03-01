@@ -2,10 +2,10 @@
 #'
 #' @description Show x axis guides with ticks at integers
 #'
-#' @param breaks
+#' @param breaks numeric vector where breaks should be placed
 #' @param ...
 #'
-#' @return
+#' @return ggplot2 scale function
 #' @export
 #'
 #' @examples
