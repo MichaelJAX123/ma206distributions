@@ -325,3 +325,9 @@ See also:
 - create a github account for collaboration https://github.com/
 - we'll make the repository available in this account
 
+
+```{r eval = F}
+fs::dir_ls("README_files/figure-gfm/.")
+file.copy(fs::dir_ls("README_files/figure-gfm/."), to = "docs/reference/figures/.", recursive = T)
+
+```
