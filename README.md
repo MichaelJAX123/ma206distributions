@@ -43,9 +43,10 @@ course guide:
     like?)
 3.  Provide additional **dataframes** for ma206 that are probabilities
     from curriculum (probability problems in text book).  
-4.  Interactive app which 1) demonstrates distribution characteristics,
-    allowing easy manipulation of parameters 2) connects to new package
-    functionality by quoting back code underlying the app.
+4.  Provide interactive app which 1) demonstrates distribution
+    characteristics, allowing easy manipulation of parameters 2)
+    connects to new package functionality by quoting back code
+    underlying the app.
 
 ### 1\. provide data frames that relate outcomes and probabilities
 
@@ -394,15 +395,9 @@ discrete_random
 discrete_random
 ```
 
-    ## Warning: The following aesthetics were dropped during statistical transformation: weight
-    ## ℹ This can happen when ggplot fails to infer the correct grouping structure in
-    ##   the data.
-    ## ℹ Did you forget to specify a `group` aesthetic or to convert a numerical
-    ##   variable into a factor?
-
     ## Warning in is.na(x): is.na() applied to non-(list or vector) of type
     ## 'expression'
-    
+
     ## Warning in is.na(x): is.na() applied to non-(list or vector) of type
     ## 'expression'
     
@@ -431,3 +426,10 @@ See also:
 
   - create a github account for collaboration <https://github.com/>
   - we’ll make the repository available in this account
+
+<!-- end list -->
+
+``` r
+fs::dir_ls("README_files/figure-gfm/.")
+file.copy(fs::dir_ls("README_files/figure-gfm/."), to = "docs/reference/figures/.", recursive = T)
+```
