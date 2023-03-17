@@ -10,27 +10,23 @@
 
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
-
-<!-- bootstrap-toc -->
-<link rel="stylesheet" href="../bootstrap-toc.css">
-<script src="../bootstrap-toc.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -41,6 +37,7 @@
 
 <meta property="og:title" content="Tidy_dbinom returns a data table that pairs number of successes with probabilities given the probability of a single trial and the total number of trials. — tidy_dbinom" />
 <meta property="og:description" content="Tidy_dbinom returns a data table that pairs number of successes with probabilities given the probability of a single trial and the total number of trials." />
+<meta name="twitter:card" content="summary" />
 
 
 
@@ -58,7 +55,7 @@
 
   </head>
 
-  <body data-spy="scroll" data-target="#toc">
+  <body>
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -112,7 +109,7 @@
     <p>Tidy_dbinom returns a data table that pairs number of successes with probabilities given the probability of a single trial and the total number of trials.</p>
     </div>
 
-    <pre class="usage"><span><span class='fu'>tidy_dbinom</span><span class='op'>(</span>single_trial_prob <span class='op'>=</span> <span class='fl'>0.5</span>, num_trials <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span></span></pre>
+    <pre class="usage"><span class='fu'>tidy_dbinom</span>(<span class='kw'>single_trial_prob</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>num_trials</span> <span class='kw'>=</span> <span class='fl'>10</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -132,68 +129,62 @@
     <p>A data frame pairing number of successes with probabilities.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='r-in'><span><span class='fu'>tidy_dbinom</span><span class='op'>(</span>single_trial_prob <span class='op'>=</span> <span class='fl'>1</span><span class='op'>/</span><span class='fl'>6</span>, num_trials <span class='op'>=</span> <span class='fl'>4</span><span class='op'>)</span></span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 5 × 4</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   num_successes probability single_trial_prob num_trials</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>           <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>       <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>             <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>1</span>             0    0.482                0.167          4</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>2</span>             1    0.386                0.167          4</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>3</span>             2    0.116                0.167          4</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>4</span>             3    0.015<span style='text-decoration: underline;'>4</span>               0.167          4</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>5</span>             4    0.000<span style='text-decoration: underline;'>772</span>             0.167          4</span>
-<span class='r-in'><span><span class='fu'>tidy_dbinom</span><span class='op'>(</span><span class='fl'>.5</span>, <span class='fl'>10</span><span class='op'>)</span></span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 11 × 4</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>    num_successes probability single_trial_prob num_trials</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>            <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>       <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>             <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 1</span>             0    0.000<span style='text-decoration: underline;'>977</span>               0.5         10</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 2</span>             1    0.009<span style='text-decoration: underline;'>77</span>                0.5         10</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 3</span>             2    0.043<span style='text-decoration: underline;'>9</span>                 0.5         10</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 4</span>             3    0.117                  0.5         10</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 5</span>             4    0.205                  0.5         10</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 6</span>             5    0.246                  0.5         10</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 7</span>             6    0.205                  0.5         10</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 8</span>             7    0.117                  0.5         10</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 9</span>             8    0.043<span style='text-decoration: underline;'>9</span>                 0.5         10</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>10</span>             9    0.009<span style='text-decoration: underline;'>77</span>                0.5         10</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>11</span>            10    0.000<span style='text-decoration: underline;'>977</span>               0.5         10</span>
-<span class='r-in'><span><span class='fu'>tidy_dbinom</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>/</span><span class='fl'>12</span>, <span class='fl'>3</span><span class='op'>)</span></span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 4 × 4</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   num_successes probability single_trial_prob num_trials</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>           <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>       <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>             <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>1</span>             0    0.770               0.083<span style='text-decoration: underline;'>3</span>          3</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>2</span>             1    0.210               0.083<span style='text-decoration: underline;'>3</span>          3</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>3</span>             2    0.019<span style='text-decoration: underline;'>1</span>              0.083<span style='text-decoration: underline;'>3</span>          3</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>4</span>             3    0.000<span style='text-decoration: underline;'>579</span>            0.083<span style='text-decoration: underline;'>3</span>          3</span>
-<span class='r-in'><span><span class='fu'>tidy_dbinom</span><span class='op'>(</span><span class='fl'>.5</span>, <span class='fl'>20</span><span class='op'>)</span></span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 21 × 4</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>    num_successes probability single_trial_prob num_trials</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>            <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>       <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>             <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 1</span>             0 0.000<span style='text-decoration: underline;'>000</span>954               0.5         20</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 2</span>             1 0.000<span style='text-decoration: underline;'>019</span>1                 0.5         20</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 3</span>             2 0.000<span style='text-decoration: underline;'>181</span>                  0.5         20</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 4</span>             3 0.001<span style='text-decoration: underline;'>09</span>                   0.5         20</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 5</span>             4 0.004<span style='text-decoration: underline;'>62</span>                   0.5         20</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 6</span>             5 0.014<span style='text-decoration: underline;'>8</span>                    0.5         20</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 7</span>             6 0.037<span style='text-decoration: underline;'>0</span>                    0.5         20</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 8</span>             7 0.073<span style='text-decoration: underline;'>9</span>                    0.5         20</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 9</span>             8 0.120                     0.5         20</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>10</span>             9 0.160                     0.5         20</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># … with 11 more rows</span></span>
-<span class='r-in'><span></span></span>
-<span class='r-in'><span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://ggplot2.tidyverse.org'>ggplot2</a></span><span class='op'>)</span></span></span>
-<span class='r-in'><span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'>tidy_dbinom</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>/</span><span class='fl'>6</span>, num_trials <span class='op'>=</span> <span class='fl'>8</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span></span>
-<span class='r-in'><span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>num_successes</span><span class='op'>)</span> <span class='op'>+</span></span></span>
-<span class='r-in'><span>  <span class='fu'><a href='scale_x_counting.html'>scale_x_counting</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span></span></span>
-<span class='r-in'><span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>y <span class='op'>=</span> <span class='va'>probability</span><span class='op'>)</span> <span class='op'>+</span></span></span>
-<span class='r-in'><span>  <span class='fu'><a href='geom_lollipop.html'>geom_lollipop</a></span><span class='op'>(</span><span class='op'>)</span></span></span>
-<span class='r-plt img'><img src='tidy_dbinom-1.png' alt='' width='700' height='433' /></span>
-<span class='r-in'><span></span></span>
-</pre>
+    <pre class="examples"><div class='input'><span class='fu'>tidy_dbinom</span>(<span class='kw'>single_trial_prob</span> <span class='kw'>=</span> <span class='fl'>1</span>/<span class='fl'>6</span>, <span class='kw'>num_trials</span> <span class='kw'>=</span> <span class='fl'>4</span>)</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 5 × 4</span>
+#&gt;   num_successes probability single_trial_prob num_trials
+#&gt;           <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>       <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>             <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
+#&gt; <span style='color: #BCBCBC;'>1</span>             0    0.482                0.167          4
+#&gt; <span style='color: #BCBCBC;'>2</span>             1    0.386                0.167          4
+#&gt; <span style='color: #BCBCBC;'>3</span>             2    0.116                0.167          4
+#&gt; <span style='color: #BCBCBC;'>4</span>             3    0.015<span style='text-decoration: underline;'>4</span>               0.167          4
+#&gt; <span style='color: #BCBCBC;'>5</span>             4    0.000<span style='text-decoration: underline;'>772</span>             0.167          4</div><div class='input'><span class='fu'>tidy_dbinom</span>(<span class='fl'>.5</span>, <span class='fl'>10</span>)</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 11 × 4</span>
+#&gt;    num_successes probability single_trial_prob num_trials
+#&gt;            <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>       <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>             <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
+#&gt; <span style='color: #BCBCBC;'> 1</span>             0    0.000<span style='text-decoration: underline;'>977</span>               0.5         10
+#&gt; <span style='color: #BCBCBC;'> 2</span>             1    0.009<span style='text-decoration: underline;'>77</span>                0.5         10
+#&gt; <span style='color: #BCBCBC;'> 3</span>             2    0.043<span style='text-decoration: underline;'>9</span>                 0.5         10
+#&gt; <span style='color: #BCBCBC;'> 4</span>             3    0.117                  0.5         10
+#&gt; <span style='color: #BCBCBC;'> 5</span>             4    0.205                  0.5         10
+#&gt; <span style='color: #BCBCBC;'> 6</span>             5    0.246                  0.5         10
+#&gt; <span style='color: #BCBCBC;'> 7</span>             6    0.205                  0.5         10
+#&gt; <span style='color: #BCBCBC;'> 8</span>             7    0.117                  0.5         10
+#&gt; <span style='color: #BCBCBC;'> 9</span>             8    0.043<span style='text-decoration: underline;'>9</span>                 0.5         10
+#&gt; <span style='color: #BCBCBC;'>10</span>             9    0.009<span style='text-decoration: underline;'>77</span>                0.5         10
+#&gt; <span style='color: #BCBCBC;'>11</span>            10    0.000<span style='text-decoration: underline;'>977</span>               0.5         10</div><div class='input'><span class='fu'>tidy_dbinom</span>(<span class='fl'>1</span>/<span class='fl'>12</span>, <span class='fl'>3</span>)</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 4 × 4</span>
+#&gt;   num_successes probability single_trial_prob num_trials
+#&gt;           <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>       <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>             <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
+#&gt; <span style='color: #BCBCBC;'>1</span>             0    0.770               0.083<span style='text-decoration: underline;'>3</span>          3
+#&gt; <span style='color: #BCBCBC;'>2</span>             1    0.210               0.083<span style='text-decoration: underline;'>3</span>          3
+#&gt; <span style='color: #BCBCBC;'>3</span>             2    0.019<span style='text-decoration: underline;'>1</span>              0.083<span style='text-decoration: underline;'>3</span>          3
+#&gt; <span style='color: #BCBCBC;'>4</span>             3    0.000<span style='text-decoration: underline;'>579</span>            0.083<span style='text-decoration: underline;'>3</span>          3</div><div class='input'><span class='fu'>tidy_dbinom</span>(<span class='fl'>.5</span>, <span class='fl'>20</span>)</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 21 × 4</span>
+#&gt;    num_successes probability single_trial_prob num_trials
+#&gt;            <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>       <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>             <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
+#&gt; <span style='color: #BCBCBC;'> 1</span>             0 0.000<span style='text-decoration: underline;'>000</span>954               0.5         20
+#&gt; <span style='color: #BCBCBC;'> 2</span>             1 0.000<span style='text-decoration: underline;'>019</span>1                 0.5         20
+#&gt; <span style='color: #BCBCBC;'> 3</span>             2 0.000<span style='text-decoration: underline;'>181</span>                  0.5         20
+#&gt; <span style='color: #BCBCBC;'> 4</span>             3 0.001<span style='text-decoration: underline;'>09</span>                   0.5         20
+#&gt; <span style='color: #BCBCBC;'> 5</span>             4 0.004<span style='text-decoration: underline;'>62</span>                   0.5         20
+#&gt; <span style='color: #BCBCBC;'> 6</span>             5 0.014<span style='text-decoration: underline;'>8</span>                    0.5         20
+#&gt; <span style='color: #BCBCBC;'> 7</span>             6 0.037<span style='text-decoration: underline;'>0</span>                    0.5         20
+#&gt; <span style='color: #BCBCBC;'> 8</span>             7 0.073<span style='text-decoration: underline;'>9</span>                    0.5         20
+#&gt; <span style='color: #BCBCBC;'> 9</span>             8 0.120                     0.5         20
+#&gt; <span style='color: #BCBCBC;'>10</span>             9 0.160                     0.5         20
+#&gt; <span style='color: #949494;'># … with 11 more rows</span></div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>ggplot2</span>)
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='fu'>tidy_dbinom</span>(<span class='fl'>1</span>/<span class='fl'>6</span>, <span class='kw'>num_trials</span> <span class='kw'>=</span> <span class='fl'>8</span>)) +
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>num_successes</span>) +
+  <span class='fu'><a href='scale_x_counting.html'>scale_x_counting</a></span>() +
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>probability</span>) +
+  <span class='fu'><a href='geom_lollipop.html'>geom_lollipop</a></span>()</div><div class='img'><img src='tidy_dbinom-1.png' alt='' width='700' height='433' /></div><div class='input'>
+</div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
-    <nav id="toc" data-toggle="toc" class="sticky-top">
-      <h2 data-toc-skip>Contents</h2>
-    </nav>
+  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+    <h2>Contents</h2>
+    <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
+      <li><a href="#value">Value</a></li>
+      <li><a href="#examples">Examples</a></li>
+    </ul>
+
   </div>
 </div>
 
@@ -204,7 +195,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
 
       </footer>
