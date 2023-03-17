@@ -422,14 +422,7 @@ See also:
   - As well as consult the package building guide:
     <https://evamaerey.github.io/package_in_20_minutes/package_in_20_minutes>
 
-### How do we collaborate and share the package? Version Control.
+### How do we collaborate and share the package? Version Control…
 
   - create a github account for collaboration <https://github.com/>
   - we’ll make the repository available in this account
-
-<!-- end list -->
-
-``` r
-fs::dir_ls("README_files/figure-gfm/.")
-file.copy(fs::dir_ls("README_files/figure-gfm/."), to = "docs/reference/figures/.", recursive = T)
-```

@@ -153,7 +153,7 @@
 <span id="cb11-2"><a href="#cb11-2"></a><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>() <span class="op">+</span><span class="st"> </span></span>
 <span id="cb11-3"><a href="#cb11-3"></a><span class="st">  </span><span class="kw"><a href="reference/geom_lollipop.html">geom_lollipop</a></span>(<span class="dt">data =</span> <span class="kw"><a href="reference/tidy_dbinom.html">tidy_dbinom</a></span>(<span class="dt">single_trial_prob =</span> <span class="fl">.5</span>, <span class="dv">10</span>),</span>
 <span id="cb11-4"><a href="#cb11-4"></a>                <span class="kw"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(<span class="dt">x =</span> num_successes, <span class="dt">y =</span> probability))</span></code></pre></div>
-<p><img src="README_files/figure-gfm/unnamed-chunk-3-1.png"><!-- --></p>
+<p><img src="reference/figures/unnamed-chunk-3-1.png"><!-- --></p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>stamp_dbinom &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">single_trial_prob =</span> <span class="fl">.5</span>, <span class="dt">num_trials =</span> <span class="dv">10</span>){</span>
 <span id="cb12-2"><a href="#cb12-2"></a>  </span>
 <span id="cb12-3"><a href="#cb12-3"></a>  <span class="kw"><a href="reference/geom_lollipop.html">geom_lollipop</a></span>(<span class="dt">data =</span> <span class="kw"><a href="reference/tidy_dbinom.html">tidy_dbinom</a></span>(<span class="dt">single_trial_prob =</span> single_trial_prob, </span>
@@ -165,13 +165,13 @@
 <span id="cb12-9"><a href="#cb12-9"></a></span>
 <span id="cb12-10"><a href="#cb12-10"></a><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>() <span class="op">+</span><span class="st"> </span></span>
 <span id="cb12-11"><a href="#cb12-11"></a><span class="st">  </span><span class="kw">stamp_dbinom</span>()</span></code></pre></div>
-<p><img src="README_files/figure-gfm/unnamed-chunk-4-1.png"><!-- --></p>
+<p><img src="reference/figures/unnamed-chunk-4-1.png"><!-- --></p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>() <span class="op">+</span><span class="st"> </span></span>
 <span id="cb13-2"><a href="#cb13-2"></a><span class="st">  </span><span class="kw">stamp_dbinom</span>(<span class="dv">1</span><span class="op">/</span><span class="dv">6</span>, <span class="dt">num_trials =</span> <span class="dv">6</span>)</span></code></pre></div>
-<p><img src="README_files/figure-gfm/unnamed-chunk-4-2.png"><!-- --></p>
+<p><img src="reference/figures/unnamed-chunk-4-2.png"><!-- --></p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>() <span class="op">+</span><span class="st"> </span></span>
 <span id="cb14-2"><a href="#cb14-2"></a><span class="st">  </span><span class="kw">stamp_dbinom</span>(<span class="dv">1</span><span class="op">/</span><span class="dv">12</span>, <span class="dt">num_trials =</span> <span class="dv">3</span>)</span></code></pre></div>
-<p><img src="README_files/figure-gfm/unnamed-chunk-4-3.png"><!-- --></p>
+<p><img src="reference/figures/unnamed-chunk-4-3.png"><!-- --></p>
 </div>
 </div>
 <div id="3-tidying-data-from-discrete-random-variable-probability-problems" class="section level2">
@@ -194,7 +194,7 @@
 </tr>
 </tbody></table>
 <p>The table summarized the situation:</p>
-<p><img src="README_files/figure-gfm/unnamed-chunk-6-1.png"><!-- --></p>
+<p><img src="reference/figures/unnamed-chunk-6-1.png"><!-- --></p>
 <p>To get the data into a tidy, ready-to-use form, we transposed the table from wide to long so that a variable is a columns and the column headers inform us about the content. This way, each row forms an observation, in this case an event type. The spinning of the prize wheel has three outcomes based on which sector type the wheel landed on: no prize, win $1, and win $3. We added a numeric column ‘payout’ too which we makes the data easier to use from a mathematical standpoint. Below is our tidied data.</p>
 <table class="table">
 <thead><tr class="header">
@@ -237,7 +237,7 @@
 <span id="cb17-7"><a href="#cb17-7"></a><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(<span class="dt">weight =</span> frequency) <span class="op">+</span></span>
 <span id="cb17-8"><a href="#cb17-8"></a><span class="st">  </span><span class="kw"><a href="reference/geom_fulcrum.html">geom_fulcrum</a></span>(<span class="dt">color =</span> <span class="st">"red"</span>, </span>
 <span id="cb17-9"><a href="#cb17-9"></a>               <span class="dt">shape =</span> <span class="dv">2</span>, <span class="dt">size =</span> <span class="dv">5</span>)</span></code></pre></div>
-<p><img src="README_files/figure-gfm/unnamed-chunk-9-1.png"><!-- --></p>
+<p><img src="reference/figures/unnamed-chunk-9-1.png"><!-- --></p>
 </div>
 <div id="the-tabular-data-can-also-be-used-to-walk-through-computations-like-finding-the-expected-value-of-the-prize-wheel-spin" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
@@ -251,7 +251,7 @@
 <span id="cb20-3"><a href="#cb20-3"></a></span>
 <span id="cb20-4"><a href="#cb20-4"></a>ggxmean<span class="op">:::</span><span class="kw"><a href="https://rdrr.io/pkg/ggxmean/man/stamp_space.html">stamp_space</a></span>() <span class="op">+</span><span class="st"> </span></span>
 <span id="cb20-5"><a href="#cb20-5"></a><span class="st">  </span><span class="kw"><a href="https://rdrr.io/pkg/ggxmean/man/stamp_normal_dist.html">stamp_normal_dist</a></span>()</span></code></pre></div>
-<p><img src="README_files/figure-gfm/unnamed-chunk-11-1.png"><!-- --></p>
+<p><img src="reference/figures/unnamed-chunk-11-1.png"><!-- --></p>
 </div>
 <div id="project-timeline" class="section level1">
 <h1 class="hasAnchor">
@@ -348,7 +348,7 @@
 <span id="cb23-30"><a href="#cb23-30"></a><span class="st">    </span>binomial_distribution</span>
 <span id="cb23-31"><a href="#cb23-31"></a></span>
 <span id="cb23-32"><a href="#cb23-32"></a>binomial_distribution</span></code></pre></div>
-<p><img src="README_files/figure-gfm/unnamed-chunk-12-1.png"><!-- --></p>
+<p><img src="reference/figures/unnamed-chunk-12-1.png"><!-- --></p>
 <p>Another possibility is using the <code><a href="https://ggplot2.tidyverse.org/reference/geom_function.html">stat_function()</a></code> function in ggplot2 to produce visualizations of a binomial distribution. Below, we show how you can visualize the binomial distribution for 20 trials and .2 is the probability of success for each trial. Using the <code><a href="https://ggplot2.tidyverse.org/reference/geom_function.html">stat_function()</a></code> carefully, you can get a similar outcome. However, there is a lot of coordination that’s required: <code>20</code> shows up about three times in the construction for example in xlim(); in <code>n = 21</code> (20 + 1 possible outcomes); and finally in the <code>args</code> list. Producing this plot requires a lot of foreknowledge. With our alternative strategies, (delivering data frames and stamps), we hope to give students something they can produce easily, and <em>then</em> have a conversation about why the distribution has the form it does.</p>
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(ggplot2)</span>
 <span id="cb24-2"><a href="#cb24-2"></a><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>() <span class="op">+</span><span class="st"> </span></span>
@@ -360,7 +360,7 @@
 <span id="cb24-8"><a href="#cb24-8"></a><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span>(<span class="dt">y =</span> <span class="st">"Probability"</span>) <span class="op">+</span><span class="st"> </span></span>
 <span id="cb24-9"><a href="#cb24-9"></a><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span>(<span class="dt">x =</span> <span class="st">"Number of successes in 20 trials"</span>) <span class="op">+</span><span class="st"> </span></span>
 <span id="cb24-10"><a href="#cb24-10"></a><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span>(<span class="dt">title =</span> <span class="st">"Given 20 trials where the probability for success in a single</span><span class="ch">\n</span><span class="st"> trial is .2, what are the probabilities for each possible</span><span class="ch">\n</span><span class="st">number of observed successes "</span>)</span></code></pre></div>
-<p><img src="README_files/figure-gfm/unnamed-chunk-13-1.png"><!-- --></p>
+<p><img src="reference/figures/unnamed-chunk-13-1.png"><!-- --></p>
 </div>
 <div id="visualizing-a-discrete-random-variable-without-ma206distributions-functions" class="section level2">
 <h2 class="hasAnchor">
@@ -411,7 +411,7 @@
 <span id="cb28-6"><a href="#cb28-6"></a></span>
 <span id="cb28-7"><a href="#cb28-7"></a><span class="co">## Warning in is.na(x): is.na() applied to non-(list or vector) of type</span></span>
 <span id="cb28-8"><a href="#cb28-8"></a><span class="co">## 'expression'</span></span></code></pre></div>
-<p><img src="README_files/figure-gfm/unnamed-chunk-14-1.png"><!-- --></p>
+<p><img src="reference/figures/unnamed-chunk-14-1.png"><!-- --></p>
 <p>See also:</p>
 <ul>
 <li><a href="https://evamaerey.github.io/mytidytuesday/2022-08-01-dbinom-dgeom/dbinom_dgeom.html" class="uri">https://evamaerey.github.io/mytidytuesday/2022-08-01-dbinom-dgeom/dbinom_dgeom.html</a></li>
@@ -444,8 +444,8 @@
 </li>
 <li>we’ll make the repository available in this account</li>
 </ul>
-<!-- end list --><div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a>fs<span class="op">::</span><span class="kw"><a href="https://fs.r-lib.org/reference/dir_ls.html">dir_ls</a></span>(<span class="st">"README_files/figure-gfm/."</span>)</span>
-<span id="cb29-2"><a href="#cb29-2"></a><span class="kw"><a href="https://rdrr.io/r/base/files.html">file.copy</a></span>(fs<span class="op">::</span><span class="kw"><a href="https://fs.r-lib.org/reference/dir_ls.html">dir_ls</a></span>(<span class="st">"README_files/figure-gfm/."</span>), <span class="dt">to =</span> <span class="st">"docs/reference/figures/."</span>, <span class="dt">recursive =</span> T)</span></code></pre></div>
+<!-- end list --><div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a>fs<span class="op">::</span><span class="kw"><a href="https://fs.r-lib.org/reference/dir_ls.html">dir_ls</a></span>(<span class="st">"reference/figures/."</span>)</span>
+<span id="cb29-2"><a href="#cb29-2"></a><span class="kw"><a href="https://rdrr.io/r/base/files.html">file.copy</a></span>(fs<span class="op">::</span><span class="kw"><a href="https://fs.r-lib.org/reference/dir_ls.html">dir_ls</a></span>(<span class="st">"reference/figures/."</span>), <span class="dt">to =</span> <span class="st">"docs/reference/figures/."</span>, <span class="dt">recursive =</span> T)</span></code></pre></div>
 </div>
 </div>
 
