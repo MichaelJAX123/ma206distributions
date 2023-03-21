@@ -1,13 +1,9 @@
-#
 # This is a Shiny web application. You can run the application by clicking
 # the 'Run App' button above.
 #
 # Find out more about building applications with Shiny here:
 #
-#    http://shiny.rstudio.com/
-#
-
-#'
+# http://shiny.rstudio.com/
 
 library(shiny)
 library(tidyverse)
@@ -20,18 +16,24 @@ ui <- fluidPage(
 
     titlePanel("Integrates under the normal from -infinity to Z" ),
 
-
-
     # Sidebar with a slider input for number of bins
     sidebarLayout(
         sidebarPanel(
-            sliderInput("z",step = .02,
-                        "Z:",
-                        min = -5,
-                        max = 5,
-                        value = 0)
+            sliderInput("z",
+                        step = .02,
+                        "Probability for single trial success:",
+                        min = 0,
+                        max = 1,
+                        value = .25),
 
-        ),
+        # Sidebar with a slider input for number of bins
+                sliderInput("n",
+                            step = 1,
+                            "N:",
+                            min = 1,
+                            max = 100,
+                            value = 10)
+            ),
 
         # Show a plot of the generated distribution
         mainPanel(
@@ -41,25 +43,17 @@ ui <- fluidPage(
     ),
 
     # titlePanel(x_mod)
-
-
 )
 
 
 
 
-"library(ggplot2)
-library(ggxmean)
-ggxmean:::stamp_space() +
-        stamp_normal_dist(alpha = .1) + #
-        stamp_normal_dist(sd_max = input$z,
-                                   alpha = .8,
-                                   fill = 'plum4') +
-geom_vline(xintercept = input$z, color = 'plum4') +
-ggstamp::stamp_label(x = input$z, y = .1, label = paste0('Z = ', input$z)) +
-ggstamp::stamp_label(x = 3, y = .32, size = 7,
-label = paste0('pnorm(z) = ',
-pnorm(input$z) %>% round(3)))" ->
+'library(ggplot2)
+library(ma206distributions)
+ggplot() +
+  stamp_dbinom(single_trial_prob = input$z, num_trials = input$n) +    # from ma206distributions
+  scale_x_counting() +                                        # from ma206distributions
+  labs(title = "Probability of rolling 0,1,2,...10 sixes when rolling a fair die 10 times")' ->
     for_shiny
 
 
@@ -82,7 +76,8 @@ server <- function(input, output) {
     output$distText <- renderText({
 
         for_shiny %>%
-            str_replace_all("input\\$z", as.character(input$z))
+            str_replace_all("input\\$z", as.character(input$z)) %>%
+            str_replace_all("input\\$n", as.character(input$n))
 
     })
 

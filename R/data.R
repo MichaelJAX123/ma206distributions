@@ -9,6 +9,11 @@
 #'     aes(x = payout, y = frequency) +
 #'     geom_lollipop()
 #'
+#' prize_wheel %>%
+#'   merge(prize_wheel, by = NULL) %>%
+#'   merge(prize_wheel, by = NULL) %>%
+#'   merge(prize_wheel, by = NULL)
+#'
 #' @format ## `prize_wheel`
 #' A data frame with 3 rows and 3 columns:
 #' \describe{

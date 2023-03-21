@@ -35,5 +35,10 @@ ggplot(prize_wheel) +
     aes(x = payout, y = frequency) +
     geom_lollipop()
 
+prize_wheel \%>\%
+  merge(prize_wheel, by = NULL) \%>\%
+  merge(prize_wheel, by = NULL) \%>\%
+  merge(prize_wheel, by = NULL)
+
 }
 \keyword{datasets}

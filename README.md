@@ -1,161 +1,225 @@
 
-See also:
+## ma206distributions
 
-  - more learning materials:
-    <https://github.com/EvaMaeRey/ay_2023_2_advanced_individual_study>
-  - sibling project: <https://github.com/EvaMaeRey/ma206equations>
-
-## Title
-
-Easily visualize common distributions for statistical and probabilistic
-analytics in ggplot2
+The `ma206distributions` package allows you to easily visualize common
+distributions for statistical and probabilistic analytics in ggplot2.
 
 ## Abstract
 
 Mathematical fluency involves frequent use of probability distributions.
-However, visualizing these distributions can be tedious. In a fixed
-statistics and probability curriculum, the set of distributions to be
-mastered is well defined. In such settings having shortcuts to produce
-or ingest these distributions in analytic software for display and
-analysis could be beneficial for students and instructors alike. The
-goal of this project is to provide ready-to-use objects (dataframes) and
-functions that will meet students will make it easier to engage
-computationally and with these distributions. We make these objects and
+However, visualizing these distributions can be tedious. In a
+well-defined statistics and probability curriculum, the set of
+distributions to be mastered is known and limited. In such settings
+having shortcuts to produce or ingest these distributions in analytic
+software for display and analysis could be beneficial for students and
+instructors alike. The goal of this project is to provide ready-to-use
+objects (data frames) and functions that will make it easier to engage
+computationally with these distributions. We make these objects and
 functions available in the R package `ma206distributions`.
 
 ## Which distributions are relevant for the statistics and probability course?
 
-A good start for looking at the core of distributions in the ma206
-course guide:
-
-  - binomial
-  - geometric
-  - normal distribution
-  - random
+In the MA206 course, we’ve identified the normal, binomial, and
+geometric distributions as targets to be used and mastered. In addition,
+students should be able to assess implications given random discrete
+variable distributions (constructed distributions).
 
 ## Objectives
 
-1.  Provide functions that return dataframes relating outcomes and
+1.  Provide functions that return data frames relating outcomes and
     probabilities for binomial and geometric distributions
 2.  Providing quick-viz *stamp* functions for binomial and geometric
-    distributions (normal and t exist in ggxmean); also think about
-    rewrite for stamp\_normal (i.e. what should height distribution look
-    like?)
+    distributions (normal and t exist in ggxmean). *Wishlist: also think
+    about rewrite for stamp\_normal (i.e. what should height
+    distribution look like?)*
 3.  Provide additional **dataframes** for ma206 that are probabilities
-    from curriculum (probability problems in text book).  
+    from curriculum (probability problems in text book). These might be
+    moved to ma206data package at some point.
 4.  Provide interactive app which 1) demonstrates distribution
     characteristics, allowing easy manipulation of parameters 2)
     connects to new package functionality by quoting back code
     underlying the app.
 
-### 1\. provide data frames that relate outcomes and probabilities
+### Objective \#1. provide data frames that relate outcomes and probabilities
 
-We can look at vectors of outcomes, and then use dbinom to get back a
-vector of probabilities.
+#### The problem
+
+Currently, students may use R as a calculator for quick computation of
+probabilistic quantities. However, using existing methodologies may
+divorce quantities from useful context.
+
+For example, consider the question: What is the probability of rolling a
+6 exactly 2 times in eight die rolls (fair di).
+
+Solving that problem with current toolbox might look like this.
 
 ``` r
-num_successes <- 0:10; num_successes
+dbinom(x = 2, size = 8, prob = 1/6)
 ```
 
-    ##  [1]  0  1  2  3  4  5  6  7  8  9 10
+    ## [1] 0.2604762
 
-``` r
-dbinom(num_successes, prob = .5, size = 10)
-```
+This solution is concise, but lacks context, and doesn’t nicely parlay
+to answer other related and adjacent questions.
 
-    ##  [1] 0.0009765625 0.0097656250 0.0439453125 0.1171875000 0.2050781250
-    ##  [6] 0.2460937500 0.2050781250 0.1171875000 0.0439453125 0.0097656250
-    ## [11] 0.0009765625
+We propose instead that a full set of paired outcomes and probabilities
+be made available to students when asking this question via the
+ma206distributions function `tidy_dbinom`. To answer the preceding
+question, then, students would consult the table that they produce using
+the function:
 
 ``` r
 library(ma206distributions)
-# probability of number of heads in 10 coin flips
-tidy_dbinom(single_trial_prob = .5, 10)
+options(scipen = 8, digits = 3)
+tidy_dbinom(single_trial_prob = 1/6, 8)
 ```
 
-    ## # A tibble: 11 × 4
-    ##    num_successes probability single_trial_prob num_trials
-    ##            <int>       <dbl>             <dbl>      <dbl>
-    ##  1             0    0.000977               0.5         10
-    ##  2             1    0.00977                0.5         10
-    ##  3             2    0.0439                 0.5         10
-    ##  4             3    0.117                  0.5         10
-    ##  5             4    0.205                  0.5         10
-    ##  6             5    0.246                  0.5         10
-    ##  7             6    0.205                  0.5         10
-    ##  8             7    0.117                  0.5         10
-    ##  9             8    0.0439                 0.5         10
-    ## 10             9    0.00977                0.5         10
-    ## 11            10    0.000977               0.5         10
-
-``` r
-# probabilities of rolling 0, 1, 2, 3 or 4 sixes in 4 die roles
-tidy_dbinom(single_trial_prob = 1/6, 4)
-```
-
-    ## # A tibble: 5 × 4
+    ## # A tibble: 9 × 4
     ##   num_successes probability single_trial_prob num_trials
     ##           <int>       <dbl>             <dbl>      <dbl>
-    ## 1             0    0.482                0.167          4
-    ## 2             1    0.386                0.167          4
-    ## 3             2    0.116                0.167          4
-    ## 4             3    0.0154               0.167          4
-    ## 5             4    0.000772             0.167          4
+    ## 1             0 0.233                   0.167          8
+    ## 2             1 0.372                   0.167          8
+    ## 3             2 0.260                   0.167          8
+    ## 4             3 0.104                   0.167          8
+    ## 5             4 0.0260                  0.167          8
+    ## 6             5 0.00417                 0.167          8
+    ## 7             6 0.000417                0.167          8
+    ## 8             7 0.0000238               0.167          8
+    ## 9             8 0.000000595             0.167          8
+
+Consulting the table, the students would find the ‘2 successes’ outcome
+and find the associated probability of .2009 – just over 20%\!
+
+And they can consult the same table to answer a number of additional
+questions about the same scenario. What is the probability of rolling
+exactly one six? Zero sixes? What is the probability of rolling two
+successes (sixes) or fewer?
+
+If students are interested in a more visual presentation, they might
+also use the distribution combined with the powerful and intuitive
+ggplot2 plotting system, which uses dataframe inputs. To complement the
+probabilistic work, the ma206distributions package also contains the
+`geom_lollipop()` function to display the outcome-probability pairing
+via the ‘lollipop’ chart which is popular for visualizing discrete
+distributions. Furthermore, the ma206distributions package also contains
+the `scale_x_counting()` function which ensures that tick marks and
+numerical values are provided at the counting values of x, the support
+of the distribution.
 
 ``` r
-# probability of 0, 1, 2 or 3 wins in 3 spins of a prize wheel  
-# 12 pie slices, one with big payout
-tidy_dbinom(1/12, 3)
+library(ma206distributions)
+library(tidyverse)
 ```
 
-    ## # A tibble: 4 × 4
-    ##   num_successes probability single_trial_prob num_trials
-    ##           <int>       <dbl>             <dbl>      <dbl>
-    ## 1             0    0.770               0.0833          3
-    ## 2             1    0.210               0.0833          3
-    ## 3             2    0.0191              0.0833          3
-    ## 4             3    0.000579            0.0833          3
-
-### 2\. Stamp visualizations
+    ## ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+    ## ✔ dplyr     1.1.0     ✔ readr     2.1.4
+    ## ✔ forcats   1.0.0     ✔ stringr   1.5.0
+    ## ✔ ggplot2   3.4.1     ✔ tibble    3.2.0
+    ## ✔ lubridate 1.9.2     ✔ tidyr     1.3.0
+    ## ✔ purrr     1.0.1     
+    ## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+    ## ✖ dplyr::filter() masks stats::filter()
+    ## ✖ dplyr::lag()    masks stats::lag()
+    ## ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
 
 ``` r
-library(ggplot2)
-ggplot() + 
-  geom_lollipop(data = tidy_dbinom(single_trial_prob = .5, 10),
-                aes(x = num_successes, y = probability))
+tidy_dbinom(single_trial_prob = 1/6, num_trials = 10) %>%   # from ma206distributions
+  ggplot() + 
+  aes(x = num_successes, 
+      y = probability) + 
+  geom_lollipop(annotate = T, round_digits = 2) +                            # from ma206distributions
+  scale_x_counting()                 # from ma206distributions
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
+    ## Warning in geom_post(...): Ignoring unknown parameters: `annotate` and
+    ## `round_digits`
+
+    ## Warning in geom_point(...): Ignoring unknown parameters: `annotate` and
+    ## `round_digits`
+
+![](README_files/figure-gfm/unnamed-chunk-3-1.png)<!-- --> The package
+ma206data also gives you a `stamp` shortcut data visualization layer,
+used in the following manner. This method might be used by instructors
+and students alike who are comfortable with the distribution
+underpinnings:
 
 ``` r
-stamp_dbinom <- function(single_trial_prob = .5, num_trials = 10){
-  
-  geom_lollipop(data = tidy_dbinom(single_trial_prob = single_trial_prob, 
-                                   num_trials = num_trials),
-                aes(x = num_successes, y = probability))
-  
-}
-
-
 ggplot() + 
-  stamp_dbinom()
+  stamp_dbinom(single_trial_prob = 1/6, num_trials = 10) +    # from ma206distributions
+  scale_x_counting() +                                        # from ma206distributions
+  labs(title = "Probability of rolling 0,1,2,...10 sixes when rolling a fair die 10 times")
 ```
 
 ![](README_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
 
+### including relevant equations
+
+**Section requires updating with ma206equations work**
+
+A complementary package, ma206equations exists too that can deliver
+relevant equations as a part of the distributional plots.
+
 ``` r
+stamp_equation_dbinom <- function(x, y ){NULL}
+
+# library(ma206equations)
 ggplot() + 
-  stamp_dbinom(1/6, num_trials = 6)
+  stamp_dbinom(single_trial_prob = 1/6, num_trials = 10) +    # from ma206distributions
+  scale_x_counting()  +                                       # from ma206distributions
+  stamp_equation_dbinom(x = 7, y = .24)
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-4-2.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
+
+#### tidy\_dgeometric
+
+Similarly, geometric distributions might be delivered as a data frame.
+As things stand to use R to ask answer questions like ’After 3 spins,
+how likely am I to win the grand prize on a prize wheel with a 1/12
+chance per spin grand prize win? Currently, students might use the dgeom
+function to answer the question about trials until a success is
+observed. For example: Given the probability of free throw success of
+2/3 for a given player, what is the probability that we’ll see the first
+success only upon the third attempt?
+
+Currently, students might answer this question using R to calculate this
+quantity.
 
 ``` r
-ggplot() + 
-  stamp_dbinom(1/12, num_trials = 3)
+dgeom(x = 3-1, prob = 2/3)
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-4-3.png)<!-- -->
+    ## [1] 0.0741
+
+However, again the quantities lack context. The ma206distributions
+package provides a function to instead deliver a data frame where
+attempt number and probability is paired as follows:
+
+``` r
+library(ma206distributions)
+tidy_dgeometric(single_trial_prob = 2/3, num_attempts = 5)
+```
+
+    ## # A tibble: 5 × 4
+    ##   observed_attempt single_trial_prob probability cumulative_prob
+    ##              <int>             <dbl>       <dbl>           <dbl>
+    ## 1                1             0.667     0.667             0.667
+    ## 2                2             0.667     0.222             0.889
+    ## 3                3             0.667     0.0741            0.963
+    ## 4                4             0.667     0.0247            0.988
+    ## 5                5             0.667     0.00823           0.996
+
+Students can home in on the information in question, but also see that
+in the context of the larger probability distribution. \[For the
+geometric distribution, it should be noted that the complete
+distribution cannot be displayed as the support (possible wait periods
+until a success) is infinite.\]
+
+#### the normal distribution…
+
+fixing stamp\_normal to automatically scale.
+
+## given probability distribution as data frames.
 
 ## 3\. Tidying data from discrete random variable probability problems
 
@@ -177,7 +241,7 @@ spinning wheel with pie sectors with various prize award amounts:
 
 The table summarized the situation:
 
-![](README_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
 
 To get the data into a tidy, ready-to-use form, we transposed the table
 from wide to long so that a variable is a columns and the column headers
@@ -223,7 +287,7 @@ prize_wheel %>%
                shape = 2, size = 5)
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->
 
 # The tabular data can also be used to walk through computations, like finding the expected value of the prize wheel spin.
 
@@ -233,7 +297,7 @@ sum(prize_wheel$payout *
   sum(prize_wheel$frequency)
 ```
 
-    ## [1] 0.5833333
+    ## [1] 0.583
 
 ``` r
 library(tidyverse)
@@ -243,7 +307,7 @@ ggxmean:::stamp_space() +
   stamp_normal_dist()
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-15-1.png)<!-- -->
 
 # Project timeline
 
@@ -262,7 +326,7 @@ Below, we do some of the visualization with base R and base ggplot2. The
 aim is to provide code that feels much more effortless and fun to use to
 visualize distributions.
 
-## Visualizing a binomial distribution without {ma206distributions} functions
+## Efficiency gains: Visualizing a binomial distribution without {ma206distributions} functions
 
 The equations in the plot were produce in the following fashion (no
 functions or package pre-built):
@@ -274,7 +338,6 @@ p^kq^{N-k}](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_whi
 ``` r
 library(tidyverse)
 
-
 latex2exp::TeX("${{_N}C{_k}} \\cdot p^kq^{N-k}$")
 ```
 
@@ -284,12 +347,15 @@ latex2exp::TeX("${{_N}C{_k}} \\cdot p^kq^{N-k}$")
 ``` r
 single_trial_prob <- .5
 num_trials <- 10
+
 0:num_trials ->
   possible_outcomes
+ 
 dbinom(x = possible_outcomes,
        size = 10,
        prob = single_trial_prob) ->
   probs
+
 tibble(possible_outcomes, probs) %>%
   ggplot() +
   aes(x = possible_outcomes) +
@@ -311,24 +377,24 @@ tibble(possible_outcomes, probs) %>%
     label = "{{{}[N]}*C * {{}[k]}} %.% p^{k}*q^{N - k}",
     parse = TRUE,
     size = 5) ->
-    binomial_distribution
+binomial_distribution
 
 binomial_distribution
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-16-1.png)<!-- -->
 
-Another possibility is using the `stat_function()` function in ggplot2
-to produce visualizations of a binomial distribution. Below, we show how
-you can visualize the binomial distribution for 20 trials and .2 is the
-probability of success for each trial. Using the `stat_function()`
-carefully, you can get a similar outcome. However, there is a lot of
-coordination that’s required: `20` shows up about three times in the
-construction for example in xlim(); in `n = 21` (20 + 1 possible
-outcomes); and finally in the `args` list. Producing this plot requires
-a lot of foreknowledge. With our alternative strategies, (delivering
-data frames and stamps), we hope to give students something they can
-produce easily, and *then* have a conversation about why the
+footnote: Another possibility is using the `stat_function()` function in
+ggplot2 to produce visualizations of a binomial distribution. Below, we
+show how you can visualize the binomial distribution for 20 trials and
+.2 is the probability of success for each trial. Using the
+`stat_function()` carefully, you can get a similar outcome. However,
+there is a lot of coordination that’s required: `20` shows up about
+three times in the construction for example in xlim(); in `n = 21` (20 +
+1 possible outcomes); and finally in the `args` list. Producing this
+plot requires a lot of foreknowledge. With our alternative strategies,
+(delivering data frames and stamps), we hope to give students something
+they can produce easily, and *then* have a conversation about why the
 distribution has the form it does.
 
 ``` r
@@ -344,7 +410,7 @@ ggplot() +
   labs(title = "Given 20 trials where the probability for success in a single\n trial is .2, what are the probabilities for each possible\nnumber of observed successes ")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-17-1.png)<!-- -->
 
 ## Visualizing a Discrete Random Variable without {ma206distributions} functions
 
@@ -404,7 +470,13 @@ discrete_random
     ## Warning in is.na(x): is.na() applied to non-(list or vector) of type
     ## 'expression'
 
-![](README_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-18-1.png)<!-- -->
+
+See also:
+
+  - more learning materials:
+    <https://github.com/EvaMaeRey/ay_2023_2_advanced_individual_study>
+  - sibling project: <https://github.com/EvaMaeRey/ma206equations>
 
 See also:
 
@@ -426,3 +498,14 @@ See also:
 
   - create a github account for collaboration <https://github.com/>
   - we’ll make the repository available in this account
+
+<!-- end list -->
+
+``` r
+# tibble(baby = 1:4) %>% 
+#  crossing(tibble(mom = 1:4)) %>% 
+#  mutate(match = baby == mom) %>% 
+#  ggplot() + 
+#   aes(fill = match) + aes(x = baby) + aes(y = mom) + 
+#   geom_tile()
+```

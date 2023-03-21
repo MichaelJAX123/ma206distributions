@@ -2,94 +2,234 @@
 output: github_document
 ---
 
-See also: 
 
-- more learning materials: https://github.com/EvaMaeRey/ay_2023_2_advanced_individual_study
-- sibling project: https://github.com/EvaMaeRey/ma206equations
+## ma206distributions 
 
-## Title 
-
-Easily visualize common distributions for statistical and probabilistic analytics in ggplot2
+The `ma206distributions` package allows you to easily visualize common distributions for statistical and probabilistic analytics in ggplot2.
 
 ## Abstract 
 
-Mathematical fluency involves frequent use of probability distributions. However, visualizing these distributions can be tedious.   In a fixed statistics and probability curriculum, the set of distributions to be mastered is well defined.  In such settings having shortcuts to produce or ingest these distributions in analytic software for display and analysis could be beneficial for students and instructors alike.  The goal of this project is to provide ready-to-use objects (dataframes) and functions that will meet students will make it easier to engage computationally and with these distributions.  We make these objects and functions available in the R package `ma206distributions`.
+Mathematical fluency involves frequent use of probability distributions. However, visualizing these distributions can be tedious.   In a well-defined statistics and probability curriculum, the set of distributions to be mastered is known and limited.  In such settings having shortcuts to produce or ingest these distributions in analytic software for display and analysis could be beneficial for students and instructors alike.  The goal of this project is to provide ready-to-use objects (data frames) and functions that will make it easier to engage computationally with these distributions.  We make these objects and functions available in the R package `ma206distributions`.
 
 
 ## Which distributions are relevant for the statistics and probability course?
 
-A good start for looking at the core of distributions in the ma206 course guide:
-
-
-- binomial
-- geometric
-- normal distribution
-- random
+In the MA206 course, we've identified the normal, binomial, and geometric distributions as targets to be used and mastered.  In addition, students should be able to assess implications given random discrete variable distributions (constructed distributions).
 
 ## Objectives
 
-1. Provide functions that return dataframes relating outcomes and probabilities for binomial and geometric distributions
-2. Providing quick-viz *stamp* functions for binomial and geometric distributions (normal and t exist in ggxmean); also think about rewrite for stamp_normal (i.e. what should height distribution look like?)
-3. Provide additional **dataframes** for ma206 that are probabilities from curriculum (probability problems in text book).  
+1. Provide functions that return data frames relating outcomes and probabilities for binomial and geometric distributions
+2. Providing quick-viz *stamp* functions for binomial and geometric distributions (normal and t exist in ggxmean).  *Wishlist: also think about rewrite for stamp_normal (i.e. what should height distribution look like?)*
+3. Provide additional **dataframes** for ma206 that are probabilities from curriculum (probability problems in text book).  These might be moved to ma206data package at some point.
 4. Provide interactive app which 1) demonstrates distribution characteristics, allowing easy manipulation of parameters 2) connects to new package functionality by quoting back code underlying the app.
 
-### 1. provide data frames that relate outcomes and probabilities
+### Objective #1. provide data frames that relate outcomes and probabilities
 
-We can look at vectors of outcomes, and then use dbinom to get back a vector of probabilities.
+#### The problem
+
+Currently, students may use R as a calculator for quick computation of probabilistic quantities.  However, using existing methodologies may divorce quantities from useful context.  
+
+For example, consider the question:  What is the probability of rolling a 6 exactly 2 times in eight die rolls (fair di).
+
+Solving that problem with current toolbox might look like this. 
 
 ```{r}
-num_successes <- 0:10; num_successes
-
-dbinom(num_successes, prob = .5, size = 10)
-
+dbinom(x = 2, size = 8, prob = 1/6)
 ```
+This solution is concise, but lacks context, and doesn't nicely parlay to answer other related and adjacent questions. 
+
+We propose instead that a full set of paired outcomes and probabilities be made available to students when asking this question via the ma206distributions function `tidy_dbinom`.  To answer the preceding question, then, students would consult the table that they produce using the function:
 
 
 ```{r}
 library(ma206distributions)
-# probability of number of heads in 10 coin flips
-tidy_dbinom(single_trial_prob = .5, 10)
-
-# probabilities of rolling 0, 1, 2, 3 or 4 sixes in 4 die roles
-tidy_dbinom(single_trial_prob = 1/6, 4)
-
-# probability of 0, 1, 2 or 3 wins in 3 spins of a prize wheel  
-# 12 pie slices, one with big payout
-tidy_dbinom(1/12, 3)
+options(scipen = 8, digits = 3)
+tidy_dbinom(single_trial_prob = 1/6, 8)
 ```
 
+Consulting the table, the students would find the '2 successes' outcome and find the associated probability of .2009 -- just over 20%!  
 
-### 2. Stamp visualizations
+And they can consult the same table to answer a number of additional questions about the same scenario.  What is the probability of rolling exactly one six? Zero sixes? What is the probability of rolling two successes (sixes) or fewer?  
+
+If students are interested in a more visual presentation, they might also use the distribution combined with the powerful and intuitive ggplot2 plotting system, which uses dataframe inputs.  To complement the probabilistic work, the ma206distributions package also contains the `geom_lollipop()` function to display the outcome-probability pairing via the 'lollipop' chart which is popular for visualizing discrete distributions. Furthermore, the ma206distributions package also contains the `scale_x_counting()` function which ensures that tick marks and numerical values are provided at the counting values of x, the support of the distribution.
 
 ```{r}
-library(ggplot2)
+library(ma206distributions)
+library(tidyverse)
+tidy_dbinom(single_trial_prob = 1/6, num_trials = 10) %>%   # from ma206distributions
+  ggplot() + 
+  aes(x = num_successes, 
+      y = probability) + 
+  geom_lollipop(annotate = T, round_digits = 2) +                            # from ma206distributions
+  scale_x_counting()                 # from ma206distributions
+
+```
+The package ma206data also gives you a `stamp` shortcut data visualization layer, used in the following manner.  This method might be used by instructors and students alike who are comfortable with the distribution underpinnings: 
+
+```{r}
 ggplot() + 
-  geom_lollipop(data = tidy_dbinom(single_trial_prob = .5, 10),
-                aes(x = num_successes, y = probability))
+  stamp_dbinom(single_trial_prob = 1/6, num_trials = 10) +    # from ma206distributions
+  scale_x_counting() +                                        # from ma206distributions
+  labs(title = "Probability of rolling 0,1,2,...10 sixes when rolling a fair die 10 times")
+```
+
+### including relevant equations
+
+**Section requires updating with ma206equations work**
+
+A complementary package, ma206equations exists too that can deliver relevant equations as a part of the distributional plots.
+
+```{r}
+stamp_equation_dbinom <- function(x, y ){NULL}
+
+# library(ma206equations)
+ggplot() + 
+  stamp_dbinom(single_trial_prob = 1/6, num_trials = 10) +    # from ma206distributions
+  scale_x_counting()  +                                       # from ma206distributions
+  stamp_equation_dbinom(x = 7, y = .24)
+
+
 ```
 
 
+#### tidy_dgeometric
+
+Similarly, geometric distributions might be delivered as a data frame.  As things stand to use R to ask answer questions like 'After 3 spins, how likely am I to win the grand prize on a prize wheel with a 1/12 chance per spin grand prize win?  Currently, students might use the dgeom function to answer the question about trials until a success is observed.  For example: Given the probability of free throw success of 2/3 for a given player, what is the probability that we'll see the first success only upon the third attempt?
+
+Currently, students might answer this question using R to calculate this quantity.  
 
 ```{r}
-stamp_dbinom <- function(single_trial_prob = .5, num_trials = 10){
+dgeom(x = 3-1, prob = 2/3)
+```
+
+However, again the quantities lack context.  The ma206distributions package provides a function to instead deliver a data frame where attempt number and probability is paired as follows:
+
+
+```{r}
+library(ma206distributions)
+tidy_dgeometric(single_trial_prob = 2/3, num_attempts = 5)
+```
+Students can home in on the information in question, but also see that in the context of the larger probability distribution. [For the geometric distribution, it should be noted that the complete distribution cannot be displayed as the support (possible wait periods until a success) is infinite.]
+
+#### the normal distribution...
+
+fixing stamp_normal to automatically scale.
+
+```{r, eval = F, echo = F}
+draw_panel_normal_dist = function(data, panel_params, coord, mean = 0,
+         sd = 1, height = 1,
+         sd_min = -4, sd_max = 4, q_min = NULL, q_max = NULL) {
+
   
-  geom_lollipop(data = tidy_dbinom(single_trial_prob = single_trial_prob, 
-                                   num_trials = num_trials),
-                aes(x = num_successes, y = probability))
+  ranges <- coord$backtransform_range(panel_params)
+   
+  my_max <- ranges$y[2]
   
+  if(!is.null(q_min) | !is.null(q_max)){
+
+    if(is.null(q_min)){q_min = .00003} # about 4sd below
+    if(is.null(q_max)){q_max = .99997} # about 4sd above
+
+    sd_min = qnorm(q_min)
+    sd_max = qnorm(q_max)
+  }
+
+  seq(sd_min, sd_max, .01) %>%
+    tibble::tibble(x = .) %>%
+    dplyr::mutate(y = dnorm(x)*height) %>%
+    dplyr::mutate(x = x*sd + mean) %>%
+    dplyr::mutate(alpha = .3)
+  
+    GeomArea$draw_panel(data, panel_params, coord)
+
+
 }
 
 
-ggplot() + 
-  stamp_dbinom()
+GeomXline <- ggplot2::ggproto(`_class` = "GeomXline", 
+                              `_inherit` = ggplot2::Geom,
+                              draw_group = draw_panel_normal_dist
+                              # required_aes = "x"
+                              )
 
-ggplot() + 
-  stamp_dbinom(1/6, num_trials = 6)
 
 
-ggplot() + 
-  stamp_dbinom(1/12, num_trials = 3)
+stamp_normal_dist <- function(mapping = NULL, data = NULL,
+                       ...,
+                       x,
+                       na.rm = FALSE,
+                       show.legend = NA) {
+
+  ggplot2::layer(
+    data = data,
+    mapping = mapping,
+    stat = ggplot2::StatIdentity,
+    geom = GeomXline,
+    position = ggplot2::PositionIdentity,
+    show.legend = show.legend,
+    inherit.aes = TRUE,
+    params = list(
+      na.rm = na.rm,
+      ...
+    )
+  )
+}
+
+ggxmean:::stamp_space() + 
+  stamp_normal_dist()
+
+compute_group_norm_dist_stamp <- function(data, scales, panal_params, mean = 0,
+         sd = 1, height = 1,
+         sd_min = -4, sd_max = 4, q_min = NULL, q_max = NULL) {
+
+  
+  ranges <- coord$backtransform_range(panel_params)
+   
+  ymax <- ranges$y[2]
+  
+  if(!is.null(q_min) | !is.null(q_max)){
+
+    if(is.null(q_min)){q_min = .00003} # about 4sd below
+    if(is.null(q_max)){q_max = .99997} # about 4sd above
+
+    sd_min = qnorm(q_min)
+    sd_max = qnorm(q_max)
+  }
+
+  seq(sd_min, sd_max, .01) %>%
+    tibble::tibble(x = .) %>%
+    dplyr::mutate(y = dnorm(x)*height) %>%
+    dplyr::mutate(x = x*sd + mean) %>%
+    dplyr::mutate(alpha = .3)
+
+}
+
+StampDnorm <- ggplot2::ggproto("StampDnorm",
+                              ggplot2::Stat,
+                              compute_group = compute_group_norm_dist_stamp,
+                              required_aes = c("x")
+                              )
+
+
+
+
+stamp_normal_dist <- function(mapping = NULL, data = NULL,
+                       position = "identity", na.rm = FALSE, show.legend = NA,
+                       inherit.aes = TRUE, outline.type = "upper", ...) {
+  ggplot2::layer(
+    stat = StampDnorm, geom = ggplot2::GeomArea, data = data, mapping = mapping,
+    position = position, show.legend = show.legend, inherit.aes = inherit.aes,
+
+    params = list(na.rm = na.rm, outline.type = outline.type, ...)
+  )
+}
+
+
+
 ```
+
+
+## given probability distribution as data frames.
 
 ## 3. Tidying data from discrete random variable probability problems
 
@@ -101,8 +241,8 @@ Probability tables are often communicated in untidy, wide forms not easily inges
 library(tidyverse)
 knitr::kable(t(ma206distributions::prize_wheel %>% select(-3)))
 ```
-
 The table summarized the situation:
+
 
 ```{r, warning = F, message=F, echo = F}
 set.seed(1243323)
@@ -121,14 +261,12 @@ ma206distributions::prize_wheel %>%
   scale_fill_viridis_c(end = .8) +
   theme_void() + 
   theme(legend.position = "none") 
-
 ```
 
 To get the data into a tidy, ready-to-use form, we transposed the table from wide to long so that a variable is a columns and the column headers inform us about the content. This way, each row forms an observation, in this case an event type. The spinning of the prize wheel has three outcomes based on which sector type the wheel landed on:  no prize, win $1, and win $3. We added a numeric column 'payout' too which we makes the data easier to use from a mathematical standpoint.  Below is our tidied data. 
 
 ```{r, echo = F}
 knitr::kable(ma206distributions::prize_wheel)
-
 ```
 
 
@@ -194,7 +332,7 @@ ggxmean:::stamp_space() +
 
 Below, we do some of the visualization with base R and base ggplot2.  The aim is to provide code that feels much more effortless and fun to use to visualize distributions.
 
-## Visualizing a binomial distribution without {ma206distributions} functions
+## Efficiency gains: Visualizing a binomial distribution without {ma206distributions} functions
 
 The equations in the plot were produce in the following fashion (no functions or package pre-built): 
 
@@ -203,17 +341,19 @@ ${{_N}C{_k}} * p^kq^{N-k}$
 ```{r, eval = T, warning=F, message=F}
 library(tidyverse)
 
-
 latex2exp::TeX("${{_N}C{_k}} \\cdot p^kq^{N-k}$")
 
 single_trial_prob <- .5
 num_trials <- 10
+
 0:num_trials ->
   possible_outcomes
+ 
 dbinom(x = possible_outcomes,
        size = 10,
        prob = single_trial_prob) ->
   probs
+
 tibble(possible_outcomes, probs) %>%
   ggplot() +
   aes(x = possible_outcomes) +
@@ -235,13 +375,13 @@ tibble(possible_outcomes, probs) %>%
     label = "{{{}[N]}*C * {{}[k]}} %.% p^{k}*q^{N - k}",
     parse = TRUE,
     size = 5) ->
-    binomial_distribution
+binomial_distribution
 
 binomial_distribution
 ```
 
 
-Another possibility is using the `stat_function()` function in ggplot2 to produce visualizations of a binomial distribution.  Below, we show how you can visualize the binomial distribution for 20 trials and .2 is the probability of success for each trial.  Using the `stat_function()` carefully, you can get a similar outcome.  However, there is a lot of coordination that's required:  `20` shows up about three times in the construction for example in xlim(); in `n = 21` (20 + 1 possible outcomes); and finally in the `args` list.   Producing this plot requires a lot of foreknowledge.  With our alternative strategies, (delivering data frames and stamps), we hope to give  students something they can produce easily, and *then* have a conversation about why the distribution has the form it does.
+footnote: Another possibility is using the `stat_function()` function in ggplot2 to produce visualizations of a binomial distribution.  Below, we show how you can visualize the binomial distribution for 20 trials and .2 is the probability of success for each trial.  Using the `stat_function()` carefully, you can get a similar outcome.  However, there is a lot of coordination that's required:  `20` shows up about three times in the construction for example in xlim(); in `n = 21` (20 + 1 possible outcomes); and finally in the `args` list.   Producing this plot requires a lot of foreknowledge.  With our alternative strategies, (delivering data frames and stamps), we hope to give  students something they can produce easily, and *then* have a conversation about why the distribution has the form it does.
 
 ```{r}
 library(ggplot2)
@@ -303,6 +443,12 @@ discrete_random
 ```
 
 
+
+See also: 
+
+- more learning materials: https://github.com/EvaMaeRey/ay_2023_2_advanced_individual_study
+- sibling project: https://github.com/EvaMaeRey/ma206equations
+
 See also:
 
 - https://evamaerey.github.io/mytidytuesday/2022-08-01-dbinom-dgeom/dbinom_dgeom.html
@@ -332,5 +478,17 @@ file.copy(fs::dir_ls("README_files/figure-gfm/."), to = "docs/reference/figures/
 
 readLines("docs/index.html") %>% 
   str_replace_all("README_files/figure-gfm/", "reference/figures/") %>% 
-  writeLines("docs/index.html")
+  writeLines(con = "docs/index.html")
+```
+
+
+```{r}
+
+# tibble(baby = 1:4) %>% 
+#  crossing(tibble(mom = 1:4)) %>% 
+#  mutate(match = baby == mom) %>% 
+#  ggplot() + 
+#   aes(fill = match) + aes(x = baby) + aes(y = mom) + 
+#   geom_tile()
+
 ```
