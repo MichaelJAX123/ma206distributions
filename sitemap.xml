@@ -25,7 +25,13 @@
     <loc>https://evamaerey.github.io/ma206distributions/reference/geom_post.html</loc>
   </url>
   <url>
+    <loc>https://evamaerey.github.io/ma206distributions/reference/geom_post_label.html</loc>
+  </url>
+  <url>
     <loc>https://evamaerey.github.io/ma206distributions/reference/geom_segment_sd.html</loc>
+  </url>
+  <url>
+    <loc>https://evamaerey.github.io/ma206distributions/reference/good_digits.html</loc>
   </url>
   <url>
     <loc>https://evamaerey.github.io/ma206distributions/reference/index.html</loc>
@@ -37,6 +43,18 @@
     <loc>https://evamaerey.github.io/ma206distributions/reference/scale_x_counting.html</loc>
   </url>
   <url>
+    <loc>https://evamaerey.github.io/ma206distributions/reference/stamp_dbinom.html</loc>
+  </url>
+  <url>
+    <loc>https://evamaerey.github.io/ma206distributions/reference/stamp_dgeometric.html</loc>
+  </url>
+  <url>
+    <loc>https://evamaerey.github.io/ma206distributions/reference/theme_axis_x_censored.html</loc>
+  </url>
+  <url>
     <loc>https://evamaerey.github.io/ma206distributions/reference/tidy_dbinom.html</loc>
+  </url>
+  <url>
+    <loc>https://evamaerey.github.io/ma206distributions/reference/tidy_dgeometric.html</loc>
   </url>
 </urlset>
