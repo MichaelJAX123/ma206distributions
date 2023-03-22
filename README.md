@@ -127,7 +127,7 @@ tidy_dbinom(single_trial_prob = 1/6, num_trials = 10) %>%   # from ma206distribu
   ggplot() + 
   aes(x = num_successes, 
       y = probability) + 
-  geom_lollipop(annotate = T, round_digits = 2) +                            # from ma206distributions
+  geom_lollipop(annotate = T, round_digits = 2) +           # from ma206distributions
   scale_x_counting()                 # from ma206distributions
 ```
 
