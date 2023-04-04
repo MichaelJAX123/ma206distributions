@@ -16,6 +16,12 @@
     <loc>https://evamaerey.github.io/ma206distributions/index.html</loc>
   </url>
   <url>
+    <loc>https://evamaerey.github.io/ma206distributions/reference/bernoulli_trial.html</loc>
+  </url>
+  <url>
+    <loc>https://evamaerey.github.io/ma206distributions/reference/cross_trials.html</loc>
+  </url>
+  <url>
     <loc>https://evamaerey.github.io/ma206distributions/reference/geom_fulcrum.html</loc>
   </url>
   <url>
@@ -35,6 +41,9 @@
   </url>
   <url>
     <loc>https://evamaerey.github.io/ma206distributions/reference/index.html</loc>
+  </url>
+  <url>
+    <loc>https://evamaerey.github.io/ma206distributions/reference/pipe.html</loc>
   </url>
   <url>
     <loc>https://evamaerey.github.io/ma206distributions/reference/prize_wheel.html</loc>

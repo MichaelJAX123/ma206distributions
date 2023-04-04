@@ -68,19 +68,18 @@
 <span class="r-in"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">payout</span>, y <span class="op">=</span> <span class="va">frequency</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="geom_post.html">geom_post</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span><span class="fu">geom_post_label</span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Computation failed in `stat_postlabel()`</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> Caused by error in `rep(0, round_digits - 1) %&gt;% paste(collapse = "") %&gt;% paste0("&lt; .", ., "1")`:</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">!</span> could not find function "%&gt;%"</span>
 <span class="r-plt img"><img src="geom_post_label-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu"><a href="tidy_dbinom.html">tidy_dbinom</a></span><span class="op">(</span>single_trial_prob <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="fl">6</span>, num_trials <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="op">%&gt;%</span>   <span class="co"># from ma206distributions</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="tidy_dbinom.html">tidy_dbinom</a></span><span class="op">(</span>single_trial_prob <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="fl">6</span>, num_trials <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span>   <span class="co"># from ma206distributions</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">num_successes</span>,</span></span>
 <span class="r-in"><span>     y <span class="op">=</span> <span class="va">probability</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span> <span class="fu"><a href="geom_lollipop.html">geom_lollipop</a></span><span class="op">(</span>annotate <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
 <span class="r-in"><span>               round_digits <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span>                            <span class="co"># from ma206distributions</span></span></span>
 <span class="r-in"><span> <span class="fu"><a href="scale_x_counting.html">scale_x_counting</a></span><span class="op">(</span><span class="op">)</span>                 <span class="co"># from ma206distributions</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in tidy_dbinom(single_trial_prob = 1/6, num_trials = 10) %&gt;% ggplot():</span> could not find function "%&gt;%"</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Ignoring unknown parameters: `annotate` and `round_digits`</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Ignoring unknown parameters: `annotate` and `round_digits`</span>
+<span class="r-plt img"><img src="geom_post_label-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
