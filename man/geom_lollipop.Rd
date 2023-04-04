@@ -4,7 +4,7 @@
 \alias{geom_lollipop}
 \title{Lollipop geom}
 \usage{
-geom_lollipop(annotate = F, ...)
+geom_lollipop(annotate = FALSE, ...)
 }
 \value{
 a ggplot geom layer
@@ -21,5 +21,5 @@ geom_lollipop()
 library(ggplot2)
 ggplot(data = prize_wheel) +
 aes(x = payout, y = frequency) +
-geom_lollipop(annotate = T)
+geom_lollipop(annotate = TRUE)
 }

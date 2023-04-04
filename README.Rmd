@@ -2,6 +2,9 @@
 output: github_document
 ---
 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning=F, message=F)
+```
 
 ## ma206distributions 
 
@@ -29,13 +32,14 @@ In the MA206 course, we've identified the normal, binomial, and geometric distri
 
 Currently, students may use R as a calculator for quick computation of probabilistic quantities.  However, using existing methodologies may divorce quantities from useful context.  
 
-For example, consider the question:  What is the probability of rolling a 6 exactly 2 times in eight die rolls (fair di).
+For example, consider the question:  What is the probability of rolling a 6 exactly 2 times in eight die rolls (fair die).
 
 Solving that problem with current toolbox might look like this. 
 
 ```{r}
 dbinom(x = 2, size = 8, prob = 1/6)
 ```
+
 This solution is concise, but lacks context, and doesn't nicely parlay to answer other related and adjacent questions. 
 
 We propose instead that a full set of paired outcomes and probabilities be made available to students when asking this question via the ma206distributions function `tidy_dbinom`.  To answer the preceding question, then, students would consult the table that they produce using the function:
@@ -47,11 +51,12 @@ options(scipen = 8, digits = 3)
 tidy_dbinom(single_trial_prob = 1/6, 8)
 ```
 
-Consulting the table, the students would find the '2 successes' outcome and find the associated probability of .2009 -- just over 20%!  
+Consulting the table, the students would find the '2 successes' outcome and find the associated probability of .2009!  
 
 And they can consult the same table to answer a number of additional questions about the same scenario.  What is the probability of rolling exactly one six? Zero sixes? What is the probability of rolling two successes (sixes) or fewer?  
 
-If students are interested in a more visual presentation, they might also use the distribution combined with the powerful and intuitive ggplot2 plotting system, which uses dataframe inputs.  To complement the probabilistic work, the ma206distributions package also contains the `geom_lollipop()` function to display the outcome-probability pairing via the 'lollipop' chart which is popular for visualizing discrete distributions. Furthermore, the ma206distributions package also contains the `scale_x_counting()` function which ensures that tick marks and numerical values are provided at the counting values of x, the support of the distribution.
+
+If students are interested in a more visual presentation, they might also use the distribution combined with the ggplot2 plotting system, which uses dataframe inputs.  To complement the probabilistic work, the ma206distributions package also contains the `geom_lollipop()` function to display the outcome-probability pairing via the 'lollipop' chart which is popular for visualizing discrete distributions. Furthermore, the ma206distributions package also contains the `scale_x_counting()` function which ensures that tick marks and numerical values are provided at the counting values of x, the support of the distribution.
 
 ```{r}
 library(ma206distributions)
@@ -94,7 +99,7 @@ ggplot() +
 
 #### tidy_dgeometric
 
-Similarly, geometric distributions might be delivered as a data frame.  As things stand to use R to ask answer questions like 'After 3 spins, how likely am I to win the grand prize on a prize wheel with a 1/12 chance per spin grand prize win?  Currently, students might use the dgeom function to answer the question about trials until a success is observed.  For example: Given the probability of free throw success of 2/3 for a given player, what is the probability that we'll see the first success only upon the third attempt?
+Similarly, geometric distributions might be delivered as a data frame.  Currently, students might use the dgeom function to answer the question about the probability that a trial is the first success observed in a series of trials.  For example: Given the probability of free throw success of 2/3 for a given player, what is the probability that we'll see the first success only upon the third attempt?
 
 Currently, students might answer this question using R to calculate this quantity.  
 
@@ -115,119 +120,6 @@ Students can home in on the information in question, but also see that in the co
 
 fixing stamp_normal to automatically scale.
 
-```{r, eval = F, echo = F}
-draw_panel_normal_dist = function(data, panel_params, coord, mean = 0,
-         sd = 1, height = 1,
-         sd_min = -4, sd_max = 4, q_min = NULL, q_max = NULL) {
-
-  
-  ranges <- coord$backtransform_range(panel_params)
-   
-  my_max <- ranges$y[2]
-  
-  if(!is.null(q_min) | !is.null(q_max)){
-
-    if(is.null(q_min)){q_min = .00003} # about 4sd below
-    if(is.null(q_max)){q_max = .99997} # about 4sd above
-
-    sd_min = qnorm(q_min)
-    sd_max = qnorm(q_max)
-  }
-
-  seq(sd_min, sd_max, .01) %>%
-    tibble::tibble(x = .) %>%
-    dplyr::mutate(y = dnorm(x)*height) %>%
-    dplyr::mutate(x = x*sd + mean) %>%
-    dplyr::mutate(alpha = .3)
-  
-    GeomArea$draw_panel(data, panel_params, coord)
-
-
-}
-
-
-GeomXline <- ggplot2::ggproto(`_class` = "GeomXline", 
-                              `_inherit` = ggplot2::Geom,
-                              draw_group = draw_panel_normal_dist
-                              # required_aes = "x"
-                              )
-
-
-
-stamp_normal_dist <- function(mapping = NULL, data = NULL,
-                       ...,
-                       x,
-                       na.rm = FALSE,
-                       show.legend = NA) {
-
-  ggplot2::layer(
-    data = data,
-    mapping = mapping,
-    stat = ggplot2::StatIdentity,
-    geom = GeomXline,
-    position = ggplot2::PositionIdentity,
-    show.legend = show.legend,
-    inherit.aes = TRUE,
-    params = list(
-      na.rm = na.rm,
-      ...
-    )
-  )
-}
-
-ggxmean:::stamp_space() + 
-  stamp_normal_dist()
-
-compute_group_norm_dist_stamp <- function(data, scales, panal_params, mean = 0,
-         sd = 1, height = 1,
-         sd_min = -4, sd_max = 4, q_min = NULL, q_max = NULL) {
-
-  
-  ranges <- coord$backtransform_range(panel_params)
-   
-  ymax <- ranges$y[2]
-  
-  if(!is.null(q_min) | !is.null(q_max)){
-
-    if(is.null(q_min)){q_min = .00003} # about 4sd below
-    if(is.null(q_max)){q_max = .99997} # about 4sd above
-
-    sd_min = qnorm(q_min)
-    sd_max = qnorm(q_max)
-  }
-
-  seq(sd_min, sd_max, .01) %>%
-    tibble::tibble(x = .) %>%
-    dplyr::mutate(y = dnorm(x)*height) %>%
-    dplyr::mutate(x = x*sd + mean) %>%
-    dplyr::mutate(alpha = .3)
-
-}
-
-StampDnorm <- ggplot2::ggproto("StampDnorm",
-                              ggplot2::Stat,
-                              compute_group = compute_group_norm_dist_stamp,
-                              required_aes = c("x")
-                              )
-
-
-
-
-stamp_normal_dist <- function(mapping = NULL, data = NULL,
-                       position = "identity", na.rm = FALSE, show.legend = NA,
-                       inherit.aes = TRUE, outline.type = "upper", ...) {
-  ggplot2::layer(
-    stat = StampDnorm, geom = ggplot2::GeomArea, data = data, mapping = mapping,
-    position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-
-    params = list(na.rm = na.rm, outline.type = outline.type, ...)
-  )
-}
-
-
-
-```
-
 
 ## given probability distribution as data frames.
 
@@ -235,7 +127,7 @@ stamp_normal_dist <- function(mapping = NULL, data = NULL,
 
 Tidying up data is important so that when the data is inputted into R or any coding language. This process of 'tidying' data creates a well-organized and structured format that is easier for data analysis and visualization.  
 
-Probability tables are often communicated in untidy, wide forms not easily ingested by statistical software. (another example: http://www.stat.yale.edu/Courses/1997-98/101/ranvar.htm#:~:text=A%20discrete%20random%20variable%20is,then%20it%20must%20be%20discrete) For example, the table was provided for a probability problem about a spinning wheel with pie sectors with various prize award amounts: 
+Probability tables are often communicated in 'untidy', wide forms not easily ingested by statistical software. (another example: http://www.stat.yale.edu/Courses/1997-98/101/ranvar.htm#:~:text=A%20discrete%20random%20variable%20is,then%20it%20must%20be%20discrete) For example, the table was provided for a probability problem about a spinning wheel with pie sectors with various prize award amounts: 
 
 ```{r, echo = F, warning=F, message=F}
 library(tidyverse)
@@ -294,6 +186,16 @@ prize_wheel %>%
 
 ```
 
+```{r}
+prize_wheel %>% 
+  mutate(prob = frequency/sum(frequency)) %>% 
+  select(payout, prob) %>% 
+  cross_trials() %>% 
+  mutate(joint_payout = t1_payout + t2_payout) %>% 
+  mutate(joint_prob = t1_prob * t2_prob)
+```
+
+
 # The tabular data can also be used to walk through computations, like finding the expected value of the prize wheel spin.
 
 ```{r}
@@ -317,7 +219,7 @@ ggxmean:::stamp_space() +
 
 # Project timeline
 
-|Timing |Activity and Deliverable |Hours | 
+|Timing |Activity and Deliverable | Hours | 
 |---|---|---|
 |0-3 weeks |Background on writing functions in R and package architecture |15 | 
 |3-6 weeks |ggplot2 programming basics |15 | 

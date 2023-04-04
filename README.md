@@ -96,33 +96,18 @@ exactly one six? Zero sixes? What is the probability of rolling two
 successes (sixes) or fewer?
 
 If students are interested in a more visual presentation, they might
-also use the distribution combined with the powerful and intuitive
-ggplot2 plotting system, which uses dataframe inputs. To complement the
-probabilistic work, the ma206distributions package also contains the
-`geom_lollipop()` function to display the outcome-probability pairing
-via the ‘lollipop’ chart which is popular for visualizing discrete
-distributions. Furthermore, the ma206distributions package also contains
-the `scale_x_counting()` function which ensures that tick marks and
-numerical values are provided at the counting values of x, the support
-of the distribution.
+also use the distribution combined with the ggplot2 plotting system,
+which uses dataframe inputs. To complement the probabilistic work, the
+ma206distributions package also contains the `geom_lollipop()` function
+to display the outcome-probability pairing via the ‘lollipop’ chart
+which is popular for visualizing discrete distributions. Furthermore,
+the ma206distributions package also contains the `scale_x_counting()`
+function which ensures that tick marks and numerical values are provided
+at the counting values of x, the support of the distribution.
 
 ``` r
 library(ma206distributions)
 library(tidyverse)
-```
-
-    ## ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-    ## ✔ dplyr     1.1.0     ✔ readr     2.1.4
-    ## ✔ forcats   1.0.0     ✔ stringr   1.5.0
-    ## ✔ ggplot2   3.4.1     ✔ tibble    3.2.0
-    ## ✔ lubridate 1.9.2     ✔ tidyr     1.3.0
-    ## ✔ purrr     1.0.1     
-    ## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-    ## ✖ dplyr::filter() masks stats::filter()
-    ## ✖ dplyr::lag()    masks stats::lag()
-    ## ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
-
-``` r
 tidy_dbinom(single_trial_prob = 1/6, num_trials = 10) %>%   # from ma206distributions
   ggplot() + 
   aes(x = num_successes, 
@@ -130,12 +115,6 @@ tidy_dbinom(single_trial_prob = 1/6, num_trials = 10) %>%   # from ma206distribu
   geom_lollipop(annotate = T, round_digits = 2) +           # from ma206distributions
   scale_x_counting()                 # from ma206distributions
 ```
-
-    ## Warning in geom_post(...): Ignoring unknown parameters: `annotate` and
-    ## `round_digits`
-
-    ## Warning in geom_point(...): Ignoring unknown parameters: `annotate` and
-    ## `round_digits`
 
 ![](README_files/figure-gfm/unnamed-chunk-3-1.png)<!-- --> The package
 ma206data also gives you a `stamp` shortcut data visualization layer,
@@ -174,13 +153,11 @@ ggplot() +
 #### tidy\_dgeometric
 
 Similarly, geometric distributions might be delivered as a data frame.
-As things stand to use R to ask answer questions like ’After 3 spins,
-how likely am I to win the grand prize on a prize wheel with a 1/12
-chance per spin grand prize win? Currently, students might use the dgeom
-function to answer the question about trials until a success is
-observed. For example: Given the probability of free throw success of
-2/3 for a given player, what is the probability that we’ll see the first
-success only upon the third attempt?
+Currently, students might use the dgeom function to answer the question
+about the probability that a trial is the first success observed in a
+series of trials. For example: Given the probability of free throw
+success of 2/3 for a given player, what is the probability that we’ll
+see the first success only upon the third attempt?
 
 Currently, students might answer this question using R to calculate this
 quantity.
@@ -452,23 +429,9 @@ expected %>%
   annotate(geom = "text", label = plotmath_sd, parse = T,
            x = 12000, y = .65) ->
 discrete_random
-```
 
-    ## Warning in geom_fulcrum(aes(weight = probability)): Ignoring unknown
-    ## aesthetics: weight
-
-``` r
 discrete_random
 ```
-
-    ## Warning in is.na(x): is.na() applied to non-(list or vector) of type
-    ## 'expression'
-
-    ## Warning in is.na(x): is.na() applied to non-(list or vector) of type
-    ## 'expression'
-    
-    ## Warning in is.na(x): is.na() applied to non-(list or vector) of type
-    ## 'expression'
 
 ![](README_files/figure-gfm/unnamed-chunk-18-1.png)<!-- -->
 

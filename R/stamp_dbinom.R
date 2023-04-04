@@ -17,6 +17,6 @@ stamp_dbinom <- function(single_trial_prob = .5, num_trials = 10){
 
   geom_lollipop(data = tidy_dbinom(single_trial_prob = single_trial_prob,
                                    num_trials = num_trials),
-                aes(x = num_successes, y = probability))
+                aes(x = num_successes, y = probability), labels = labels)
 
 }

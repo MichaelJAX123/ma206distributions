@@ -12,9 +12,9 @@ library(tidyverse)
 ui <- fluidPage(
 
     # Application title
-    titlePanel("What does pnorm(x = z) do?" ),
+    titlePanel("What probablities are associated with each number of successes?" ),
 
-    titlePanel("Integrates under the normal from -infinity to Z" ),
+    titlePanel("Let's look at binomial distributions with given probabilites for single trials and given total trials" ),
 
     # Sidebar with a slider input for number of bins
     sidebarLayout(
@@ -29,7 +29,7 @@ ui <- fluidPage(
         # Sidebar with a slider input for number of bins
                 sliderInput("n",
                             step = 1,
-                            "N:",
+                            "Total number of trials:",
                             min = 1,
                             max = 100,
                             value = 10)
@@ -85,7 +85,8 @@ server <- function(input, output) {
 }
 
 # Run the application
-shinyApp(ui = ui, server = server)
+shinyApp(ui = ui,
+         server = server)
 
 #' ->
 #my_shiny_app

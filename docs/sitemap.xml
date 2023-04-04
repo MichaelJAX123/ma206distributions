@@ -1,27 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://evamaerey.github.io/ma206distributions//index.html</loc>
+    <loc>https://evamaerey.github.io/ma206distributions/404.html</loc>
   </url>
   <url>
-    <loc>https://evamaerey.github.io/ma206distributions//reference/geom_fulcrum.html</loc>
+    <loc>https://evamaerey.github.io/ma206distributions/LICENSE-text.html</loc>
   </url>
   <url>
-    <loc>https://evamaerey.github.io/ma206distributions//reference/geom_lollipop.html</loc>
+    <loc>https://evamaerey.github.io/ma206distributions/LICENSE.html</loc>
   </url>
   <url>
-    <loc>https://evamaerey.github.io/ma206distributions//reference/geom_post.html</loc>
+    <loc>https://evamaerey.github.io/ma206distributions/authors.html</loc>
   </url>
   <url>
-    <loc>https://evamaerey.github.io/ma206distributions//reference/geom_segment_sd.html</loc>
+    <loc>https://evamaerey.github.io/ma206distributions/index.html</loc>
   </url>
   <url>
-    <loc>https://evamaerey.github.io/ma206distributions//reference/prize_wheel.html</loc>
+    <loc>https://evamaerey.github.io/ma206distributions/reference/bernoulli_trial.html</loc>
   </url>
   <url>
-    <loc>https://evamaerey.github.io/ma206distributions//reference/scale_x_counting.html</loc>
+    <loc>https://evamaerey.github.io/ma206distributions/reference/cross_trials.html</loc>
   </url>
   <url>
-    <loc>https://evamaerey.github.io/ma206distributions//reference/tidy_dbinom.html</loc>
+    <loc>https://evamaerey.github.io/ma206distributions/reference/geom_fulcrum.html</loc>
+  </url>
+  <url>
+    <loc>https://evamaerey.github.io/ma206distributions/reference/geom_lollipop.html</loc>
+  </url>
+  <url>
+    <loc>https://evamaerey.github.io/ma206distributions/reference/geom_post.html</loc>
+  </url>
+  <url>
+    <loc>https://evamaerey.github.io/ma206distributions/reference/geom_post_label.html</loc>
+  </url>
+  <url>
+    <loc>https://evamaerey.github.io/ma206distributions/reference/geom_segment_sd.html</loc>
+  </url>
+  <url>
+    <loc>https://evamaerey.github.io/ma206distributions/reference/good_digits.html</loc>
+  </url>
+  <url>
+    <loc>https://evamaerey.github.io/ma206distributions/reference/index.html</loc>
+  </url>
+  <url>
+    <loc>https://evamaerey.github.io/ma206distributions/reference/pipe.html</loc>
+  </url>
+  <url>
+    <loc>https://evamaerey.github.io/ma206distributions/reference/prize_wheel.html</loc>
+  </url>
+  <url>
+    <loc>https://evamaerey.github.io/ma206distributions/reference/scale_x_counting.html</loc>
+  </url>
+  <url>
+    <loc>https://evamaerey.github.io/ma206distributions/reference/stamp_dbinom.html</loc>
+  </url>
+  <url>
+    <loc>https://evamaerey.github.io/ma206distributions/reference/stamp_dgeometric.html</loc>
+  </url>
+  <url>
+    <loc>https://evamaerey.github.io/ma206distributions/reference/theme_axis_x_censored.html</loc>
+  </url>
+  <url>
+    <loc>https://evamaerey.github.io/ma206distributions/reference/tidy_dbinom.html</loc>
+  </url>
+  <url>
+    <loc>https://evamaerey.github.io/ma206distributions/reference/tidy_dgeometric.html</loc>
   </url>
 </urlset>

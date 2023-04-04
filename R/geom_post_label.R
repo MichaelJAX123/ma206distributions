@@ -4,7 +4,7 @@ compute_group_post_label <- function(data, scales, round_digits = 3){
 
   data$xend <- data$x
   data$yend <- 0
-  data$label <- round(data$y, round_digits)
+  data$label <- round(data$y, digits = round_digits)
   data$label <- ifelse(data$label == 0 , return_small, data$label)
 
   data
