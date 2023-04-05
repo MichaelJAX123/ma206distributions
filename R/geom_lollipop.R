@@ -14,13 +14,21 @@
 #' library(ggplot2)
 #' ggplot(data = prize_wheel) +
 #' aes(x = payout, y = frequency) +
-#' geom_lollipop(labels = TRUE)
-geom_lollipop <- function(...){
+#' geom_lollipop(annotate = TRUE)
+geom_lollipop <- function(annotate = FALSE, ...){
 
+  if(annotate){
   list(
     geom_post(...),
-    geom_point(...)
+    geom_point(...),
+    geom_post_label()
   )
+  }else{
+    list(
+      geom_post(...),
+      geom_point(...)
+    )
+  }
 
 
 }

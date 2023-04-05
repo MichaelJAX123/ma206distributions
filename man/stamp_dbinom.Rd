@@ -4,7 +4,7 @@
 \alias{stamp_dbinom}
 \title{stamp_dbinom}
 \usage{
-stamp_dbinom(single_trial_prob = 0.5, num_trials = 10)
+stamp_dbinom(single_trial_prob = 0.5, num_trials = 10, annotate = FALSE)
 }
 \arguments{
 \item{single_trial_prob}{numeric value between 0 and 1}
@@ -23,6 +23,8 @@ ggplot() +
 stamp_dbinom()
 
 ggplot() +
-stamp_dbinom(single_trial_prob = 1/12, num_trials = 3)
+stamp_dbinom(single_trial_prob = 1/12,
+num_trials = 3,
+annotate=TRUE)
 
 }

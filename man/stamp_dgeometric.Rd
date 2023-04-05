@@ -4,7 +4,7 @@
 \alias{stamp_dgeometric}
 \title{Title}
 \usage{
-stamp_dgeometric(single_prob = 0.5, num_attempts = 10)
+stamp_dgeometric(single_prob = 0.5, num_attempts = 10, annotate = FALSE)
 }
 \arguments{
 \item{num_attempts}{}

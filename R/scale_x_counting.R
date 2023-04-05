@@ -23,7 +23,7 @@ scale_x_counting <- function(breaks = 0:10000, ...){
 }
 
 
-#' theme_axis_x_censored
+#' theme_axis_x_truncated
 #'
 #' @description Show x axis guides with ticks at integers
 #'
@@ -40,10 +40,10 @@ scale_x_counting <- function(breaks = 0:10000, ...){
 #'   scale_x_counting() +
 #'   aes(y = probability) +
 #'   geom_lollipop() +
-#'   theme_axis_x_censored()
+#'   theme_axis_x_truncated()
 
-theme_axis_x_censored <- function(){
+theme_axis_x_truncated <- function(){
 
-  ggplot2::theme(axis.line.x = element_line(color = "black", arrow = arrow()))
+  ggplot2::theme(axis.line.x = element_line(color = "black", arrow = arrow(length = unit(0.15, "inches"))))
 
 }

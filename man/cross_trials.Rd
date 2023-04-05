@@ -18,10 +18,7 @@ prize_wheel |>
    mutate(prob = frequency/sum(frequency)) |>
    cross_trials(num_trials = 2)
 
-cross_trials(bernoulli_trial(.1), num_trials = 3)
+bernoulli_trial(.1) \%>\%
+cross_trials(num_trials = 3)
 
-library(ggplot2)
-cross_trials(prize_wheel, num_trials = 2) |>
-ggplot() +
-aes(x = t1_sector_type, y = t2_sector_type)
 }

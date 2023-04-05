@@ -1,9 +1,14 @@
 Package: ma206distributions
-Title: What the Package Does (One Line, Title Case)
+Title: Provides funtions to easily interact with computationally with probability distributions in intro stats
 Version: 0.0.0.9000
 Authors@R: 
-    person(given = "First",
-           family = "Last",
+    person(given = "Evangeline",
+           family = "Reynolds",
+           role = c("aut", "cre"),
+           email = "first.last@example.com",
+           comment = c(ORCID = "YOUR-ORCID-ID"))
+     person(given = "Isaac",
+           family = "Folorunso",
            role = c("aut", "cre"),
            email = "first.last@example.com",
            comment = c(ORCID = "YOUR-ORCID-ID"))
