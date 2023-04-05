@@ -9,42 +9,39 @@ code for `ma206equations` resides
 [here](github.com/EvaMaeRey/ma206equations). See also `ma206data`
 [here](github.com/EvaMaeRey/ma206data).
 
+## Note to the reader
+
+Your feedback is on this work is greatly appreciated.
+
+Beyond the descriptions of our work, we interject comments on our
+hesitations 🤔 and areas that need some work 🚧, for your consideration
+marked with emoji.
+
 ## Abstract
 
-Mathematical fluency involves frequent use of probability distributions.
-However, visualizing these distributions can be tedious. In a
-well-defined statistics and probability curriculum, the set of
-distributions to be mastered is known and limited. In such settings
-having shortcuts to produce or ingest these distributions in analytic
-software for display and analysis could be beneficial for students and
-instructors alike. The goal of this project is to provide ready-to-use
-and functions that will make it easier to engage computationally with
-these distributions. We make these objects and functions available in
-the R package `ma206distributions`. In this project we focus on
-demonstrating new functionality might be used for educating about the
-binomial and geometric distributions. In addition, we explore a new
-syntactic approach to with random discrete variable distributions
-(constructed distributions).
+Mathematical fluency involves frequent use of probability distributions
+and of course equations. However, visualizing these distributions with
+software and typing equations can be tedious. In a well-defined
+statistics and probability curriculum, the set of distributions and
+equations to be mastered is known and limited. The goal of this project
+is to provide ready-to-use functions that will make it easier to engage
+computationally with these distributions and equations.
 
-## Objectives
+<!-- Mathematical fluency involves frequent use of probability distributions. However, visualizing these distributions can be tedious.   In a well-defined statistics and probability curriculum, the set of distributions to be mastered is known and limited.  In such settings having shortcuts to produce or ingest these distributions in analytic software for display and analysis could be beneficial for students and instructors alike.  The goal of this project is to provide ready-to-use and functions that will make it easier to engage computationally with these distributions.  We make these objects and functions available in the R package `ma206distributions`.  In this project we focus on demonstrating new functionality might be used for educating about the binomial and geometric distributions.  In addition, we explore a new syntactic approach to with random discrete variable distributions (constructed distributions). -->
 
-1.  Provide functions that return data frames relating outcomes and
-    probabilities for binomial and geometric distributions
-2.  Providing quick-viz *stamp* functions for binomial and geometric
-    distributions (normal and t exist in ggxmean). *Wishlist: also think
-    about rewrite for stamp\_normal (i.e. what should height
-    distribution look like?)*
-3.  Provide additional **dataframes** for ma206 that are probabilities
-    from curriculum (probability problems in text book). These might be
-    moved to ma206data package at some point.
-4.  Provide interactive app which 1) demonstrates distribution
-    characteristics, allowing easy manipulation of parameters 2)
-    connects to new package functionality by quoting back code
-    underlying the app.
+<!-- ## Objectives -->
+
+<!-- 1. Provide functions that return data frames relating outcomes and probabilities for binomial and geometric distributions -->
+
+<!-- 2. Providing quick-viz *stamp* functions for binomial and geometric distributions (normal and t exist in ggxmean).  *Wishlist: also think about rewrite for stamp_normal (i.e. what should height distribution look like?)* -->
+
+<!-- 3. Provide additional **dataframes** for ma206 that are probabilities from curriculum (probability problems in text book).  These might be moved to ma206data package at some point. -->
+
+<!-- 4. Provide interactive app which 1) demonstrates distribution characteristics, allowing easy manipulation of parameters 2) connects to new package functionality by quoting back code underlying the app. -->
 
 ### Objective \#1. provide data frames that relate outcomes and probabilities
 
-#### The problem
+#### Binomial distribution with `tidy_dbinom`
 
 Currently, students may use R as a calculator for quick computation of
 probabilistic quantities. However, using existing methodologies may
@@ -144,12 +141,14 @@ visualization layer, used in the following manner. This method might be
 used by instructors and students alike who are comfortable with the
 distribution’s underpinnings.
 
-🚧 In website pkgdown version of this, why is pkgdown failing to deliver
-visuals that we create in the README.rmd? Getting this error: Warning
-message: *Missing images in ‘README.md’:
+🚧 In website pkgdown version of this
+\[<https://evamaerey.github.io/ma206distributions>\], why is pkgdown
+failing to deliver visuals that we create in the README.rmd? Getting
+this error: Warning message: *Missing images in ‘README.md’:
 ‘README\_files/figure-gfm/unnamed-chunk-3-1.png’, pkgdown can only use
 images in ‘man/figures’ and ‘vignettes’* Should be fixed, but not
-working for me: <https://github.com/r-lib/pkgdown/pull/1977> 😭 😭 😭
+working for me: <https://github.com/r-lib/pkgdown/pull/1977> 😭 😭 😭 Go to
+readme with plots: <https://github.com/EvaMaeRey/ma206distributions>
 
 ``` r
 library(ma206equations)
@@ -165,18 +164,20 @@ ggplot() +
                 mapping = ggplot2::aes(x = num_successes, y = probability))
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-4-1.png)<!-- --> 🚧 Why isn’t
-annotate (labeling option) working in stamp\_dbinom()? See source code
+![](README_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
+
+🚧 Why isn’t annotate (labeling option) working in stamp\_dbinom()? 😭 See
+source code
 [here](https://github.com/EvaMaeRey/ma206distributions/blob/main/R/stamp_dbinom.R)
 and for geom\_lollipop(), where annotate does work
 [here](https://github.com/EvaMaeRey/ma206distributions/blob/main/R/geom_lollipop.R).
 
-### including relevant equations
+### Including relevant equations
 
 A complementary package, ma206equations exists that can deliver relevant
 equations as a part of the distributional plots. Students and
 instructors can stamp down the equation to calculate a probability in
-the binomial distribution, as well as the choose equation if they need
+the binomial distribution, as well as the *choose* equation if they need
 that unpacked.
 
 ``` r
@@ -196,6 +197,11 @@ ggplot() +
 
 🚧 We should probably be including left hand side of the equation for
 stamp\_eq\_binomial. See equations spreadsheet
+[here](https://github.com/EvaMaeRey/ma206equations/blob/main/data-raw/ma389_stats_formulas.csv)
+.
+
+🚧 We should probably be consistent with capitalization (N v. n) and
+selection variable (k v. r). See equations spreadsheet
 [here](https://github.com/EvaMaeRey/ma206equations/blob/main/data-raw/ma389_stats_formulas.csv)
 .
 
@@ -244,7 +250,7 @@ tidy_dgeometric(single_trial_prob = 2/3,
 
 🤔 🚧 Would the single\_trial\_prob columns be more appropriately stored
 as meta data? How would be best to do that? Source code
-[here](https://github.com/EvaMaeRey/ma206distributions/blob/main/R/dbinom_df.R)
+[here](https://github.com/EvaMaeRey/ma206distributions/blob/main/R/tidy_dbinom.R)
 
 Students can focus on the information in question, but also see that it
 sits in the context of the larger probability distribution. \[For the
@@ -472,6 +478,11 @@ ggplot() +
 ```
 
 ![](README_files/figure-gfm/unnamed-chunk-17-1.png)<!-- -->
+
+## Browse functions
+
+  - <https://evamaerey.github.io/ma206distributions/reference/index.html>
+  - <https://evamaerey.github.io/ma206equations/reference/index.html>
 
 ## Visualizing a Discrete Random Variable without {ma206distributions} functions
 

@@ -2,9 +2,7 @@
 output: github_document
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(warning=F, message=F, comment = "  ")
-```
+
 
 
 
@@ -50,8 +48,13 @@ For example, consider the question:  What is the probability of rolling a six ex
 
 Solving that problem with current toolbox might look like this. 
 
-```{r}
+
+```r
 dbinom(x = 2, size = 8, prob = 1/6)
+```
+
+```
+   [1] 0.2604762
 ```
 
 This solution is concise, but lacks context, and doesn't nicely parlay to answer other related and adjacent questions. 
@@ -59,10 +62,26 @@ This solution is concise, but lacks context, and doesn't nicely parlay to answer
 We propose instead that a full set of paired outcomes and probabilities be made available to students when asking this question via the ma206distributions function `tidy_dbinom`.  To answer the preceding question, then, students would consult the table that they produce using the function:
 
 
-```{r}
+
+```r
 library(ma206distributions)
 options(scipen = 8, digits = 3)
 tidy_dbinom(single_trial_prob = 1/6, 8)
+```
+
+```
+   # A tibble: 9 × 4
+     num_successes probability single_trial_prob num_trials
+             <int>       <dbl>             <dbl>      <dbl>
+   1             0 0.233                   0.167          8
+   2             1 0.372                   0.167          8
+   3             2 0.260                   0.167          8
+   4             3 0.104                   0.167          8
+   5             4 0.0260                  0.167          8
+   6             5 0.00417                 0.167          8
+   7             6 0.000417                0.167          8
+   8             7 0.0000238               0.167          8
+   9             8 0.000000595             0.167          8
 ```
 
 🤔 Should `tidy_dbinom` be called something else?  Maybe `dbinom_df` is better? or `df_dbinom`? Are we part of a fad of calling everything 'tidy' and it not meaning much? 🙃
@@ -78,7 +97,8 @@ And they can consult the same table to answer a number of additional questions a
 
 If students are interested in a more visual presentation, they might also use the distribution combined with the ggplot2 plotting system, which uses data frame inputs.  To complement the probabilistic work, the ma206distributions package also contains the `geom_lollipop()` function to display the outcome-probability pairing via the 'lollipop' chart which is popular for visualizing discrete distributions. Furthermore, the ma206distributions package also contains the `scale_x_counting()` function which ensures that tick marks and numerical values are provided at the counting values of x, the support of the distribution.
 
-```{r}
+
+```r
 library(ma206distributions)
 library(tidyverse)
 tidy_dbinom(single_trial_prob = 1/6, num_trials = 10) %>%   # from ma206distributions
@@ -90,13 +110,16 @@ tidy_dbinom(single_trial_prob = 1/6, num_trials = 10) %>%   # from ma206distribu
   scale_x_counting()                      # from ma206distributions
 ```
 
+![](README_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
+
 The package ma206data also gives you a `stamp` shortcut data visualization layer, used in the following manner.  This method might be used by instructors and students alike who are comfortable with the distribution's underpinnings.  
 
 
 🚧 In website pkgdown version of this [https://evamaerey.github.io/ma206distributions], why is pkgdown failing to deliver visuals that we create in the README.rmd?  Getting this error: Warning message:
 *Missing images in 'README.md': 'README_files/figure-gfm/unnamed-chunk-3-1.png', pkgdown can only use images in 'man/figures' and 'vignettes'* Should be fixed, but not working for me: https://github.com/r-lib/pkgdown/pull/1977  😭 😭 😭  Go to readme with plots: https://github.com/EvaMaeRey/ma206distributions
 
-```{r}
+
+```r
 library(ma206equations)
 ggplot() + 
   stamp_dbinom(single_trial_prob = 1/6, 
@@ -110,6 +133,8 @@ ggplot() +
                 mapping = ggplot2::aes(x = num_successes, y = probability))
 ```
 
+![](README_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
+
 🚧 Why isn't annotate (labeling option) working in stamp_dbinom()? 😭 See source code [here](https://github.com/EvaMaeRey/ma206distributions/blob/main/R/stamp_dbinom.R) and for geom_lollipop(), where annotate does work [here](https://github.com/EvaMaeRey/ma206distributions/blob/main/R/geom_lollipop.R).
 
 
@@ -117,7 +142,8 @@ ggplot() +
 
 A complementary package, ma206equations exists that can deliver relevant equations as a part of the distributional plots. Students and instructors can stamp down the equation to calculate a probability in the binomial distribution, as well as the *choose* equation if they need that unpacked. 
 
-```{r}
+
+```r
 library(ma206equations)
 ggplot() + 
   stamp_dbinom(single_trial_prob = 1/6, 
@@ -128,8 +154,9 @@ ggplot() +
                     size = 8) +
   stamp_eq_choose(x = 7, y = .2, 
                   size = 3, color = "black")
-
 ```
+
+![](README_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
 
 
 🚧 We should probably be including left hand side of the equation for stamp_eq_binomial. See equations spreadsheet [here](https://github.com/EvaMaeRey/ma206equations/blob/main/data-raw/ma389_stats_formulas.csv) .
@@ -145,16 +172,33 @@ Similarly, geometric distributions might be delivered as a data frame.  Currentl
 
 Currently, students might answer this question using R to calculate this quantity.  
 
-```{r}
+
+```r
 dgeom(x = 3-1, prob = 2/3)
+```
+
+```
+   [1] 0.0741
 ```
 
 However, again the quantity returned lacks context.  The ma206distributions package provides a function to instead deliver a data frame where attempt index and probability is paired as follows:
 
-```{r}
+
+```r
 library(ma206distributions)
 tidy_dgeometric(single_trial_prob = 2/3, 
                 num_attempts = 5)
+```
+
+```
+   # A tibble: 5 × 4
+     observed_attempt single_trial_prob probability cumulative_prob
+                <int>             <dbl>       <dbl>           <dbl>
+   1                1             0.667     0.667             0.667
+   2                2             0.667     0.222             0.889
+   3                3             0.667     0.0741            0.963
+   4                4             0.667     0.0247            0.988
+   5                5             0.667     0.00823           0.996
 ```
 
 🤔  🚧 Would the single_trial_prob columns be more appropriately stored as meta data?  How would be best to do that? Source code [here](https://github.com/EvaMaeRey/ma206distributions/blob/main/R/tidy_dbinom.R) 
@@ -163,7 +207,8 @@ Students can focus on the information in question, but also see that it sits in 
 
 Students can easily feed the data frame produced with tidy_dgeometric() into a visualization software.  The function `theme_axis_x_truncated` helps us communicate that we aren't visualizing the full distribution (which extends to infinity).
 
-```{r}
+
+```r
 library(ma206distributions)
 library(tidyverse)
 tidy_dgeometric(single_trial_prob = 2/3, num_attempts = 5) %>%   # from ma206distributions
@@ -178,6 +223,8 @@ tidy_dgeometric(single_trial_prob = 2/3, num_attempts = 5) %>%   # from ma206dis
   stamp_eq_geometric(x = 4, y = .45)
 ```
 
+![](README_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
+
 🤔 We are inconsistent with naming, abbreviating to binom but not to geom, from geometric? This is kind of motivated by the use of 'geom' in ggplot2 in a totally different sense.  What should we do?
 
 🤔 🚧 I think we are being inconsistent about geometric distribution between ma206equations and ma206distributions.  We can either count last failure or first success.   
@@ -186,12 +233,15 @@ tidy_dgeometric(single_trial_prob = 2/3, num_attempts = 5) %>%   # from ma206dis
 
 And the function stamp_dgeometric also exists as a shortcut for displaying the distribution.
 
-```{r}
+
+```r
 ggplot() + 
   stamp_dgeometric() + 
   scale_x_counting() + 
   theme_axis_x_truncated()
 ```
+
+![](README_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
 
 ## given probability distribution as data frames.
 
@@ -201,51 +251,47 @@ Tidying up data is important so that when the data is inputted into R or any cod
 
 Probability tables are often communicated in 'untidy', *wide* forms not easily ingested by statistical software. (another example: http://www.stat.yale.edu/Courses/1997-98/101/ranvar.htm#:~:text=A%20discrete%20random%20variable%20is,then%20it%20must%20be%20discrete) For example, the table was provided for a probability problem about a spinning wheel with pie sectors with various prize award amounts: 
 
-```{r, echo = F, warning=F, message=F}
-library(tidyverse)
-knitr::kable(t(ma206distributions::prize_wheel %>% select(-3)))
-```
+
+|            |         |       |       |
+|:-----------|:--------|:------|:------|
+|sector_type |No Prize |Win $1 |Win $3 |
+|frequency   |9        |1      |2      |
 
 Such a spin-wheel might look like this:
 
 
-```{r, warning = F, message=F, echo = F}
-set.seed(1243323)
-ma206distributions::prize_wheel %>% 
-  uncount(frequency) %>% 
-  slice_sample(n = 12) %>% 
-  mutate(position = row_number()) %>% 
-  ggplot() + 
-  aes(x = position, y = .5, fill = payout) + 
-  geom_tile(alpha = .85, color = "white") + 
-  geom_text(aes(label = payout %>% paste0("$", .)), 
-            color = "white", 
-            y = .85,
-            size = 6) + 
-  coord_polar() +
-  scale_fill_viridis_c(end = .8) +
-  theme_void() + 
-  theme(legend.position = "none") 
-```
+![](README_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
 
 To get the data into a tidy, ready-to-use form, we transposed the table from wide to long so that a variable is a columns and the column headers inform us about the content. This way, each row forms an observation, in this case an event type. The spinning of the prize wheel has three outcomes based on which sector type the wheel landed on:  no prize, win $1, and win $3. We added a numeric column 'payout' too which we makes the data easier to use from a mathematical standpoint.  Below is our tidied data. 
 
 🚧 [insert link to tidy data paper]
 
-```{r, echo = F}
-knitr::kable(ma206distributions::prize_wheel)
-```
+
+|sector_type | frequency| payout|
+|:-----------|---------:|------:|
+|No Prize    |         9|      0|
+|Win $1      |         1|      1|
+|Win $3      |         2|      3|
 
 In our package we include the data structured in this way in an object called `prize_wheel`:
 
-```{r}
+
+```r
 library(ma206distributions)
 print(prize_wheel)
 ```
 
+```
+     sector_type frequency payout
+   1    No Prize         9      0
+   2      Win $1         1      1
+   3      Win $3         2      3
+```
+
 Give that the data is tidied, we can easily visualize the joint distribution of payout and frequency using the ggplot2 tool that is already used heavily in the statistics part of the class.
 
-```{r, warning=F, message=F}
+
+```r
 library(tidyverse)
 prize_wheel %>% 
   ggplot() + 
@@ -253,9 +299,12 @@ prize_wheel %>%
   aes(y = frequency) +
   geom_lollipop()
 ```
+
+![](README_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->
 The function `geom_fulcrum` can be used to visualize the balancing point of the data, which is also the expected value.  Then using the `stamp_eq_expected_value`, `stamp_eq_variance`, and `stamp_eq_standard_deviation`, we can relay the mathematical formula's for computing quantities about this distribution.
 
-```{r}
+
+```r
 last_plot() +
   aes(weight = frequency) +
   geom_fulcrum(color = "red", 
@@ -264,6 +313,8 @@ last_plot() +
   stamp_eq_variance(x = 2, y = 6) +
   stamp_eq_standard_deviation(x = 2, y = 5) 
 ```
+
+![](README_files/figure-gfm/unnamed-chunk-15-1.png)<!-- -->
 
 
 
@@ -281,11 +332,19 @@ The equations in the plot were produce in the following fashion (no functions or
 
 ${{_N}C{_k}} * p^kq^{N-k}$
 
-```{r, eval = T, warning=F, message=F}
+
+```r
 library(tidyverse)
 
 latex2exp::TeX("${{_N}C{_k}} \\cdot p^kq^{N-k}$")
+```
 
+```
+      LaTeX: ${{_N}C{_k}} \cdot p^kq^{N-k}$ 
+   plotmath: {{{}[N]}*C * {{}[k]}} %.% p^{k}*q^{N - k}
+```
+
+```r
 single_trial_prob <- .5
 num_trials <- 10
 
@@ -323,10 +382,13 @@ binomial_distribution
 binomial_distribution
 ```
 
+![](README_files/figure-gfm/unnamed-chunk-16-1.png)<!-- -->
+
 
 detail for the interested: Another possibility is using the `stat_function()` function in ggplot2 to produce visualizations of a binomial distribution.  Below, we show how you can visualize the binomial distribution for 20 trials and .2 is the probability of success for each trial.  Using the `stat_function()` carefully, you can get a similar outcome.  However, there is a lot of coordination that's required:  `20` shows up about three times in the construction for example in xlim(); in `n = 21` (20 + 1 possible outcomes); and finally in the `args` list.   Producing this plot requires a lot of foreknowledge.  With our alternative strategies, (delivering data frames and stamps), we hope to give  students something they can produce easily, and *then* have a conversation about why the distribution has the form it does.
 
-```{r}
+
+```r
 library(ggplot2)
 ggplot() + 
   xlim(0, 20) +
@@ -339,6 +401,8 @@ ggplot() +
   labs(title = "Given 20 trials where the probability for success in a single\n trial is .2, what are the probabilities for each possible\nnumber of observed successes ")
 ```
 
+![](README_files/figure-gfm/unnamed-chunk-17-1.png)<!-- -->
+
 
 ## Browse functions
 
@@ -350,7 +414,8 @@ ggplot() +
 
 Probability problems could be structured as data frames visualized with the same tools used in the stats part of the class.
 
-```{r}
+
+```r
 tibble(event = c("totaled", "fender bender", "accident free"),
        probability = c(.01, .09, .9),
        payout = c(20000, 5000, 0)) ->
@@ -387,11 +452,13 @@ discrete_random
 discrete_random
 ```
 
+![](README_files/figure-gfm/unnamed-chunk-18-1.png)<!-- -->
+
 
 This contrasts with the expressive and fluid experience delivered by ma206equations and ma206distribution functions:
 
-```{r}
 
+```r
 expected %>% 
   ggplot() + 
   aes(x = payout, y = probability) + 
@@ -401,10 +468,9 @@ expected %>%
   stamp_eq_expected_value(x = 12000, y = .95) +
   stamp_eq_variance(x = 12000, y = .8) + 
   stamp_eq_standard_deviation(x = 12000, y = .65)
-
-
-
 ```
+
+![](README_files/figure-gfm/unnamed-chunk-19-1.png)<!-- -->
 
 
 
@@ -449,23 +515,15 @@ See also:
 - we'll make the repository available in this account
 
 
-```{r eval = F, echo = F}
-fs::dir_ls("README_files/figure-gfm/.")
-file.copy(fs::dir_ls("README_files/figure-gfm/."), to = "docs/reference/figures/.", recursive = T)
-
-readLines("docs/index.html") %>% 
-  str_replace_all("README_files/figure-gfm/", "reference/figures/") %>% 
-  writeLines(con = "docs/index.html")
-```
 
 
-```{r}
 
+
+```r
 # tibble(baby = 1:4) %>% 
 #  crossing(tibble(mom = 1:4)) %>% 
 #  mutate(match = baby == mom) %>% 
 #  ggplot() + 
 #   aes(fill = match) + aes(x = baby) + aes(y = mom) + 
 #   geom_tile()
-
 ```
