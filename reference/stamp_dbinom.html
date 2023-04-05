@@ -42,7 +42,7 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">stamp_dbinom</span><span class="op">(</span>single_trial_prob <span class="op">=</span> <span class="fl">0.5</span>, num_trials <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">stamp_dbinom</span><span class="op">(</span>single_trial_prob <span class="op">=</span> <span class="fl">0.5</span>, num_trials <span class="op">=</span> <span class="fl">10</span>, annotate <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -67,14 +67,12 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span><span class="fu">stamp_dbinom</span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Ignoring unknown parameters: `labels`</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Ignoring unknown parameters: `labels`</span>
 <span class="r-plt img"><img src="stamp_dbinom-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span></span>
-<span class="r-in"><span><span class="fu">stamp_dbinom</span><span class="op">(</span>single_trial_prob <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="fl">12</span>, num_trials <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Ignoring unknown parameters: `labels`</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Ignoring unknown parameters: `labels`</span>
+<span class="r-in"><span><span class="fu">stamp_dbinom</span><span class="op">(</span>single_trial_prob <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="fl">12</span>,</span></span>
+<span class="r-in"><span>num_trials <span class="op">=</span> <span class="fl">3</span>,</span></span>
+<span class="r-in"><span>annotate<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="stamp_dbinom-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
@@ -84,7 +82,7 @@
 
 
     <footer><div class="pkgdown-footer-left">
-  <p></p><p>Developed by First Last.</p>
+  <p></p><p>Developed by Isaac Folorunso.</p>
 </div>
 
 <div class="pkgdown-footer-right">
