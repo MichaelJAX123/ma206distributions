@@ -149,15 +149,6 @@ visualization layer, used in the following manner. This method might be
 used by instructors and students alike who are comfortable with the
 distribution’s underpinnings.
 
-🚧 In website pkgdown version of this
-\[<https://evamaerey.github.io/ma206distributions>\], why is pkgdown
-failing to deliver visuals that we create in the README.rmd? Getting
-this error: Warning message: *Missing images in ‘README.md’:
-‘README\_files/figure-gfm/unnamed-chunk-3-1.png’, pkgdown can only use
-images in ‘man/figures’ and ‘vignettes’* Should be fixed, but not
-working for me: <https://github.com/r-lib/pkgdown/pull/1977> 😭 😭 😭 Go to
-readme with plots: <https://github.com/EvaMaeRey/ma206distributions>
-
 ``` r
 library(ma206equations)
 ggplot() + 
