@@ -1,6 +1,14 @@
 
 ## ma206distributions
 
+<!-- badges: start -->
+
+[![Lifecycle:
+experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+<!-- badges: end -->
+
+<a href="https://evamaerey.github.io/ma206distributions/"><img src="man/figures/logo.png" align="right" height="120" /></a>
+
 The `ma206distributions` package allows you to easily visualize common
 distributions for statistical and probabilistic analytics in ggplot2.
 This package has been built along side its sister package
@@ -450,7 +458,7 @@ binomial_distribution
 binomial_distribution
 ```
 
-![](man/figures/unnamed-chunk-8-1.png)<!-- -->
+![](man/figures/unnamed-chunk-10-1.png)<!-- -->
 
 detail for the interested: Another possibility is using the
 `stat_function()` function in ggplot2 to produce visualizations of a
@@ -478,7 +486,7 @@ ggplot() +
   labs(title = "Given 20 trials where the probability for success in a single\n trial is .2, what are the probabilities for each possible\nnumber of observed successes ")
 ```
 
-![](man/figures/unnamed-chunk-9-1.png)<!-- -->
+![](man/figures/unnamed-chunk-11-1.png)<!-- -->
 
 ## Browse functions
 
@@ -527,7 +535,7 @@ discrete_random
 discrete_random
 ```
 
-![](man/figures/unnamed-chunk-10-1.png)<!-- -->
+![](man/figures/unnamed-chunk-12-1.png)<!-- -->
 
 This contrasts with the expressive and fluid experience delivered by
 ma206equations and ma206distribution functions:
@@ -544,7 +552,7 @@ expected %>%
   stamp_eq_standard_deviation(x = 12000, y = .65)
 ```
 
-![](man/figures/unnamed-chunk-11-1.png)<!-- -->
+![](man/figures/unnamed-chunk-13-1.png)<!-- -->
 
 # Project timeline
 

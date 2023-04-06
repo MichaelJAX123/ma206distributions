@@ -2,3 +2,7 @@ url: https://evamaerey.github.io/ma206distributions/
 template:
   bootstrap: 5
 
+navbar:
+  structure:
+    left:  [intro, reference, articles, tutorials, news]
+    right: [search, github]

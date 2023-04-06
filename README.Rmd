@@ -3,14 +3,61 @@ output: github_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(warning=F, message=F, comment = "  ", fig.path = "man/figures/")
+knitr::opts_chunk$set(warning=F, 
+                      message=F, 
+                      comment = "  ", 
+                      fig.path = "man/figures/")
+```
+
+```{r, eval = F, echo = F}
+library(tidyverse)
+library(ggstamp)  
+library(ggxmean)
+set.seed(1243)
+ggcanvas() + 
+  stamp_wash(fill = "linen", alpha = 1) + 
+  stamp_chisq_dist(df = 3,  fill = "steelblue", sd = .22, height = 10, color = "snow") +
+  stamp_chisq_dist(df = 5,  fill = "goldenrod", sd = .22, height = 10, color = "snow") +
+  stamp_chisq_dist(df = 7,  fill = "plum", sd = .22, height = 10, color = "snow") +
+  stamp_chisq_dist(df = 11, fill = "sienna", sd = .22, height = 10, color = "snow") +
+  stamp_text( y = -.2, x = 1.3,
+             label = "ma206distributions",
+             color = "lightblue4", size = 12) + 
+    # coord_equal(xlim = c(-3,3), ylim = c(-2.3, 2.3)) + 
+  stamp_text(angle = 30, label = "github.com/...",
+             x = 1.7, y = -1.45, size = 1.8, 
+             color = "brown") + 
+    stamp_polygon(radius = 2, x0 = 1.3, y0 = .5,
+                alpha = 0, size = 7,
+                color = alpha("rosybrown4", .9)) +
+    stamp_polygon_inverse(radius = 2, radius_outer = Inf, x0 = 1.3, y0 = .5,
+                        fill = "white", color = "red"
+                         ) +
+  theme_void_fill(fill = "white") +
+  NULL
+  
+```
+
+
+```{r, eval = F, echo = F}
+ggsave("hex_sticker_dist.png", dpi = 320) 
+magick::image_read("hex_sticker_dist.png") %>% 
+  magick::image_fill("transparent",  "+40+40", fuzz = 40) %>% 
+  magick::image_write("hex_sticker_dist.png")
+
+knitr::include_graphics("hex_sticker_dist.png")
 ```
 
 
 
 
-
 ## ma206distributions
+
+<!-- badges: start -->
+  [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+<!-- badges: end -->
+  
+<a href="https://evamaerey.github.io/ma206distributions/"><img src="man/figures/logo.png" align="right" height="120" /></a>
 
 The `ma206distributions` package allows you to easily visualize common distributions for statistical and probabilistic analytics in ggplot2.  This package has been built along side its sister package `ma206equations`.  Both packages will be discussed here, but the source code for `ma206equations` resides [here](https://github.com/EvaMaeRey/ma206equations).  See also `ma206data`  [here](https://github.com/EvaMaeRey/ma206data).
 
