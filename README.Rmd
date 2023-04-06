@@ -3,7 +3,7 @@ output: github_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(warning=F, message=F, comment = "  ")
+knitr::opts_chunk$set(warning=F, message=F, comment = "  ", fig.path = "man/figures/")
 ```
 
 
@@ -12,7 +12,7 @@ knitr::opts_chunk$set(warning=F, message=F, comment = "  ")
 
 ## ma206distributions
 
-The `ma206distributions` package allows you to easily visualize common distributions for statistical and probabilistic analytics in ggplot2.  This package has been built along side its sister package `ma206equations`.  Both packages will be discussed here, but the source code for `ma206equations` resides [here](github.com/EvaMaeRey/ma206equations).  See also `ma206data`  [here](github.com/EvaMaeRey/ma206data).
+The `ma206distributions` package allows you to easily visualize common distributions for statistical and probabilistic analytics in ggplot2.  This package has been built along side its sister package `ma206equations`.  Both packages will be discussed here, but the source code for `ma206equations` resides [here](https://github.com/EvaMaeRey/ma206equations).  See also `ma206data`  [here](https://github.com/EvaMaeRey/ma206data).
 
 ## Note to the reader
 
@@ -78,7 +78,7 @@ And they can consult the same table to answer a number of additional questions a
 
 If students are interested in a more visual presentation, they might also use the distribution combined with the ggplot2 plotting system, which uses data frame inputs.  To complement the probabilistic work, the ma206distributions package also contains the `geom_lollipop()` function to display the outcome-probability pairing via the 'lollipop' chart which is popular for visualizing discrete distributions. Furthermore, the ma206distributions package also contains the `scale_x_counting()` function which ensures that tick marks and numerical values are provided at the counting values of x, the support of the distribution.
 
-```{r}
+```{r rolling10}
 library(ma206distributions)
 library(tidyverse)
 tidy_dbinom(single_trial_prob = 1/6, num_trials = 10) %>%   # from ma206distributions
@@ -96,7 +96,7 @@ The package ma206data also gives you a `stamp` shortcut data visualization layer
 🚧 In website pkgdown version of this [https://evamaerey.github.io/ma206distributions], why is pkgdown failing to deliver visuals that we create in the README.rmd?  Getting this error: Warning message:
 *Missing images in 'README.md': 'README_files/figure-gfm/unnamed-chunk-3-1.png', pkgdown can only use images in 'man/figures' and 'vignettes'* Should be fixed, but not working for me: https://github.com/r-lib/pkgdown/pull/1977  😭 😭 😭  Go to readme with plots: https://github.com/EvaMaeRey/ma206distributions
 
-```{r}
+```{r stampbinomial}
 library(ma206equations)
 ggplot() + 
   stamp_dbinom(single_trial_prob = 1/6, 
@@ -117,7 +117,7 @@ ggplot() +
 
 A complementary package, ma206equations exists that can deliver relevant equations as a part of the distributional plots. Students and instructors can stamp down the equation to calculate a probability in the binomial distribution, as well as the *choose* equation if they need that unpacked. 
 
-```{r}
+```{r binomialwequations}
 library(ma206equations)
 ggplot() + 
   stamp_dbinom(single_trial_prob = 1/6, 
@@ -151,19 +151,19 @@ dgeom(x = 3-1, prob = 2/3)
 
 However, again the quantity returned lacks context.  The ma206distributions package provides a function to instead deliver a data frame where attempt index and probability is paired as follows:
 
-```{r}
+```{r }
 library(ma206distributions)
 tidy_dgeometric(single_trial_prob = 2/3, 
                 num_attempts = 5)
 ```
 
-🤔  🚧 Would the single_trial_prob columns be more appropriately stored as meta data?  How would be best to do that? Source code [here](https://github.com/EvaMaeRey/ma206distributions/blob/main/R/tidy_dbinom.R) 
+🤔  🚧 Would the single_trial_prob columns be more appropriately stored as meta data?  How would be best to do that? Source code [here](https://github.com/EvaMaeRey/ma206distributions/blob/main/R/tidy_dbinom.R) We at least should switch order of columns. 
 
 Students can focus on the information in question, but also see that it sits in the context of the larger probability distribution. [For the geometric distribution, it should be noted that the complete distribution cannot be displayed as the 'support' is infinite; theoretically you could wait forever for the first success.]
 
 Students can easily feed the data frame produced with tidy_dgeometric() into a visualization software.  The function `theme_axis_x_truncated` helps us communicate that we aren't visualizing the full distribution (which extends to infinity).
 
-```{r}
+```{r geometric}
 library(ma206distributions)
 library(tidyverse)
 tidy_dgeometric(single_trial_prob = 2/3, num_attempts = 5) %>%   # from ma206distributions
@@ -186,9 +186,10 @@ tidy_dgeometric(single_trial_prob = 2/3, num_attempts = 5) %>%   # from ma206dis
 
 And the function stamp_dgeometric also exists as a shortcut for displaying the distribution.
 
-```{r}
+```{r geometricstamp}
 ggplot() + 
-  stamp_dgeometric() + 
+  stamp_dgeometric(single_prob = 1/3, 
+                   num_attempts = 9) + 
   scale_x_counting() + 
   theme_axis_x_truncated()
 ```
@@ -209,7 +210,7 @@ knitr::kable(t(ma206distributions::prize_wheel %>% select(-3)))
 Such a spin-wheel might look like this:
 
 
-```{r, warning = F, message=F, echo = F}
+```{r spinwheel, warning = F, message=F, echo = F}
 set.seed(1243323)
 ma206distributions::prize_wheel %>% 
   uncount(frequency) %>% 
@@ -245,7 +246,7 @@ print(prize_wheel)
 
 Give that the data is tidied, we can easily visualize the joint distribution of payout and frequency using the ggplot2 tool that is already used heavily in the statistics part of the class.
 
-```{r, warning=F, message=F}
+```{r prizewheelviz, warning=F, message=F}
 library(tidyverse)
 prize_wheel %>% 
   ggplot() + 
@@ -255,7 +256,7 @@ prize_wheel %>%
 ```
 The function `geom_fulcrum` can be used to visualize the balancing point of the data, which is also the expected value.  Then using the `stamp_eq_expected_value`, `stamp_eq_variance`, and `stamp_eq_standard_deviation`, we can relay the mathematical formula's for computing quantities about this distribution.
 
-```{r}
+```{r fulcrum}
 last_plot() +
   aes(weight = frequency) +
   geom_fulcrum(color = "red", 

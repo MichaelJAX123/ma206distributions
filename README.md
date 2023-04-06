@@ -6,8 +6,8 @@ distributions for statistical and probabilistic analytics in ggplot2.
 This package has been built along side its sister package
 `ma206equations`. Both packages will be discussed here, but the source
 code for `ma206equations` resides
-[here](github.com/EvaMaeRey/ma206equations). See also `ma206data`
-[here](github.com/EvaMaeRey/ma206data).
+[here](https://github.com/EvaMaeRey/ma206equations). See also
+`ma206data` [here](https://github.com/EvaMaeRey/ma206data).
 
 ## Note to the reader
 
@@ -134,7 +134,7 @@ tidy_dbinom(single_trial_prob = 1/6, num_trials = 10) %>%   # from ma206distribu
   scale_x_counting()                      # from ma206distributions
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
+![](man/figures/rolling10-1.png)<!-- -->
 
 The package ma206data also gives you a `stamp` shortcut data
 visualization layer, used in the following manner. This method might be
@@ -164,7 +164,7 @@ ggplot() +
                 mapping = ggplot2::aes(x = num_successes, y = probability))
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
+![](man/figures/stampbinomial-1.png)<!-- -->
 
 🚧 Why isn’t annotate (labeling option) working in stamp\_dbinom()? 😭 See
 source code
@@ -193,7 +193,7 @@ ggplot() +
                   size = 3, color = "black")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
+![](man/figures/binomialwequations-1.png)<!-- -->
 
 🚧 We should probably be including left hand side of the equation for
 stamp\_eq\_binomial. See equations spreadsheet
@@ -251,6 +251,7 @@ tidy_dgeometric(single_trial_prob = 2/3,
 🤔 🚧 Would the single\_trial\_prob columns be more appropriately stored
 as meta data? How would be best to do that? Source code
 [here](https://github.com/EvaMaeRey/ma206distributions/blob/main/R/tidy_dbinom.R)
+We at least should switch order of columns.
 
 Students can focus on the information in question, but also see that it
 sits in the context of the larger probability distribution. \[For the
@@ -278,7 +279,7 @@ tidy_dgeometric(single_trial_prob = 2/3, num_attempts = 5) %>%   # from ma206dis
   stamp_eq_geometric(x = 4, y = .45)
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
+![](man/figures/geometric-1.png)<!-- -->
 
 🤔 We are inconsistent with naming, abbreviating to binom but not to
 geom, from geometric? This is kind of motivated by the use of ‘geom’ in
@@ -293,12 +294,13 @@ displaying the distribution.
 
 ``` r
 ggplot() + 
-  stamp_dgeometric() + 
+  stamp_dgeometric(single_prob = 1/3, 
+                   num_attempts = 9) + 
   scale_x_counting() + 
   theme_axis_x_truncated()
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
+![](man/figures/geometricstamp-1.png)<!-- -->
 
 ## given probability distribution as data frames.
 
@@ -322,7 +324,7 @@ spinning wheel with pie sectors with various prize award amounts:
 
 Such a spin-wheel might look like this:
 
-![](README_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
+![](man/figures/spinwheel-1.png)<!-- -->
 
 To get the data into a tidy, ready-to-use form, we transposed the table
 from wide to long so that a variable is a columns and the column headers
@@ -369,12 +371,11 @@ prize_wheel %>%
   geom_lollipop()
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-14-1.png)<!-- --> The function
-`geom_fulcrum` can be used to visualize the balancing point of the data,
-which is also the expected value. Then using the
-`stamp_eq_expected_value`, `stamp_eq_variance`, and
-`stamp_eq_standard_deviation`, we can relay the mathematical formula’s
-for computing quantities about this distribution.
+![](man/figures/prizewheelviz-1.png)<!-- --> The function `geom_fulcrum`
+can be used to visualize the balancing point of the data, which is also
+the expected value. Then using the `stamp_eq_expected_value`,
+`stamp_eq_variance`, and `stamp_eq_standard_deviation`, we can relay the
+mathematical formula’s for computing quantities about this distribution.
 
 ``` r
 last_plot() +
@@ -386,7 +387,7 @@ last_plot() +
   stamp_eq_standard_deviation(x = 2, y = 5) 
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-15-1.png)<!-- -->
+![](man/figures/fulcrum-1.png)<!-- -->
 
 ## A comparison with the status quo
 
@@ -449,7 +450,7 @@ binomial_distribution
 binomial_distribution
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-16-1.png)<!-- -->
+![](man/figures/unnamed-chunk-8-1.png)<!-- -->
 
 detail for the interested: Another possibility is using the
 `stat_function()` function in ggplot2 to produce visualizations of a
@@ -477,7 +478,7 @@ ggplot() +
   labs(title = "Given 20 trials where the probability for success in a single\n trial is .2, what are the probabilities for each possible\nnumber of observed successes ")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-17-1.png)<!-- -->
+![](man/figures/unnamed-chunk-9-1.png)<!-- -->
 
 ## Browse functions
 
@@ -526,7 +527,7 @@ discrete_random
 discrete_random
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-18-1.png)<!-- -->
+![](man/figures/unnamed-chunk-10-1.png)<!-- -->
 
 This contrasts with the expressive and fluid experience delivered by
 ma206equations and ma206distribution functions:
@@ -543,7 +544,7 @@ expected %>%
   stamp_eq_standard_deviation(x = 12000, y = .65)
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-19-1.png)<!-- -->
+![](man/figures/unnamed-chunk-11-1.png)<!-- -->
 
 # Project timeline
 
