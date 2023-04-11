@@ -128,9 +128,9 @@ If students are interested in a more visual presentation, they might also use th
 ```{r rolling10}
 library(ma206distributions)
 library(tidyverse)
-tidy_dbinom(single_trial_prob = 1/6, num_trials = 10) %>%   # from ma206distributions
+tidy_dbinom(single_trial_prob = 1/6, num_trials = 8) %>%   # from ma206distributions
   ggplot() + 
-  labs(title = "Rolling a die 10 times: \nProbabilities of rolling 0 sixes, 1 six, 2 sixes,...10 sixes") +
+  labs(title = "Rolling a die 8 times: \nProbabilities of rolling 0 sixes, 1 six, 2 sixes,...8 sixes") +
   aes(x = num_successes, 
       y = probability) + 
   geom_lollipop(annotate = T) +           # from ma206distributions
@@ -144,13 +144,13 @@ The package ma206data also gives you a `stamp` shortcut data visualization layer
 library(ma206equations)
 ggplot() + 
   stamp_dbinom(single_trial_prob = 1/6, 
-               num_trials = 10,
+               num_trials = 8,
                annotate = T) +    # from ma206distributions
   scale_x_counting() +                                        # from ma206distributions
-  labs(title = "Rolling a die 10 times: \nProbabilities of rolling 0 sixes, 1 six, 2 sixes,...10 sixes") +
+  labs(title = "Rolling a die 8 times: \nProbabilities of rolling 0 sixes, 1 six, 2 sixes,...8 sixes") +
     geom_lollipop(annotate = T,  # help! why doesn't this work?
                 data = tidy_dbinom(single_trial_prob = 1/6,
-                                   num_trials = 10),
+                                   num_trials = 8),
                 mapping = ggplot2::aes(x = num_successes, y = probability))
 ```
 
@@ -165,13 +165,13 @@ A complementary package, ma206equations exists that can deliver relevant equatio
 library(ma206equations)
 ggplot() + 
   stamp_dbinom(single_trial_prob = 1/6, 
-               num_trials = 10) +    # from ma206distributions
+               num_trials = 8) +    # from ma206distributions
   scale_x_counting()  +
   stamp_eq_binomial(x = 7, 
                     y = .25,
                     size = 8) +
   stamp_eq_choose(x = 7, y = .2, 
-                  size = 3, color = "black")
+                  size = 5, color = "black")
 
 ```
 
@@ -320,7 +320,7 @@ last_plot() +
 
 ## A comparison with the status quo 
 
-The following code is what might be use if the ma206distributions and ma206equations functions are not used.  
+The following code is what might be used if the ma206distributions and ma206equations functions are not used.  
 
 The equations in the plot were produce in the following fashion (no functions or package pre-built): 
 
